@@ -1,0 +1,14 @@
+query ALL_PRODUCTS_QUERY {
+    allProducts {
+        id
+        name
+        price
+        description
+        photo {
+            id
+            image {
+                publicUrlTransformed
+            }
+        }
+    }
+}
