@@ -3,18 +3,30 @@ import Document, { Html, Head, NextScript, Main } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
 class _Document extends Document {
-    static getInitialProps(props) {
+    static async getInitialProps(ctx) {
         const sheet = new ServerStyleSheet();
+        const originalRenderPage = ctx.renderPage;
 
-        const page = props.renderPage(App => props =>
-            sheet.collectStyles(<App { ...props } />),
-        );
-        const styleTags = sheet.getStyleElement();
+        try {
+            ctx.renderPage = () =>
+                originalRenderPage({
+                    enhanceApp: App => props =>
+                        sheet.collectStyles(<App { ...props } />),
+                });
 
-        return {
-            ...page,
-            styleTags,
-        };
+            const initialProps = await Document.getInitialProps(ctx);
+            return {
+                ...initialProps,
+                styles: (
+                    <>
+                        {initialProps.styles}
+                        {sheet.getStyleElement()}
+                    </>
+                ),
+            };
+        } finally {
+            sheet.seal();
+        }
     }
 
     render() {

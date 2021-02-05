@@ -1,15 +1,8 @@
 {
     "projects": {
         "app": {
-            "schema": "http://localhost:3000/api/graphql",
-            "includes": [ "src/**/**/*.graphql" ],
-            extensions: {
-                endpoints: {
-                    default: {
-                        url: "http://localhost:3000",
-                    },
-                },
-            }
+            "schemaPath": "http://localhost:3000/api/graphql",
+            "includes": [ "**/**/*.gql" ],
         }
     }
 }

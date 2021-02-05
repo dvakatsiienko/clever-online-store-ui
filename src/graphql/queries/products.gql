@@ -27,7 +27,7 @@ mutation CREATE_PRODUCT_MUTATION(
             description: $description
             price: $price
             status: "AVAILABLE"
-            photo: $image
+            photo: { create: { image: $image, altText: $name } }
         }
     ) {
         id

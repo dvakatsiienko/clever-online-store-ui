@@ -7,6 +7,7 @@ import {
     NormalizedCacheObject
 } from '@apollo/client';
 import nprogress from 'nprogress';
+import { ThemeProvider } from 'styled-components';
 
 /* Components */
 import { Page } from '@/components';
@@ -20,13 +21,16 @@ const _App = (
     props: AppProps & { apollo: ApolloClient<NormalizedCacheObject> },
 ) => {
     return (
-        <ApolloProvider client = { props.apollo }>
+        <>
             <GlobalStyle />
-
-            <Page>
-                <props.Component { ...props.pageProps } />
-            </Page>
-        </ApolloProvider>
+            <ThemeProvider theme = {{}}>
+                <ApolloProvider client = { props.apollo }>
+                    <Page>
+                        <props.Component { ...props.pageProps } />
+                    </Page>
+                </ApolloProvider>
+            </ThemeProvider>
+        </>
     );
 };
 
