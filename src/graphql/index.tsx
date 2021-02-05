@@ -1030,7 +1030,7 @@ export type Create_Product_MutationMutation = (
   { __typename?: 'Mutation' }
   & { createProduct?: Maybe<(
     { __typename?: 'Product' }
-    & Pick<Product, 'id' | 'price'>
+    & Pick<Product, 'id' | 'price' | 'description'>
   )> }
 );
 
@@ -1083,6 +1083,7 @@ export const Create_Product_MutationDocument = gql`
   ) {
     id
     price
+    description
   }
 }
     `;

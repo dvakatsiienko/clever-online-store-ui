@@ -7,29 +7,30 @@ import {
     NormalizedCacheObject
 } from '@apollo/client';
 import nprogress from 'nprogress';
-import { ThemeProvider } from 'styled-components';
+// import { ThemeProvider } from 'styled-components';
 
 /* Components */
 import { Page } from '@/components';
 
 /* Instruments */
 import { withData } from '@/lib';
-import { GlobalStyle } from '@/theme';
+// import { GlobalStyle } from '@/theme';
 import '@/theme/nprogress.css';
+import '@/theme/global.css';
 
 const _App = (
     props: AppProps & { apollo: ApolloClient<NormalizedCacheObject> },
 ) => {
     return (
         <>
-            <GlobalStyle />
-            <ThemeProvider theme = {{}}>
-                <ApolloProvider client = { props.apollo }>
-                    <Page>
-                        <props.Component { ...props.pageProps } />
-                    </Page>
-                </ApolloProvider>
-            </ThemeProvider>
+            {/* <GlobalStyle /> */}
+            {/* <ThemeProvider theme = {{}}> */}
+            <ApolloProvider client = { props.apollo }>
+                <Page>
+                    <props.Component { ...props.pageProps } />
+                </Page>
+            </ApolloProvider>
+            {/* </ThemeProvider> */}
         </>
     );
 };

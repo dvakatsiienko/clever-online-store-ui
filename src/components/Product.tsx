@@ -13,7 +13,7 @@ export const Product: React.FC<ProductProps> = props => {
         <ItemStyles>
             <img
                 alt = { props.product.name }
-                src = { props.product.photo.image.publicUrlTransformed }
+                src = { props.product.photo.image?.publicUrlTransformed }
             />
             <Title>
                 <Link href = { `/product/${props.product.id}` }>

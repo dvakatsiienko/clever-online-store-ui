@@ -2,25 +2,38 @@
 import { useForm } from '@/lib';
 
 /* Components */
+import { ErrorMessage } from '@/components';
 import { Form } from '@/components/styled';
+
+/* Instruments */
+import * as gql from '@/graphql';
 
 export const CreateProductForm: React.FC<CreateProductFormProps> = () => {
     const { inputs, handleChange } = useForm({
-        image:       '',
+        image:       null,
         name:        'Takahome shoes',
         price:       34150,
         description: 'The are the best shoes!',
     });
 
-    const submit: React.FormEventHandler<HTMLFormElement> = e => {
+    const [
+        createProductMutation,
+        { loading, error },
+    ] = gql.useCreate_Product_MutationMutation({
+        variables: inputs,
+    });
+
+    const submit: React.FormEventHandler<HTMLFormElement> = async e => {
         e.preventDefault();
 
-        console.log(inputs);
+        await createProductMutation();
     };
 
     return (
         <Form onSubmit = { submit }>
-            <fieldset aria-busy disabled = { false }>
+            <ErrorMessage error = { error } />
+
+            <fieldset aria-busy = { loading } disabled = { loading }>
                 <label htmlFor = 'image'>
                     Image
                     <input
@@ -49,7 +62,7 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = () => {
                         id = 'price'
                         name = 'price'
                         placeholder = 'Price'
-                        type = 'text'
+                        type = 'number'
                         value = { inputs.price }
                         onChange = { handleChange }
                     />

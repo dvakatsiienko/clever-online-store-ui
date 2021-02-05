@@ -4,3 +4,4 @@ export * from './Nav';
 export * from './Products';
 export * from './Product';
 export * from './CreateProductForm';
+export * from './ErrorMessage';
