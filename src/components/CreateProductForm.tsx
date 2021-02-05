@@ -73,4 +73,6 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = () => {
 };
 
 /* Types */
-interface CreateProductFormProps {}
+interface CreateProductFormProps {
+    test?: boolean;
+}

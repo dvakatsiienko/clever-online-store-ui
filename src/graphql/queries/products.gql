@@ -1,3 +1,4 @@
+# Query
 query ALL_PRODUCTS_QUERY {
     allProducts {
         id
@@ -10,5 +11,27 @@ query ALL_PRODUCTS_QUERY {
                 publicUrlTransformed
             }
         }
+    }
+}
+
+# Mutation
+mutation CREATE_PRODUCT_MUTATION(
+    $name: String!
+    $description: String!
+    $price: Int!
+    $image: Upload
+) {
+    createProduct(
+        data: {
+            name: $name
+            description: $description
+            price: $price
+            status: "AVAILABLE"
+            photo: $image
+        }
+    ) {
+        id
+        price
+        description
     }
 }

@@ -1,7 +1,7 @@
 /* Core */
 import styled from 'styled-components';
 
-export const CartStyles = styled.div`
+export const CartStyles = styled.div<CardStylesProps>`
     padding: 20px;
     position: relative;
     background: white;
@@ -18,13 +18,16 @@ export const CartStyles = styled.div`
     z-index: 5;
     display: grid;
     grid-template-rows: auto 1fr auto;
-    ${props => props.open && 'transform: translateX(0);'};
-    header {
+
+    ${props => props.$open && 'transform: translateX(0);'};
+
+    & header {
         border-bottom: 5px solid var(--black);
         margin-bottom: 2rem;
         padding-bottom: 2rem;
     }
-    footer {
+
+    & footer {
         border-top: 10px double var(--black);
         margin-top: 2rem;
         padding-top: 2rem;
@@ -33,14 +36,21 @@ export const CartStyles = styled.div`
         align-items: center;
         font-size: 3rem;
         font-weight: 900;
-        p {
+
+        & p {
             margin: 0;
         }
     }
-    ul {
+
+    & ul {
         margin: 0;
         padding: 0;
         list-style: none;
         overflow: scroll;
     }
 `;
+
+/* Types */
+interface CardStylesProps {
+    $open: boolean;
+}
