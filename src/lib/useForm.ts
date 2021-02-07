@@ -1,8 +1,14 @@
 /* Core */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export const useForm = <T = Record<'string', 'string'>>(initialState: T) => {
+// @ts-ignore
+export const useForm = <T>(initialState: T = {}) => {
     const [ inputs, setInputs ] = useState(initialState);
+    const initialValues = Object.values(initialState);
+
+    useEffect(() => {
+        setInputs(initialState);
+    }, [ setInputs, initialState, initialValues ]);
 
     const handleChange: React.FormEventHandler<
         HTMLInputElement | HTMLTextAreaElement

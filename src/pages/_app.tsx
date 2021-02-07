@@ -29,7 +29,9 @@ const _App = (
 };
 
 _App.getInitialProps = async (options: any) => {
-    let pageProps = {};
+    let pageProps = {
+        query: {},
+    };
 
     if (options.Component.getInitialProps) {
         pageProps = await options.Component.getInitialProps(options.ctx);

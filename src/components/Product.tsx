@@ -25,7 +25,7 @@ export const Product: React.FC<ProductProps> = props => {
             <div className = 'buttonList'>
                 <Link
                     href = {{
-                        pathname: 'update',
+                        pathname: '/update',
                         query:    {
                             productId: props.product.id,
                         },

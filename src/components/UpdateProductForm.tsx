@@ -1,6 +1,3 @@
-/* Core  */
-import { useRouter } from 'next/router';
-
 /* Components */
 import { ErrorMessage } from '@/components';
 import { Form } from '@/components/styled';
@@ -10,15 +7,11 @@ import * as gql from '@/graphql';
 import { useForm } from '@/lib';
 
 export const UpdateProductForm: React.FC<UpdateProductFormProps> = props => {
-    const router = useRouter();
-
     const productQuery = gql.useProductQuery({
         variables: { id: props.productId },
     });
 
-    const { inputs, handleChange, clearForm } = useForm(
-        productQuery.data?.Product,
-    );
+    const { inputs, handleChange } = useForm(productQuery.data?.Product);
 
     const [
         updateProductMutation,
@@ -38,11 +31,7 @@ export const UpdateProductForm: React.FC<UpdateProductFormProps> = props => {
     const updateProduct: React.FormEventHandler<HTMLFormElement> = async e => {
         e.preventDefault();
 
-        const response = await updateProductMutation();
-
-        // clearForm();
-
-        // router.push(`/products/${response.data.updateProduct.id}`);
+        await updateProductMutation();
     };
 
     const isLoading = productQuery.loading || updateProductMeta.loading;
