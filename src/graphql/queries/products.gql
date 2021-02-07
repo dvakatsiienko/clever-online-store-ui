@@ -45,6 +45,12 @@ mutation updateProduct(
     }
 }
 
+mutation deleteProduct($id: ID!) {
+    deleteProduct(id: $id) {
+        ...product
+    }
+}
+
 # Fragment
 fragment product on Product {
     id
