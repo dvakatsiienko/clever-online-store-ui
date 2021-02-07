@@ -6,3 +6,4 @@ export * from './Product';
 export * from './CreateProductForm';
 export * from './UpdateProductForm';
 export * from './ErrorMessage';
+export * from './DeleteProduct';

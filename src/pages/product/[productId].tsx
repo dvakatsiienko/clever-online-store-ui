@@ -16,7 +16,7 @@ const ProductPage: NextPage = () => {
     const productId = router.query.productId as string;
 
     const productQuery = gql.useProductQuery({ variables: { id: productId } });
-    const { data: { Product } = { Product: {} } } = productQuery;
+    const { data } = productQuery;
 
     if (productQuery.loading) {
         return <p>Loading...</p>;
@@ -28,19 +28,19 @@ const ProductPage: NextPage = () => {
     return (
         <ProductStyles>
             <Head>
-                <title>Sick Fits | {Product.name}</title>
+                <title>Sick Fits | {data?.Product.name}</title>
             </Head>
 
             <Image
-                alt = { Product.name }
+                alt = { data?.Product.name }
                 height = { 300 }
-                src = { Product.photo.image.publicUrlTransformed }
+                src = { data?.Product.photo.image.publicUrlTransformed }
                 width = { 300 }
             />
 
             <div className = 'details'>
-                <h2>Name: {Product.name}</h2>
-                <p>Description: {Product.description}</p>
+                <h2>Name: {data?.Product.name}</h2>
+                <p>Description: {data?.Product.description}</p>
             </div>
         </ProductStyles>
     );

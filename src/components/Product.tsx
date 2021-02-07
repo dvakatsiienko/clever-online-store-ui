@@ -2,6 +2,7 @@
 import Link from 'next/link';
 
 /* Components */
+import { DeleteProduct } from './DeleteProduct';
 import { ItemStyles, Title, PriceTag } from './styled';
 
 /* Instruments */
@@ -33,6 +34,7 @@ export const Product: React.FC<ProductProps> = props => {
                 >
                     Edit ✏️
                 </Link>
+                <DeleteProduct id = { props.product.id }>Delete</DeleteProduct>
             </div>
         </ItemStyles>
     );
