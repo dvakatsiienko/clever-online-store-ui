@@ -11,16 +11,12 @@ import * as gql from '@/graphql';
 /* Components */
 import { ErrorMessage } from '@/components';
 
-const ProductPage: NextPage = props => {
+const ProductPage: NextPage = () => {
     const router = useRouter();
     const productId = router.query.productId as string;
 
-    const productQuery = gql.useProductQuery({ variables: { ID: productId } });
+    const productQuery = gql.useProductQuery({ variables: { id: productId } });
     const { data: { Product } = { Product: {} } } = productQuery;
-
-    console.log('LOADING....');
-    console.log(productQuery.loading, productQuery.data);
-    console.log(router.query, props);
 
     if (productQuery.loading) {
         return <p>Loading...</p>;

@@ -1044,7 +1044,6 @@ export type UpdateProductMutationVariables = Exact<{
   name: Scalars['String'];
   description: Scalars['String'];
   price: Scalars['Int'];
-  image?: Maybe<Scalars['Upload']>;
 }>;
 
 
@@ -1188,10 +1187,10 @@ export type CreateProductMutationHookResult = ReturnType<typeof useCreateProduct
 export type CreateProductMutationResult = Apollo.MutationResult<CreateProductMutation>;
 export type CreateProductMutationOptions = Apollo.BaseMutationOptions<CreateProductMutation, CreateProductMutationVariables>;
 export const UpdateProductDocument = gql`
-    mutation updateProduct($id: ID!, $name: String!, $description: String!, $price: Int!, $image: Upload) {
+    mutation updateProduct($id: ID!, $name: String!, $description: String!, $price: Int!) {
   updateProduct(
     id: $id
-    data: {name: $name, description: $description, price: $price, status: "AVAILABLE", photo: {create: {image: $image, altText: $name}}}
+    data: {name: $name, description: $description, price: $price}
   ) {
     ...product
   }
@@ -1216,7 +1215,6 @@ export type UpdateProductMutationFn = Apollo.MutationFunction<UpdateProductMutat
  *      name: // value for 'name'
  *      description: // value for 'description'
  *      price: // value for 'price'
- *      image: // value for 'image'
  *   },
  * });
  */

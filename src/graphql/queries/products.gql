@@ -36,17 +36,10 @@ mutation updateProduct(
     $name: String!
     $description: String!
     $price: Int!
-    $image: Upload
 ) {
     updateProduct(
         id: $id
-        data: {
-            name: $name
-            description: $description
-            price: $price
-            status: "AVAILABLE"
-            photo: { create: { image: $image, altText: $name } }
-        }
+        data: { name: $name, description: $description, price: $price }
     ) {
         ...product
     }

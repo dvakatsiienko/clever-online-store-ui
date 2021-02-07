@@ -11,32 +11,45 @@ import { useForm } from '@/lib';
 
 export const UpdateProductForm: React.FC<UpdateProductFormProps> = props => {
     const router = useRouter();
-    const { inputs, handleChange, clearForm } = useForm({
-        image:       null,
-        name:        'Takahome shoes',
-        price:       34150,
-        description: 'The are the best shoes!',
-    });
 
     const productQuery = gql.useProductQuery({
-        variables: { ID: props.productId },
+        variables: { id: props.productId },
     });
+
+    const { inputs, handleChange, clearForm } = useForm(
+        productQuery.data?.Product,
+    );
+
     const [
         updateProductMutation,
         updateProductMeta,
     ] = gql.useUpdateProductMutation({
-        variables: { id: props.productId },
+        variables: {
+            id:          props.productId,
+            name:        inputs?.name,
+            price:       inputs?.price,
+            description: inputs?.description,
+        },
+        refetchQueries: [
+            { query: gql.ProductDocument, variables: { id: props.productId } },
+        ],
     });
 
     const updateProduct: React.FormEventHandler<HTMLFormElement> = async e => {
         e.preventDefault();
 
         const response = await updateProductMutation();
-        clearForm();
-        router.push(`/products/${response.data.updateProduct.id}`);
+
+        // clearForm();
+
+        // router.push(`/products/${response.data.updateProduct.id}`);
     };
 
     const isLoading = productQuery.loading || updateProductMeta.loading;
+
+    // if (isLoading) {
+    //     return <h1>Loading...</h1>;
+    // }
 
     return (
         <Form onSubmit = { updateProduct }>
@@ -62,7 +75,7 @@ export const UpdateProductForm: React.FC<UpdateProductFormProps> = props => {
                         name = 'name'
                         placeholder = 'Name'
                         type = 'text'
-                        value = { inputs.name }
+                        value = { inputs?.name }
                         onChange = { handleChange }
                     />
                 </label>
@@ -74,7 +87,7 @@ export const UpdateProductForm: React.FC<UpdateProductFormProps> = props => {
                         name = 'price'
                         placeholder = 'Price'
                         type = 'number'
-                        value = { inputs.price }
+                        value = { inputs?.price }
                         onChange = { handleChange }
                     />
                 </label>
@@ -85,12 +98,12 @@ export const UpdateProductForm: React.FC<UpdateProductFormProps> = props => {
                         id = 'description'
                         name = 'description'
                         placeholder = 'Description'
-                        value = { inputs.description }
+                        value = { inputs?.description }
                         onChange = { handleChange }
                     />
                 </label>
 
-                <button type = 'submit'>+ Add Product</button>
+                <button type = 'submit'>Update Product</button>
             </fieldset>
         </Form>
     );
