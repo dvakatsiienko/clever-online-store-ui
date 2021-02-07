@@ -22,11 +22,23 @@ export const Product: React.FC<ProductProps> = props => {
             </Title>
             <PriceTag>{formatMoney(props.product.price)}</PriceTag>
             <p>{props.product.description}</p>
+            <div className = 'buttonList'>
+                <Link
+                    href = {{
+                        pathname: 'update',
+                        query:    {
+                            productId: props.product.id,
+                        },
+                    }}
+                >
+                    Edit ✏️
+                </Link>
+            </div>
         </ItemStyles>
     );
 };
 
 /* Types */
 interface ProductProps {
-    product: gql.Product;
+    product: gql.ProductFragment;
 }

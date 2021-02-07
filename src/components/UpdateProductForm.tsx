@@ -9,7 +9,7 @@ import { Form } from '@/components/styled';
 import * as gql from '@/graphql';
 import { useForm } from '@/lib';
 
-export const CreateProductForm: React.FC = () => {
+export const UpdateProductForm: React.FC<UpdateProductFormProps> = props => {
     const router = useRouter();
     const { inputs, handleChange, clearForm } = useForm({
         image:       null,
@@ -18,27 +18,33 @@ export const CreateProductForm: React.FC = () => {
         description: 'The are the best shoes!',
     });
 
+    const productQuery = gql.useProductQuery({
+        variables: { ID: props.productId },
+    });
     const [
-        createProductMutation,
-        { loading, error },
-    ] = gql.useCreateProductMutation({
-        variables:      inputs,
-        refetchQueries: [{ query: gql.ProductsDocument }],
+        updateProductMutation,
+        updateProductMeta,
+    ] = gql.useUpdateProductMutation({
+        variables: { id: props.productId },
     });
 
-    const createProduct: React.FormEventHandler<HTMLFormElement> = async e => {
+    const updateProduct: React.FormEventHandler<HTMLFormElement> = async e => {
         e.preventDefault();
 
-        const response = await createProductMutation();
+        const response = await updateProductMutation();
         clearForm();
-        router.push(`/products/${response.data.createProduct.id}`);
+        router.push(`/products/${response.data.updateProduct.id}`);
     };
 
-    return (
-        <Form onSubmit = { createProduct }>
-            <ErrorMessage error = { error } />
+    const isLoading = productQuery.loading || updateProductMeta.loading;
 
-            <fieldset aria-busy = { loading } disabled = { loading }>
+    return (
+        <Form onSubmit = { updateProduct }>
+            <ErrorMessage
+                error = { productQuery.error || updateProductMeta.error }
+            />
+
+            <fieldset aria-busy = { isLoading } disabled = { isLoading }>
                 <label htmlFor = 'image'>
                     Image
                     <input
@@ -89,3 +95,8 @@ export const CreateProductForm: React.FC = () => {
         </Form>
     );
 };
+
+/* Types */
+interface UpdateProductFormProps {
+    productId: string;
+}

@@ -1,21 +1,18 @@
 # Query
-query ALL_PRODUCTS_QUERY {
+query products {
     allProducts {
-        id
-        name
-        price
-        description
-        photo {
-            id
-            image {
-                publicUrlTransformed
-            }
-        }
+        ...product
+    }
+}
+
+query product($id: ID!) {
+    Product(where: { id: $id }) {
+        ...product
     }
 }
 
 # Mutation
-mutation CREATE_PRODUCT_MUTATION(
+mutation createProduct(
     $name: String!
     $description: String!
     $price: Int!
@@ -30,8 +27,43 @@ mutation CREATE_PRODUCT_MUTATION(
             photo: { create: { image: $image, altText: $name } }
         }
     ) {
+        ...product
+    }
+}
+
+mutation updateProduct(
+    $id: ID!
+    $name: String!
+    $description: String!
+    $price: Int!
+    $image: Upload
+) {
+    updateProduct(
+        id: $id
+        data: {
+            name: $name
+            description: $description
+            price: $price
+            status: "AVAILABLE"
+            photo: { create: { image: $image, altText: $name } }
+        }
+    ) {
+        ...product
+    }
+}
+
+# Fragment
+fragment product on Product {
+    id
+    name
+    price
+    description
+    status
+    photo {
         id
-        price
-        description
+        altText
+        image {
+            publicUrlTransformed
+        }
     }
 }

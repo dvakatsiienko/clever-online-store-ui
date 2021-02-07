@@ -7,14 +7,12 @@ import {
     NormalizedCacheObject
 } from '@apollo/client';
 import nprogress from 'nprogress';
-// import { ThemeProvider } from 'styled-components';
 
 /* Components */
 import { Page } from '@/components';
 
 /* Instruments */
 import { withData } from '@/lib';
-// import { GlobalStyle } from '@/theme';
 import '@/theme/nprogress.css';
 import '@/theme/global.css';
 
@@ -22,29 +20,24 @@ const _App = (
     props: AppProps & { apollo: ApolloClient<NormalizedCacheObject> },
 ) => {
     return (
-        <>
-            {/* <GlobalStyle /> */}
-            {/* <ThemeProvider theme = {{}}> */}
-            <ApolloProvider client = { props.apollo }>
-                <Page>
-                    <props.Component { ...props.pageProps } />
-                </Page>
-            </ApolloProvider>
-            {/* </ThemeProvider> */}
-        </>
+        <ApolloProvider client = { props.apollo }>
+            <Page>
+                <props.Component { ...props.pageProps } />
+            </Page>
+        </ApolloProvider>
     );
 };
 
 _App.getInitialProps = async (options: any) => {
-    let pageProps = {
-        query: options.ctx.query,
-    };
+    let pageProps = {};
 
     if (options.Component.getInitialProps) {
         pageProps = await options.Component.getInitialProps(options.ctx);
     }
 
-    return pageProps;
+    pageProps.query = options.ctx.query;
+
+    return { pageProps };
 };
 
 export default withData(_App);

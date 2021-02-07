@@ -8,7 +8,7 @@ import { Product } from './Product';
 import * as gql from '@/graphql';
 
 export const Products = () => {
-    const allProductsQuery = gql.useAll_Products_QueryQuery();
+    const allProductsQuery = gql.useProductsQuery();
 
     if (allProductsQuery.loading) {
         return <p>Loading...</p>;

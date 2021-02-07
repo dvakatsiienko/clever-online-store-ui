@@ -32,7 +32,9 @@ class _Document extends Document {
     render() {
         return (
             <Html lang = 'en-CA'>
-                <Head />
+                <Head>
+                    <link href = '/favicon.png' rel = 'shortcut icon' />
+                </Head>
                 <body>
                     <Main />
                     <NextScript />
