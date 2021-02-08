@@ -12,7 +12,7 @@ import nprogress from 'nprogress';
 import { Page } from '@/components';
 
 /* Instruments */
-import { withData } from '@/lib';
+import { withApollo } from '@/lib';
 import '@/theme/nprogress.css';
 import '@/theme/global.css';
 
@@ -42,7 +42,7 @@ _App.getInitialProps = async (options: any) => {
     return { pageProps };
 };
 
-export default withData(_App);
+export default withApollo(_App);
 
 router.events.on('routeChangeStart', nprogress.start);
 router.events.on('routeChangeComplete', nprogress.done);

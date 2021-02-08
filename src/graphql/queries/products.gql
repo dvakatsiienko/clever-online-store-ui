@@ -1,7 +1,16 @@
 # Query
-query products {
-    allProducts {
+query products($first: Int, $skip: Int = 0) {
+    allProducts(first: $first, skip: $skip) {
         ...product
+    }
+    _allProductsMeta {
+        count
+    }
+}
+
+query productsCount {
+    _allProductsMeta {
+        count
     }
 }
 

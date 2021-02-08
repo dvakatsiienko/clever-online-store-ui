@@ -6,9 +6,15 @@ import { Product } from './Product';
 
 /* Instruments */
 import * as gql from '@/graphql';
+import { perPage } from '@/../config';
 
-export const Products = () => {
-    const allProductsQuery = gql.useProductsQuery();
+export const Products: React.FC<PaginationProps> = props => {
+    const allProductsQuery = gql.useProductsQuery({
+        variables: {
+            first: perPage,
+            skip:  props.pageNumber * perPage - perPage,
+        },
+    });
 
     if (allProductsQuery.loading) {
         return <p>Loading...</p>;
@@ -17,13 +23,15 @@ export const Products = () => {
         return <p>Error: {allProductsQuery.error.message}</p>;
     }
 
+    const productsJSX = allProductsQuery.data?.allProducts
+        .filter(product => product)
+        .map(product => {
+            return <Product key = { product?.id } product = { product } />;
+        });
+
     return (
         <div>
-            <ProductsList>
-                {allProductsQuery.data.allProducts.map(product => {
-                    return <Product key = { product.id } product = { product } />;
-                })}
-            </ProductsList>
+            <ProductsList>{productsJSX}</ProductsList>
         </div>
     );
 };
@@ -34,3 +42,8 @@ const ProductsList = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-gap: 60px;
 `;
+
+/* Types */
+interface PaginationProps {
+    pageNumber: number;
+}

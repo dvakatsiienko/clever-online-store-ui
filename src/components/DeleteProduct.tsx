@@ -6,8 +6,11 @@ export const DeleteProduct: React.FC<DeleteProductProps> = props => {
         deleteProductMutation,
         deleteProductMutationMeta,
     ] = gql.useDeleteProductMutation({
-        variables:      { id: props.id },
-        refetchQueries: [{ query: gql.ProductsDocument }],
+        variables: { id: props.id },
+        update(cache, payload) {
+            cache.evict({ id: cache.identify(payload.data.deleteProduct) });
+            cache.gc();
+        },
     });
 
     const confirmDeleteProduct = () => {

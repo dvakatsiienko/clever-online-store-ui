@@ -7,3 +7,4 @@ export * from './CreateProductForm';
 export * from './UpdateProductForm';
 export * from './ErrorMessage';
 export * from './DeleteProduct';
+export * from './Pagination';

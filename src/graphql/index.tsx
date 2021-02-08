@@ -999,7 +999,10 @@ export const KeystoneAdminUiSortDirection = {
 } as const;
 
 export type KeystoneAdminUiSortDirection = typeof KeystoneAdminUiSortDirection[keyof typeof KeystoneAdminUiSortDirection];
-export type ProductsQueryVariables = Exact<{ [key: string]: never; }>;
+export type ProductsQueryVariables = Exact<{
+  first?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+}>;
 
 
 export type ProductsQuery = (
@@ -1007,7 +1010,21 @@ export type ProductsQuery = (
   & { allProducts?: Maybe<Array<Maybe<(
     { __typename?: 'Product' }
     & ProductFragment
-  )>>> }
+  )>>>, _allProductsMeta?: Maybe<(
+    { __typename?: '_QueryMeta' }
+    & Pick<_QueryMeta, 'count'>
+  )> }
+);
+
+export type ProductsCountQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProductsCountQuery = (
+  { __typename?: 'Query' }
+  & { _allProductsMeta?: Maybe<(
+    { __typename?: '_QueryMeta' }
+    & Pick<_QueryMeta, 'count'>
+  )> }
 );
 
 export type ProductQueryVariables = Exact<{
@@ -1098,9 +1115,12 @@ export const ProductFragmentDoc = gql`
 }
     `;
 export const ProductsDocument = gql`
-    query products {
-  allProducts {
+    query products($first: Int, $skip: Int = 0) {
+  allProducts(first: $first, skip: $skip) {
     ...product
+  }
+  _allProductsMeta {
+    count
   }
 }
     ${ProductFragmentDoc}`;
@@ -1117,6 +1137,8 @@ export const ProductsDocument = gql`
  * @example
  * const { data, loading, error } = useProductsQuery({
  *   variables: {
+ *      first: // value for 'first'
+ *      skip: // value for 'skip'
  *   },
  * });
  */
@@ -1129,6 +1151,38 @@ export function useProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<P
 export type ProductsQueryHookResult = ReturnType<typeof useProductsQuery>;
 export type ProductsLazyQueryHookResult = ReturnType<typeof useProductsLazyQuery>;
 export type ProductsQueryResult = Apollo.QueryResult<ProductsQuery, ProductsQueryVariables>;
+export const ProductsCountDocument = gql`
+    query productsCount {
+  _allProductsMeta {
+    count
+  }
+}
+    `;
+
+/**
+ * __useProductsCountQuery__
+ *
+ * To run a query within a React component, call `useProductsCountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProductsCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProductsCountQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useProductsCountQuery(baseOptions?: Apollo.QueryHookOptions<ProductsCountQuery, ProductsCountQueryVariables>) {
+        return Apollo.useQuery<ProductsCountQuery, ProductsCountQueryVariables>(ProductsCountDocument, baseOptions);
+      }
+export function useProductsCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProductsCountQuery, ProductsCountQueryVariables>) {
+          return Apollo.useLazyQuery<ProductsCountQuery, ProductsCountQueryVariables>(ProductsCountDocument, baseOptions);
+        }
+export type ProductsCountQueryHookResult = ReturnType<typeof useProductsCountQuery>;
+export type ProductsCountLazyQueryHookResult = ReturnType<typeof useProductsCountLazyQuery>;
+export type ProductsCountQueryResult = Apollo.QueryResult<ProductsCountQuery, ProductsCountQueryVariables>;
 export const ProductDocument = gql`
     query product($id: ID!) {
   Product(where: {id: $id}) {

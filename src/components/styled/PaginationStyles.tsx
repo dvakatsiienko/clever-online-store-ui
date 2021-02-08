@@ -16,6 +16,7 @@ export const PaginationStyles = styled.div`
         margin: 0;
         padding: 15px 30px;
         border-right: 1px solid var(--lightGray);
+        user-select: none;
 
         &:last-child {
             border-right: 0;
