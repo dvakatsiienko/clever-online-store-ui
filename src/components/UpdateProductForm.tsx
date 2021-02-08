@@ -4,7 +4,7 @@ import { Form } from '@/components/styled';
 
 /* Instruments */
 import * as gql from '@/graphql';
-import { useForm } from '@/lib';
+import { useForm } from '@/helpers';
 
 export const UpdateProductForm: React.FC<UpdateProductFormProps> = props => {
     const productQuery = gql.useProductQuery({

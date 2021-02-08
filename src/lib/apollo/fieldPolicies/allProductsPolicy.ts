@@ -22,11 +22,8 @@ export const allProductsPolicy: FieldPolicy<
 
         const products = existing
             .slice(skip, skip + first)
-            .filter(product => product);
-
-        console.log('READ');
-        console.log(existing);
-        console.log(products);
+            .filter(product => product)
+            .filter(api.canRead);
 
         if (products.length && products.length !== first && page === pages) {
             // If There are items
@@ -36,11 +33,6 @@ export const allProductsPolicy: FieldPolicy<
 
             return products;
         }
-        if (products.length !== first) {
-            // We don't have any items, we must go to the network to fetch them
-
-            return void 0;
-        }
 
         if (products.length) {
             // If there are items, just return them from the cache, and we don't need to go to the network
@@ -48,24 +40,17 @@ export const allProductsPolicy: FieldPolicy<
             return products;
         }
 
-        return void 0; // fallback to network
+        return void 0; // fetch items from network
     },
     merge(existing, incoming, api) {
-        console.log('MERGE');
-        console.log('existing', existing);
-        console.log('incoming', incoming);
-
         const { args } = api;
         const { skip } = args;
 
-        // This runs when the Apollo Client comes back from the network with our product.
         const merged = existing ? existing.slice(0) : [];
 
         for (let i = skip; i < skip + incoming.length; ++i) {
             merged[i] = incoming[i - skip];
         }
-
-        console.log('merged', merged);
 
         return merged;
     },

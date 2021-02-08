@@ -11,6 +11,7 @@ export const DeleteProduct: React.FC<DeleteProductProps> = props => {
             cache.evict({ id: cache.identify(payload.data.deleteProduct) });
             cache.gc();
         },
+        refetchQueries: [{ query: gql.ProductsCountDocument }],
     });
 
     const confirmDeleteProduct = () => {

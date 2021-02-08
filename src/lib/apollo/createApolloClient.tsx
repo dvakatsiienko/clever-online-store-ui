@@ -5,8 +5,8 @@ import { createUploadLink } from 'apollo-upload-client';
 import debug from 'debug';
 
 /* Instruments */
-import { allProductsPolicy } from './allProductsPolicy';
-import { loggerLink } from './apollo-link-logger';
+import { allProductsPolicy } from './fieldPolicies';
+import { loggerLink } from './links';
 import { endpoint, prodEndpoint } from '@/../config';
 
 const logGql = debug('[GraphQL error]');

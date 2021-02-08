@@ -7,7 +7,7 @@ import { Form } from '@/components/styled';
 
 /* Instruments */
 import * as gql from '@/graphql';
-import { useForm } from '@/lib';
+import { useForm } from '@/helpers';
 
 export const CreateProductForm: React.FC = () => {
     const router = useRouter();

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 /* Components */
 import { Product } from './Product';
+import { ErrorMessage } from './ErrorMessage';
 
 /* Instruments */
 import * as gql from '@/graphql';
@@ -20,7 +21,7 @@ export const Products: React.FC<PaginationProps> = props => {
         return <p>Loading...</p>;
     }
     if (allProductsQuery.error) {
-        return <p>Error: {allProductsQuery.error.message}</p>;
+        return <ErrorMessage error = { allProductsQuery.error } />;
     }
 
     const productsJSX = allProductsQuery.data?.allProducts

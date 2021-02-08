@@ -7,7 +7,7 @@ import { ItemStyles, Title, PriceTag } from './styled';
 
 /* Instruments */
 import * as gql from '@/graphql';
-import { formatMoney } from '@/lib';
+import { formatMoney } from '@/helpers';
 
 export const Product: React.FC<ProductProps> = props => {
     return (
