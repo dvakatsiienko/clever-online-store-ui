@@ -12,9 +12,9 @@ import nprogress from 'nprogress';
 import { Page } from '@/components';
 
 /* Instruments */
-import { withApollo } from '@/lib';
-import '@/theme/nprogress.css';
 import '@/theme/global.css';
+import '@/theme/nprogress.css';
+import { withApollo } from '@/lib';
 
 const _App = (
     props: AppProps & { apollo: ApolloClient<NormalizedCacheObject> },
