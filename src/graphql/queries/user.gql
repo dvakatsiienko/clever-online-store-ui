@@ -33,3 +33,29 @@ mutation login($email: String!, $password: String!) {
 mutation logout {
     endSession
 }
+
+mutation register($name: String!, $email: String!, $password: String!) {
+    createUser(data: { name: $name, email: $email, password: $password }) {
+        id
+        name
+        email
+    }
+}
+
+mutation requestPasswordReset($email: String!) {
+    sendUserPasswordResetLink(email: $email) {
+        code
+        message
+    }
+}
+
+mutation resetPassword($email: String!, $password: String!, $token: String!) {
+    redeemUserPasswordResetToken(
+        email: $email
+        password: $password
+        token: $token
+    ) {
+        code
+        message
+    }
+}

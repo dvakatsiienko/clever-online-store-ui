@@ -2,16 +2,16 @@
 
 An application is built with the following technology solutions:
 
-🖥 **Frontend**:
+🖥 &nbsp; **Frontend**:
 
 -   Next.js
 -   Apollo GraphQL Client
 -   styled-components
 -   Typescript
 
-📡 **Backend**:
+📡 &nbsp; **Backend**:
 
--   KeystoneJS
+-   KeystoneJS CMS
 -   MongoDB
 -   Stripe (payment service)
 -   Typescript

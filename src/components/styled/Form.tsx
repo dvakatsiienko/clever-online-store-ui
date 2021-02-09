@@ -41,6 +41,15 @@ export const Form = styled.form`
         }
     }
 
+    & button {
+        cursor: pointer;
+        border: 1px solid white !important;
+
+        &:hover {
+            border: 1px solid black !important;
+        }
+    }
+
     & button,
     & input[type='submit'] {
         width: auto;

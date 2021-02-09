@@ -6,45 +6,53 @@ import { Form } from '@/components/styled';
 import * as gql from '@/graphql';
 import { useForm } from '@/helpers';
 
-export const LoginForm: React.FC<LoginFormProps> = () => {
+export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = props => {
     const { inputs, handleChange, resetForm } = useForm({
         email:    '',
         password: '',
+        token:    props.token,
     });
 
-    const [ loginMutation, loginMutationMeta ] = gql.useLoginMutation({
+    const [
+        resetPasswordMutation,
+        resetPasswordMutationMeta,
+    ] = gql.useResetPasswordMutation({
         variables:      inputs,
         refetchQueries: [{ query: gql.UserDocument }],
     });
 
-    const login: React.FormEventHandler<HTMLFormElement> = async event => {
+    const resetPassword: React.FormEventHandler<HTMLFormElement> = async event => {
         event.preventDefault();
 
-        await loginMutation();
+        await resetPasswordMutation();
         resetForm();
     };
 
-    const error =
-        loginMutationMeta.data?.authenticateUserWithPassword.__typename ===
-        'UserAuthenticationWithPasswordFailure'
-            ? loginMutationMeta.data?.authenticateUserWithPassword
-            : null;
-
-    console.log(error);
+    const successfulError = resetPasswordMutationMeta.data
+        ?.redeemUserPasswordResetToken?.code
+        ? resetPasswordMutationMeta.data?.redeemUserPasswordResetToken
+        : null;
 
     return (
-        <Form method = 'POST' onSubmit = { login }>
-            <h2>Login Into Your Account</h2>
+        <Form method = 'POST' onSubmit = { resetPassword }>
+            <h2>Reset Your Password</h2>
 
-            <ErrorMessage error = { error } />
+            <ErrorMessage
+                error = { resetPasswordMutationMeta.error || successfulError }
+            />
 
-            <fieldset>
+            <fieldset disabled = { resetPasswordMutationMeta.loading }>
+                {resetPasswordMutationMeta.data
+                    ?.redeemUserPasswordResetToken === null && (
+                    <p>Success! You can now login.</p>
+                )}
+
                 <label htmlFor = 'email'>
                     Email
                     <input
                         autoComplete = 'email'
                         name = 'email'
-                        placeholder = 'Your Email Address'
+                        placeholder = 'Your Email'
                         type = 'email'
                         value = { inputs.email }
                         onChange = { handleChange }
@@ -52,11 +60,11 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
                 </label>
 
                 <label htmlFor = 'password'>
-                    Password
+                    New Password
                     <input
                         autoComplete = 'password'
                         name = 'password'
-                        placeholder = 'Your Password'
+                        placeholder = 'New Password'
                         type = 'password'
                         value = { inputs.password }
                         onChange = { handleChange }
@@ -64,10 +72,12 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
                 </label>
             </fieldset>
 
-            <button type = 'submit'>Login</button>
+            <button type = 'submit'>Send</button>
         </Form>
     );
 };
 
 /* Types */
-interface LoginFormProps {}
+interface ResetPasswordFormProps {
+    token: string;
+}
