@@ -7,9 +7,11 @@ import { NavStyles } from '@/components/styled';
 
 /* Instruments */
 import * as gql from '@/graphql';
+import { useCart } from '@/helpers';
 
 export const Nav: React.FC = () => {
     const userQuery = gql.useUserQuery();
+    const cartState = useCart();
 
     return (
         <NavStyles>
@@ -21,6 +23,12 @@ export const Nav: React.FC = () => {
                     <Link href = '/orders'>Orders</Link>
                     <Link href = '/account'>Account</Link>
                     <LogoutButton />
+                    <button
+                        type = 'button'
+                        onClick = { () => cartState.setCartOpen(true) }
+                    >
+                        My Cart
+                    </button>
                 </>
             )}
 

@@ -5,6 +5,21 @@ query user {
             id
             name
             email
+            cart {
+                id
+                quantity
+                product {
+                    id
+                    price
+                    name
+                    description
+                    photo {
+                        image {
+                            publicUrlTransformed
+                        }
+                    }
+                }
+            }
 
             # TODO: query the cart once we have it
         }

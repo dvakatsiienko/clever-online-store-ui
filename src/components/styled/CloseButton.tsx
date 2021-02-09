@@ -8,5 +8,13 @@ export const CloseButton = styled.button`
     border: 0;
     position: absolute;
     z-index: 2;
-    right: 0;
+    right: 15px;
+    cursor: pointer;
+    width: 60px;
+    transform: skew(-10deg);
+
+    &:hover {
+        background: grey;
+        color: black;
+    }
 `;

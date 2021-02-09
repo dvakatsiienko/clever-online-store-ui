@@ -9,3 +9,4 @@ export * from './DeleteProduct';
 export * from './Pagination';
 export * from './User';
 export * from './LogoutButton';
+export * from './Cart';

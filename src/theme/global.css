@@ -17,6 +17,10 @@
     font-family: radnika_next, system-ui;
     box-sizing: border-box;
     font-size: 62.5%;
+
+    /* Resolve scrollbar layout jupming issue. */
+    width: 100vw;
+    overflow-x: hidden;
 }
 
 body {

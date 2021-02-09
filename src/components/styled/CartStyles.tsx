@@ -6,7 +6,7 @@ export const CartStyles = styled.div<CardStylesProps>`
     position: relative;
     background: white;
     position: fixed;
-    height: 100%;
+    height: 100vh;
     top: 0;
     right: 0;
     width: 40%;
@@ -18,6 +18,7 @@ export const CartStyles = styled.div<CardStylesProps>`
     z-index: 5;
     display: grid;
     grid-template-rows: auto 1fr auto;
+    box-sizing: border-box;
 
     ${props => props.$open && 'transform: translateX(0);'};
 

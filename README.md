@@ -5,15 +5,17 @@ An application is built with the following technology solutions:
 🖥 &nbsp; **Frontend**:
 
 -   Next.js
--   Apollo GraphQL Client
+-   Apollo Client
 -   styled-components
+-   react-hook-form
 -   Typescript
 
 📡 &nbsp; **Backend**:
 
--   KeystoneJS CMS
--   MongoDB
--   Stripe (payment service)
+-   Keystone — headless CMS and GraphQL API
+-   MongoDB — database solution
+-   Nodemailer — emailing solution
+-   Stripe — payment solution
 -   Typescript
 
 The backend source code for the application [is dislocated here](https://github.com/dvakatsiienko/online-store-sickfits-api).

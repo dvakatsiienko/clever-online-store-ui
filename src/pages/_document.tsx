@@ -36,7 +36,7 @@ class _Document extends Document {
                     <link href = '/favicon.png' rel = 'shortcut icon' />
                     <link
                         as = 'font'
-                        href = '/public/radnikanext-medium-webfont.woff2'
+                        href = '/radnikanext-medium-webfont.woff2'
                         rel = 'preload'
                         type = 'font/woff2'
                     />

@@ -15,16 +15,19 @@ import { Page } from '@/components';
 import '@/theme/global.css';
 import '@/theme/nprogress.css';
 import { withApollo } from '@/lib';
+import { CartStateProvider } from '@/helpers';
 
 const _App = (
     props: AppProps & { apollo: ApolloClient<NormalizedCacheObject> },
 ) => {
     return (
-        <ApolloProvider client = { props.apollo }>
-            <Page>
-                <props.Component { ...props.pageProps } />
-            </Page>
-        </ApolloProvider>
+        <CartStateProvider>
+            <ApolloProvider client = { props.apollo }>
+                <Page>
+                    <props.Component { ...props.pageProps } />
+                </Page>
+            </ApolloProvider>
+        </CartStateProvider>
     );
 };
 
