@@ -41,7 +41,10 @@ export const createApolloClient = ({ headers, initialState }) => {
                 fetchOptions: {
                     credentials: 'include',
                 },
-                headers,
+                headers: {
+                    ...headers,
+                    'Access-Control-Allow-Origin': '*',
+                },
             }),
         ]),
         cache: new InMemoryCache({
