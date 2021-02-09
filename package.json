@@ -1,6 +1,6 @@
 {
     "name": "online-store-sickfits-ui",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "private": true,
     "scripts": {
         "start": "next -p 7777",
