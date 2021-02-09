@@ -1,5 +1,3 @@
-/* eslint-env node */
-
 const { envConfig } = require('./env-config.js');
 
 module.exports = api => {

@@ -1,3 +1,4 @@
 export const endpoint = 'http://localhost:3000/api/graphql';
-export const prodEndpoint = 'fill me is when we deploy';
+export const prodEndpoint =
+    'https://online-store-sickfits-api.herokuapp.com/api/graphql';
 export const perPage = 2;

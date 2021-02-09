@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react';
 // @ts-ignore
 export const useForm = <T>(initialState: T = {}) => {
     const [ inputs, setInputs ] = useState(initialState);
-    const initialValues = Object.values(initialState);
+    const initialValues = Object.values(initialState).join('');
 
     useEffect(() => {
         setInputs(initialState);
-    }, [ setInputs, initialState, initialValues ]);
+    }, [ initialValues ]);
 
     const handleChange: React.FormEventHandler<
         HTMLInputElement | HTMLTextAreaElement

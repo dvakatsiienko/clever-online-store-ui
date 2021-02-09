@@ -1,0 +1,35 @@
+# Query
+query user {
+    authenticatedItem {
+        ... on User {
+            id
+            name
+            email
+
+            # TODO: query the cart once we have it
+        }
+    }
+}
+
+# Mutation
+mutation login($email: String!, $password: String!) {
+    authenticateUserWithPassword(email: $email, password: $password) {
+        ... on UserAuthenticationWithPasswordSuccess {
+            item {
+                id
+                name
+                email
+            }
+            sessionToken
+        }
+
+        ... on UserAuthenticationWithPasswordFailure {
+            code
+            message
+        }
+    }
+}
+
+mutation logout {
+    endSession
+}
