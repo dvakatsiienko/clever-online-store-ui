@@ -1,7 +1,7 @@
 /* Instruments */
-import * as gql from '@/graphql';
+// import * as gql from '@/graphql';
 
-export const User: React.FC<UserProps> = () => {
+export const User: React.FC = () => {
     return null;
 };
 
@@ -13,4 +13,4 @@ export function useUser() {
 }
 
 /* Types */
-interface UserProps {}
+// interface UserProps {}
