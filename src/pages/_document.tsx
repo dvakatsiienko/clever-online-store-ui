@@ -40,6 +40,7 @@ class _Document extends Document {
                         rel = 'preload'
                         type = 'font/woff2'
                     />
+                    {this.props.styles}
                 </Head>
 
                 <body>

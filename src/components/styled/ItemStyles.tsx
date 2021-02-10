@@ -36,6 +36,7 @@ export const ItemStyles = styled.div`
             border: 0;
             font-size: 1rem;
             padding: 1rem;
+            cursor: pointer;
         }
     }
 `;

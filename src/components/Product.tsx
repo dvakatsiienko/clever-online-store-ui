@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 /* Components */
 import { DeleteProduct } from './DeleteProduct';
+import { AddToCart } from './AddToCart';
 import { ItemStyles, Title, PriceTag } from './styled';
 
 /* Instruments */
@@ -32,7 +33,10 @@ export const Product: React.FC<ProductProps> = props => {
                 >
                     Edit ✏️
                 </Link>
-                <DeleteProduct id = { props.product?.id }>Delete</DeleteProduct>
+                <AddToCart productId = { props.product?.id }>Delete</AddToCart>
+                <DeleteProduct productId = { props.product?.id }>
+                    Delete
+                </DeleteProduct>
             </div>
         </ItemStyles>
     );

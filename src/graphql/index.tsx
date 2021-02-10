@@ -927,6 +927,7 @@ export type Mutation = {
   createInitialUser: UserAuthenticationWithPasswordSuccess;
   sendUserPasswordResetLink?: Maybe<SendUserPasswordResetLinkResult>;
   redeemUserPasswordResetToken?: Maybe<RedeemUserPasswordResetTokenResult>;
+  addToCart?: Maybe<CartItem>;
   endSession: Scalars['Boolean'];
 };
 
@@ -1075,6 +1076,11 @@ export type MutationRedeemUserPasswordResetTokenArgs = {
   email: Scalars['String'];
   token: Scalars['String'];
   password: Scalars['String'];
+};
+
+
+export type MutationAddToCartArgs = {
+  productId?: Maybe<Scalars['ID']>;
 };
 
 
@@ -1326,6 +1332,32 @@ export type DeleteProductMutation = (
   & { deleteProduct?: Maybe<(
     { __typename?: 'Product' }
     & ProductFragment
+  )> }
+);
+
+export type AddToCartMutationVariables = Exact<{
+  productId: Scalars['ID'];
+}>;
+
+
+export type AddToCartMutation = (
+  { __typename?: 'Mutation' }
+  & { addToCart?: Maybe<(
+    { __typename?: 'CartItem' }
+    & Pick<CartItem, 'id'>
+  )> }
+);
+
+export type RemoveFromCartMutationVariables = Exact<{
+  productId: Scalars['ID'];
+}>;
+
+
+export type RemoveFromCartMutation = (
+  { __typename?: 'Mutation' }
+  & { deleteCartItem?: Maybe<(
+    { __typename?: 'CartItem' }
+    & Pick<CartItem, 'id'>
   )> }
 );
 
@@ -1662,6 +1694,70 @@ export function useDeleteProductMutation(baseOptions?: Apollo.MutationHookOption
 export type DeleteProductMutationHookResult = ReturnType<typeof useDeleteProductMutation>;
 export type DeleteProductMutationResult = Apollo.MutationResult<DeleteProductMutation>;
 export type DeleteProductMutationOptions = Apollo.BaseMutationOptions<DeleteProductMutation, DeleteProductMutationVariables>;
+export const AddToCartDocument = gql`
+    mutation addToCart($productId: ID!) {
+  addToCart(productId: $productId) {
+    id
+  }
+}
+    `;
+export type AddToCartMutationFn = Apollo.MutationFunction<AddToCartMutation, AddToCartMutationVariables>;
+
+/**
+ * __useAddToCartMutation__
+ *
+ * To run a mutation, you first call `useAddToCartMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddToCartMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addToCartMutation, { data, loading, error }] = useAddToCartMutation({
+ *   variables: {
+ *      productId: // value for 'productId'
+ *   },
+ * });
+ */
+export function useAddToCartMutation(baseOptions?: Apollo.MutationHookOptions<AddToCartMutation, AddToCartMutationVariables>) {
+        return Apollo.useMutation<AddToCartMutation, AddToCartMutationVariables>(AddToCartDocument, baseOptions);
+      }
+export type AddToCartMutationHookResult = ReturnType<typeof useAddToCartMutation>;
+export type AddToCartMutationResult = Apollo.MutationResult<AddToCartMutation>;
+export type AddToCartMutationOptions = Apollo.BaseMutationOptions<AddToCartMutation, AddToCartMutationVariables>;
+export const RemoveFromCartDocument = gql`
+    mutation removeFromCart($productId: ID!) {
+  deleteCartItem(id: $productId) {
+    id
+  }
+}
+    `;
+export type RemoveFromCartMutationFn = Apollo.MutationFunction<RemoveFromCartMutation, RemoveFromCartMutationVariables>;
+
+/**
+ * __useRemoveFromCartMutation__
+ *
+ * To run a mutation, you first call `useRemoveFromCartMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveFromCartMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeFromCartMutation, { data, loading, error }] = useRemoveFromCartMutation({
+ *   variables: {
+ *      productId: // value for 'productId'
+ *   },
+ * });
+ */
+export function useRemoveFromCartMutation(baseOptions?: Apollo.MutationHookOptions<RemoveFromCartMutation, RemoveFromCartMutationVariables>) {
+        return Apollo.useMutation<RemoveFromCartMutation, RemoveFromCartMutationVariables>(RemoveFromCartDocument, baseOptions);
+      }
+export type RemoveFromCartMutationHookResult = ReturnType<typeof useRemoveFromCartMutation>;
+export type RemoveFromCartMutationResult = Apollo.MutationResult<RemoveFromCartMutation>;
+export type RemoveFromCartMutationOptions = Apollo.BaseMutationOptions<RemoveFromCartMutation, RemoveFromCartMutationVariables>;
 export const UserDocument = gql`
     query user {
   authenticatedItem {

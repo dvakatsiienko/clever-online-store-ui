@@ -2,7 +2,7 @@
 import Link from 'next/link';
 
 /* Components */
-import { LogoutButton } from '@/components';
+import { LogoutButton, CartCount } from '@/components';
 import { NavStyles } from '@/components/styled';
 
 /* Instruments */
@@ -13,6 +13,13 @@ export const Nav: React.FC = () => {
     const userQuery = gql.useUserQuery();
     const cartState = useCart();
 
+    const cartItemsQuantity = userQuery.data?.authenticatedItem?.cart.reduce(
+        (tally, cartItem) => {
+            return tally + cartItem.quantity;
+        },
+        0,
+    );
+
     return (
         <NavStyles>
             <Link href = '/products'>Products</Link>
@@ -22,13 +29,16 @@ export const Nav: React.FC = () => {
                     <Link href = '/sell'>Sell</Link>
                     <Link href = '/orders'>Orders</Link>
                     <Link href = '/account'>Account</Link>
-                    <LogoutButton />
+
                     <button
                         type = 'button'
                         onClick = { () => cartState.setCartOpen(true) }
                     >
                         My Cart
+                        <CartCount count = { cartItemsQuantity } />
                     </button>
+
+                    <LogoutButton />
                 </>
             )}
 

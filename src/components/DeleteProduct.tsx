@@ -6,7 +6,7 @@ export const DeleteProduct: React.FC<DeleteProductProps> = props => {
         deleteProductMutation,
         deleteProductMutationMeta,
     ] = gql.useDeleteProductMutation({
-        variables: { id: props.id },
+        variables: { id: props.productId },
         update(cache, payload) {
             cache.evict({ id: cache.identify(payload.data.deleteProduct) });
             cache.gc();
@@ -33,5 +33,5 @@ export const DeleteProduct: React.FC<DeleteProductProps> = props => {
 
 /* Types */
 interface DeleteProductProps {
-    id: string;
+    productId: string;
 }

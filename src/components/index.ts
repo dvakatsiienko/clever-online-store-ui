@@ -10,3 +10,6 @@ export * from './Pagination';
 export * from './User';
 export * from './LogoutButton';
 export * from './Cart';
+export * from './AddToCart';
+export * from './CartCount';
+export * from './RemoveFromCart';

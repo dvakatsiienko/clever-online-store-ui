@@ -57,6 +57,18 @@ mutation deleteProduct($id: ID!) {
     }
 }
 
+mutation addToCart($productId: ID!) {
+    addToCart(productId: $productId) {
+        id
+    }
+}
+
+mutation removeFromCart($productId: ID!) {
+    deleteCartItem(id: $productId) {
+        id
+    }
+}
+
 # Fragment
 fragment product on Product {
     id
