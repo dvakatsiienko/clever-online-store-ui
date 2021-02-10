@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 /* Components */
 import { CartStyles, Supreme, CloseButton } from '@/components/styled';
-import { RemoveFromCart } from '@/components';
+import { RemoveFromCart, Checkout } from '@/components';
 
 /* Instruments */
 import * as gql from '@/graphql';
@@ -43,6 +43,7 @@ export const Cart: React.FC = () => {
 
             <footer>
                 <p>{totalCartPrice}</p>
+                <Checkout />
             </footer>
         </CartStyles>
     );
