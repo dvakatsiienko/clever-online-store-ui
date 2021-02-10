@@ -1,5 +1,4 @@
 /* Core */
-import Image from 'next/image';
 import styled from 'styled-components';
 
 /* Components */
@@ -49,7 +48,7 @@ export const Cart: React.FC = () => {
     );
 };
 
-export const CartItem: React.FC<CartItemProps> = props => {
+const CartItem: React.FC<CartItemProps> = props => {
     const { product } = props.cartItem;
 
     if (!product) {
@@ -63,11 +62,10 @@ export const CartItem: React.FC<CartItemProps> = props => {
 
     return (
         <CartItemStyles>
-            <Image
+            <img
                 alt = { product.name }
-                height = { 85 }
                 src = { product.photo.image.publicUrlTransformed }
-                width = { 120 }
+                width = '100'
             />
 
             <div>
@@ -80,7 +78,7 @@ export const CartItem: React.FC<CartItemProps> = props => {
                 </p>
             </div>
 
-            <RemoveFromCart productId = { product.id } />
+            <RemoveFromCart productId = { props.cartItem.id } />
         </CartItemStyles>
     );
 };

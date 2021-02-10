@@ -17,6 +17,25 @@ query product($id: ID!) {
     }
 }
 
+query searchProducts($searchTerm: String!) {
+    searchTerms: allProducts(
+        where: {
+            OR: [
+                { name_contains_i: $searchTerm }
+                { description_contains_i: $searchTerm }
+            ]
+        }
+    ) {
+        id
+        name
+        photo {
+            image {
+                publicUrlTransformed
+            }
+        }
+    }
+}
+
 # Mutation
 mutation createProduct(
     $name: String!

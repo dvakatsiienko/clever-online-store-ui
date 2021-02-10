@@ -2,7 +2,6 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import styled from 'styled-components';
 
 /* Instruments */
@@ -31,11 +30,9 @@ const ProductPage: NextPage = () => {
                 <title>Sick Fits | {data?.Product.name}</title>
             </Head>
 
-            <Image
-                alt = { data?.Product.name }
-                height = { 300 }
+            <img
+                alt = { data?.Product.photo.altText }
                 src = { data?.Product.photo.image.publicUrlTransformed }
-                width = { 300 }
             />
 
             <div className = 'details'>

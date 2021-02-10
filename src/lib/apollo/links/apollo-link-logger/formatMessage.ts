@@ -1,4 +1,4 @@
-const formatMessage = (operationType, operation, ellapsed) => {
+const formatMessage = (operationType, operation, elapsed) => {
     const headerCss = [
         'color: gray; font-weight: lighter', // title
         `color: ${operationType === 'query' ? '#03A9F4' : 'red'};`, // operationType
@@ -12,7 +12,7 @@ const formatMessage = (operationType, operation, ellapsed) => {
     ];
 
     if (operationType !== 'subscription') {
-        parts.push(`%c(in ${ellapsed} ms)`);
+        parts.push(`%c(in ${elapsed} ms)`);
         headerCss.push('color: gray; font-weight: lighter;'); // time
     }
 

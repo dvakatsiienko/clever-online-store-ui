@@ -2,8 +2,8 @@
 import Link from 'next/link';
 
 /* Components */
-import { LogoutButton, CartCount } from '@/components';
 import { NavStyles } from '@/components/styled';
+import { LogoutButton, CartCount } from '@/components';
 
 /* Instruments */
 import * as gql from '@/graphql';

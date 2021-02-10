@@ -13,3 +13,4 @@ export * from './Cart';
 export * from './AddToCart';
 export * from './CartCount';
 export * from './RemoveFromCart';
+export * from './Search';

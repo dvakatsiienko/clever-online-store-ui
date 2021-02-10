@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 /* Components */
-import { Nav, Cart } from '@/components';
+import { Nav, Search, Cart } from '@/components';
 
 export const Header: React.FC = () => (
     <HeaderStyles>
@@ -15,7 +15,7 @@ export const Header: React.FC = () => (
         </div>
 
         <div className = 'sub-bar'>
-            <p>Search</p>
+            <Search />
         </div>
 
         <Cart />
