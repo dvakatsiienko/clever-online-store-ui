@@ -15,7 +15,7 @@ export const Nav: React.FC = () => {
 
     const cartItemsQuantity = userQuery.data?.authenticatedItem?.cart.reduce(
         (tally, cartItem) => {
-            return tally + cartItem.quantity;
+            return tally + (cartItem.product ? cartItem.quantity : 0);
         },
         0,
     );

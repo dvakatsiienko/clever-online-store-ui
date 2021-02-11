@@ -8,13 +8,14 @@ import { PaginationStyles } from './styled';
 
 /* Instruments */
 import * as gql from '@/graphql';
-import { perPage } from '../../config';
+
+const ITEMS_PER_PAGE = Number(process.env.NEXT_PUBLIC_ITEMS_PER_PAGE);
 
 export const Pagination: React.FC<PaginationProps> = props => {
     const productsCountQuery = gql.useProductsCountQuery();
 
     const pageCount = Math.ceil(
-        productsCountQuery.data?._allProductsMeta.count / perPage,
+        productsCountQuery.data?._allProductsMeta.count / ITEMS_PER_PAGE,
     );
 
     if (productsCountQuery.loading) {

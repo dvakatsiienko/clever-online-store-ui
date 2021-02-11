@@ -7,13 +7,14 @@ import { ErrorMessage } from './ErrorMessage';
 
 /* Instruments */
 import * as gql from '@/graphql';
-import { perPage } from '@/../config';
+
+const ITEMS_PER_PAGE = Number(process.env.NEXT_PUBLIC_ITEMS_PER_PAGE);
 
 export const Products: React.FC<PaginationProps> = props => {
     const allProductsQuery = gql.useProductsQuery({
         variables: {
-            first: perPage,
-            skip:  props.pageNumber * perPage - perPage,
+            first: ITEMS_PER_PAGE,
+            skip:  props.pageNumber * ITEMS_PER_PAGE - ITEMS_PER_PAGE,
         },
     });
 

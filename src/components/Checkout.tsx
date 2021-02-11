@@ -1,5 +1,6 @@
 /* Core */
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { loadStripe } from '@stripe/stripe-js';
 import {
@@ -13,11 +14,20 @@ import nprogress from 'nprogress';
 /* Components */
 import { SickButton } from '@/components/styled';
 
+/* Instruments */
+import * as gql from '@/graphql';
+import { useCart } from '@/helpers';
+
 const CheckoutForm: React.FC = () => {
+    const router = useRouter();
+    const cart = useCart();
     const [ error, setError ] = useState(null);
     const [ isLoading, setLoading ] = useState(false);
     const stripe = useStripe();
     const elements = useElements();
+    const [ checkoutMutation, checkoutMutationMeta ] = gql.useCheckoutMutation({
+        refetchQueries: [{ query: gql.UserDocument }],
+    });
 
     const checkout = async (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -25,23 +35,41 @@ const CheckoutForm: React.FC = () => {
 
         nprogress.start();
 
-        const response = await stripe.createPaymentMethod({
+        const paymentResponse = await stripe.createPaymentMethod({
             type: 'card',
             card: elements.getElement(CardElement),
         });
 
-        if (response.error) {
-            setError(response.error);
+        if (paymentResponse.error) {
+            setError(paymentResponse.error);
+            nprogress.done();
+            setLoading(false);
+
+            return null;
         }
+
+        const order = await checkoutMutation({
+            variables: {
+                token: paymentResponse.paymentMethod.id,
+            },
+        });
 
         nprogress.done();
         setLoading(false);
+        router.push({
+            pathname: '/order[id]',
+            query:    { id: order.data.checkout.id },
+        });
+        cart.setCartOpen(false);
     };
+
+    const isError = error || checkoutMutationMeta.error;
+    const errorMessage = error?.message || checkoutMutationMeta.error?.message;
 
     return (
         <CheckoutFormStyles onSubmit = { checkout }>
-            {error && (
-                <p css = 'font-size: 12px; color: var(--red);'>{error.message}</p>
+            {isError && (
+                <p css = 'font-size: 12px; color: var(--red);'>{errorMessage}</p>
             )}
             <CardElement />
             <SickButton disabled = { isLoading }>Check Out Now</SickButton>

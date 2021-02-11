@@ -7,7 +7,6 @@ import debug from 'debug';
 /* Instruments */
 import { allProductsPolicy } from './fieldPolicies';
 import { loggerLink } from './links';
-import { endpoint, prodEndpoint } from '@/../config';
 
 const logGql = debug('[GraphQL error]');
 
@@ -34,10 +33,9 @@ export const createApolloClient = ({ headers, initialState }) => {
             }),
 
             createUploadLink({
-                uri:
-                    process.env.NODE_ENV === 'development'
-                        ? endpoint
-                        : prodEndpoint,
+                uri: __DEV__
+                    ? process.env.NEXT_PUBLIC_DEV_GQL_URL
+                    : process.env.NEXT_PUBLIC_URL_GQL_URL,
                 fetchOptions: {
                     credentials: 'include',
                 },

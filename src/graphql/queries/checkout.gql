@@ -1,0 +1,12 @@
+# Mutation
+mutation checkout($token: String!) {
+    checkout(token: $token) {
+        id
+        charge
+        total
+        items {
+            id
+            name
+        }
+    }
+}

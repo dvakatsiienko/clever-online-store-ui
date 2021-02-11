@@ -9,7 +9,7 @@ import { SearchStyles, DropDown, DropDownItem } from '@/components/styled';
 /* Instruments */
 import * as gql from '@/graphql';
 
-export const Search: React.FC<SearchProps> = () => {
+export const Search: React.FC = () => {
     const router = useRouter();
 
     const [
@@ -28,6 +28,7 @@ export const Search: React.FC<SearchProps> = () => {
         highlightedIndex,
         isOpen,
     } = useCombobox({
+        id:    'lang-switcher',
         items: searchProductsQueryMeta.data?.searchTerms ?? [],
         onInputValueChange() {
             searchProductsDebounced({ variables: { searchTerm } });
@@ -84,6 +85,3 @@ export const Search: React.FC<SearchProps> = () => {
         </SearchStyles>
     );
 };
-
-/* Types */
-interface SearchProps {}
