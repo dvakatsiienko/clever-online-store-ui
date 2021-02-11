@@ -35,7 +35,7 @@ export const createApolloClient = ({ headers, initialState }) => {
             createUploadLink({
                 uri: __DEV__
                     ? process.env.NEXT_PUBLIC_DEV_GQL_URL
-                    : process.env.NEXT_PUBLIC_URL_GQL_URL,
+                    : process.env.NEXT_PUBLIC_PROD_GQL_URL,
                 fetchOptions: {
                     credentials: 'include',
                 },
