@@ -2,7 +2,6 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 /* Components */
@@ -14,8 +13,6 @@ import * as gql from '@/graphql';
 import { formatMoney } from '@/helpers';
 
 const OrdersPage: NextPage = () => {
-    const router = useRouter();
-
     const allOrdersQuery = gql.useAllOrdersQuery();
 
     if (allOrdersQuery.loading) {
@@ -28,6 +25,7 @@ const OrdersPage: NextPage = () => {
     const allOrders = allOrdersQuery.data?.allOrders;
     const allOrdersJSX = allOrders.map(order => {
         const itemsInOrder = countItemsInOrder(order);
+
         return (
             <OrderItemStyles key = { order.id }>
                 <Link href = { `/order/${order.id}` }>

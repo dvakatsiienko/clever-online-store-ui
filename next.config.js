@@ -1,3 +1,4 @@
+/* Core */
 const analyze = require('@next/bundle-analyzer');
 
 const withBundleAnalyzer = analyze({

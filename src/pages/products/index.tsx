@@ -3,9 +3,6 @@ import { NextPage } from 'next';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-/* Components */
-import { Pagination, Products } from '@/components';
-
 const ProductsPage: NextPage = () => {
     const router = useRouter();
     useEffect(() => {

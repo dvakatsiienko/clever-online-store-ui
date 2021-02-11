@@ -13,6 +13,7 @@ export const ItemStyles = styled.div`
         width: 100%;
         height: 400px;
         object-fit: cover;
+        user-select: none;
     }
 
     & p {
