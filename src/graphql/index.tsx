@@ -1709,6 +1709,30 @@ export const KeystoneAdminUiSortDirection = {
 } as const;
 
 export type KeystoneAdminUiSortDirection = typeof KeystoneAdminUiSortDirection[keyof typeof KeystoneAdminUiSortDirection];
+export type OrderQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type OrderQuery = (
+  { __typename?: 'Query' }
+  & { order?: Maybe<(
+    { __typename?: 'Order' }
+    & OrderFragment
+  )> }
+);
+
+export type AllOrdersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllOrdersQuery = (
+  { __typename?: 'Query' }
+  & { allOrders?: Maybe<Array<Maybe<(
+    { __typename?: 'Order' }
+    & OrderFragment
+  )>>> }
+);
+
 export type CheckoutMutationVariables = Exact<{
   token: Scalars['String'];
 }>;
@@ -1722,6 +1746,25 @@ export type CheckoutMutation = (
     & { items: Array<(
       { __typename?: 'OrderItem' }
       & Pick<OrderItem, 'id' | 'name'>
+    )> }
+  )> }
+);
+
+export type OrderFragment = (
+  { __typename?: 'Order' }
+  & Pick<Order, 'id' | 'charge' | 'total'>
+  & { user?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  )>, items: Array<(
+    { __typename?: 'OrderItem' }
+    & Pick<OrderItem, 'id' | 'name' | 'description' | 'price' | 'quantity'>
+    & { photo?: Maybe<(
+      { __typename?: 'ProductImage' }
+      & { image?: Maybe<(
+        { __typename?: 'CloudinaryImage_File' }
+        & Pick<CloudinaryImage_File, 'publicUrlTransformed'>
+      )> }
     )> }
   )> }
 );
@@ -1966,6 +2009,28 @@ export type ResetPasswordMutation = (
   )> }
 );
 
+export const OrderFragmentDoc = gql`
+    fragment order on Order {
+  id
+  charge
+  total
+  user {
+    id
+  }
+  items {
+    id
+    name
+    description
+    price
+    quantity
+    photo {
+      image {
+        publicUrlTransformed
+      }
+    }
+  }
+}
+    `;
 export const ProductFragmentDoc = gql`
     fragment product on Product {
   id
@@ -1982,6 +2047,71 @@ export const ProductFragmentDoc = gql`
   }
 }
     `;
+export const OrderDocument = gql`
+    query order($id: ID!) {
+  order: Order(where: {id: $id}) {
+    ...order
+  }
+}
+    ${OrderFragmentDoc}`;
+
+/**
+ * __useOrderQuery__
+ *
+ * To run a query within a React component, call `useOrderQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOrderQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOrderQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useOrderQuery(baseOptions: Apollo.QueryHookOptions<OrderQuery, OrderQueryVariables>) {
+        return Apollo.useQuery<OrderQuery, OrderQueryVariables>(OrderDocument, baseOptions);
+      }
+export function useOrderLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OrderQuery, OrderQueryVariables>) {
+          return Apollo.useLazyQuery<OrderQuery, OrderQueryVariables>(OrderDocument, baseOptions);
+        }
+export type OrderQueryHookResult = ReturnType<typeof useOrderQuery>;
+export type OrderLazyQueryHookResult = ReturnType<typeof useOrderLazyQuery>;
+export type OrderQueryResult = Apollo.QueryResult<OrderQuery, OrderQueryVariables>;
+export const AllOrdersDocument = gql`
+    query allOrders {
+  allOrders {
+    ...order
+  }
+}
+    ${OrderFragmentDoc}`;
+
+/**
+ * __useAllOrdersQuery__
+ *
+ * To run a query within a React component, call `useAllOrdersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllOrdersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllOrdersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAllOrdersQuery(baseOptions?: Apollo.QueryHookOptions<AllOrdersQuery, AllOrdersQueryVariables>) {
+        return Apollo.useQuery<AllOrdersQuery, AllOrdersQueryVariables>(AllOrdersDocument, baseOptions);
+      }
+export function useAllOrdersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllOrdersQuery, AllOrdersQueryVariables>) {
+          return Apollo.useLazyQuery<AllOrdersQuery, AllOrdersQueryVariables>(AllOrdersDocument, baseOptions);
+        }
+export type AllOrdersQueryHookResult = ReturnType<typeof useAllOrdersQuery>;
+export type AllOrdersLazyQueryHookResult = ReturnType<typeof useAllOrdersLazyQuery>;
+export type AllOrdersQueryResult = Apollo.QueryResult<AllOrdersQuery, AllOrdersQueryVariables>;
 export const CheckoutDocument = gql`
     mutation checkout($token: String!) {
   checkout(token: $token) {

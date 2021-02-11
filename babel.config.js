@@ -23,7 +23,7 @@ module.exports = api => {
     return {
         presets,
         plugins: [
-            [ 'styled-components', { ssr: true, displayName: true }],
+            [ 'styled-components', { ssr: true }],
             [ 'transform-define', envConfig ],
             'graphql-tag',
         ],

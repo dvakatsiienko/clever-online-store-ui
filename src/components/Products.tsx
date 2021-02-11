@@ -31,11 +31,7 @@ export const Products: React.FC<PaginationProps> = props => {
             return <Product key = { product?.id } product = { product } />;
         });
 
-    return (
-        <div>
-            <ProductsList>{productsJSX}</ProductsList>
-        </div>
-    );
+    return <ProductsList>{productsJSX}</ProductsList>;
 };
 
 /* Styles */

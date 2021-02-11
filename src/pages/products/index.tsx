@@ -1,16 +1,18 @@
 /* Core */
 import { NextPage } from 'next';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 /* Components */
-import { Products } from '@/components';
+import { Pagination, Products } from '@/components';
 
 const ProductsPage: NextPage = () => {
-    return (
-        <>
-            <h1>Products</h1>
-            <Products pageNumber = { 1 } />
-        </>
-    );
+    const router = useRouter();
+    useEffect(() => {
+        router.replace('/products/1');
+    }, []);
+
+    return null;
 };
 
 export default ProductsPage;

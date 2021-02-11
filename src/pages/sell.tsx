@@ -7,6 +7,8 @@ import { CreateProductForm } from '@/components';
 const SellPage: NextPage = () => {
     return (
         <>
+            <h1>Place new product</h1>
+
             <CreateProductForm />
         </>
     );

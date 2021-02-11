@@ -57,8 +57,8 @@ const CheckoutForm: React.FC = () => {
         nprogress.done();
         setLoading(false);
         router.push({
-            pathname: '/order[id]',
-            query:    { id: order.data.checkout.id },
+            pathname: '/order/[orderId]',
+            query:    { orderId: order.data.checkout.id },
         });
         cart.setCartOpen(false);
     };
