@@ -36,6 +36,7 @@ export const CreateProductForm: React.FC = () => {
 
     return (
         <Form onSubmit = { createProduct }>
+            <h1>Place new product</h1>
             <ErrorMessage error = { error } />
 
             <fieldset aria-busy = { loading } disabled = { loading }>

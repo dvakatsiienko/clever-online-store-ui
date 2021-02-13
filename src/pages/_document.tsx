@@ -1,9 +1,15 @@
 /* Core */
-import Document, { Html, Head, NextScript, Main } from 'next/document';
+import Document, {
+    Html,
+    Head,
+    NextScript,
+    Main,
+    DocumentContext
+} from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
 class _Document extends Document {
-    static async getInitialProps(ctx) {
+    static async getInitialProps(ctx: DocumentContext) {
         const sheet = new ServerStyleSheet();
         const originalRenderPage = ctx.renderPage;
 
@@ -36,7 +42,7 @@ class _Document extends Document {
                     <link href = '/favicon.png' rel = 'shortcut icon' />
                     <link
                         as = 'font'
-                        href = '/radnikanext-medium-webfont.woff2'
+                        href = '/radnika-next-medium.woff2'
                         rel = 'preload'
                         type = 'font/woff2'
                     />

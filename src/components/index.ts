@@ -15,3 +15,4 @@ export * from './CartCount';
 export * from './RemoveFromCart';
 export * from './Search';
 export * from './Checkout';
+export * from './PleaseSignIn';
