@@ -5,7 +5,7 @@
     "scripts": {
         "start": "next -p 7777",
         "build": "next build",
-        "serve": "next start -p 7777",
+        "serve": "next start",
         "codegen:graphql": "gql-gen --config \"./graphql-codegen.yml\"",
         "test": "NODE_ENV=test jest --watch"
     },
