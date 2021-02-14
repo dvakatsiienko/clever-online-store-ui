@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 
 /* Components */
-import { Product } from '@/features/Product';
+import { Product } from './Product';
 import { ErrorMessage } from '@/components';
 
 /* Instruments */
