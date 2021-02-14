@@ -4,12 +4,12 @@ import styled, { keyframes } from 'styled-components';
 const loading = keyframes`
   from {
     background-position: 0 0;
-    /* rotate: 0; */
+    rotate: 0;
   }
 
   to {
     background-position: 100% 100%;
-    /* rotate: 360deg; */
+    rotate: 360deg;
   }
 `;
 
@@ -25,6 +25,10 @@ export const Form = styled.form`
     & label {
         display: block;
         margin-bottom: 1rem;
+
+        & .error-message {
+            color: red;
+        }
     }
 
     & input,
@@ -32,8 +36,9 @@ export const Form = styled.form`
     & select {
         width: 100%;
         padding: 0.5rem;
-        font-size: 1rem;
+        font-size: 1.5rem;
         border: 1px solid black;
+        height: 24px;
 
         &:focus {
             outline: 0;
@@ -44,6 +49,11 @@ export const Form = styled.form`
     & button {
         cursor: pointer;
         border: 1px solid white !important;
+
+        &:disabled {
+            background-color: grey;
+            cursor: progress;
+        }
 
         &:hover {
             border: 1px solid black !important;
@@ -79,6 +89,7 @@ export const Form = styled.form`
                 #e2b04a 50%,
                 #ff3019 100%
             );
+            margin-bottom: 5px;
         }
 
         &[aria-busy='true']::before {

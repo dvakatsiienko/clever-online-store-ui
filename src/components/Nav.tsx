@@ -28,7 +28,7 @@ export const Nav: React.FC = () => {
                 <>
                     <Link href = '/sell'>Sell</Link>
                     <Link href = '/orders'>Orders</Link>
-                    <Link href = '/account'>Account</Link>
+                    <Link href = '/profile'>Profile</Link>
 
                     <button
                         type = 'button'

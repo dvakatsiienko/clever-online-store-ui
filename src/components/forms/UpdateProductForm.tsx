@@ -1,104 +1,126 @@
+/* Core */
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
 /* Components */
-import { ErrorMessage } from '@/components';
-import { Form } from '@/components/styled';
+import { Form, Input } from '@/components/form-elements';
 
 /* Instruments */
 import * as gql from '@/graphql';
-import { useForm } from '@/helpers';
 
 export const UpdateProductForm: React.FC<UpdateProductFormProps> = props => {
+    const form = useForm<FormShape>({
+        mode:          'onTouched',
+        resolver:      yupResolver(schema),
+        defaultValues: { id: props.productId },
+    });
+
     const productQuery = gql.useProductQuery({
         variables: { id: props.productId },
     });
 
-    const { inputs, handleChange } = useForm(productQuery.data?.Product);
-
     const [
         updateProductMutation,
-        updateProductMeta,
+        { loading: mutationLoading, error },
     ] = gql.useUpdateProductMutation({
-        variables: {
-            id:          props.productId,
-            name:        inputs?.name,
-            price:       inputs?.price,
-            description: inputs?.description,
-        },
         refetchQueries: [
             { query: gql.ProductDocument, variables: { id: props.productId } },
         ],
     });
 
-    const updateProduct: React.FormEventHandler<HTMLFormElement> = async e => {
-        e.preventDefault();
+    const updateProduct = form.handleSubmit(async (_, event) => {
+        event.preventDefault();
 
-        await updateProductMutation();
-    };
+        const variables = form.getValues();
+        variables.image = variables.image?.[0] ?? null;
 
-    const isLoading = productQuery.loading || updateProductMeta.loading;
+        await updateProductMutation({ variables });
+    });
 
-    // if (isLoading) {
-    //     return <h1>Loading...</h1>;
-    // }
+    const isLoading = productQuery.loading || mutationLoading;
+
+    useEffect(() => {
+        if (productQuery.data) {
+            form.setValue('name', productQuery.data.Product.name);
+            form.setValue('price', productQuery.data.Product.price);
+            form.setValue('description', productQuery.data.Product.description);
+        }
+    }, [ productQuery.data ]);
 
     return (
-        <Form onSubmit = { updateProduct }>
-            <ErrorMessage
-                error = { productQuery.error || updateProductMeta.error }
-            />
+        <>
+            <h1>Update Product «{productQuery.data?.Product.name}»</h1>
 
-            <fieldset aria-busy = { isLoading } disabled = { isLoading }>
-                <label htmlFor = 'image'>
-                    Image
-                    <input
-                        id = 'image'
-                        name = 'image'
-                        type = 'file'
-                        onChange = { handleChange }
-                    />
-                </label>
+            <Form
+                isLoading = { isLoading }
+                networkError = { productQuery.error || error }
+                title = { null }
+                onSubmit = { updateProduct }
+            >
+                <input hidden name = 'id' ref = { form.register } />
 
-                <label htmlFor = 'name'>
-                    Name
-                    <input
-                        id = 'name'
-                        name = 'name'
-                        placeholder = 'Name'
-                        type = 'text'
-                        value = { inputs?.name }
-                        onChange = { handleChange }
-                    />
-                </label>
+                <Input
+                    name = 'image'
+                    placeholder = 'Image'
+                    register = { form.register }
+                    text = 'Image'
+                    type = 'file'
+                />
+                <Input
+                    error = { form.errors.name }
+                    name = 'name'
+                    placeholder = 'Name'
+                    register = { form.register }
+                    text = 'Name'
+                />
+                <Input
+                    error = { form.errors.price }
+                    name = 'price'
+                    placeholder = 'Price'
+                    register = { form.register }
+                    text = 'Price'
+                    type = 'number'
+                />
+                <Input
+                    error = { form.errors.description }
+                    name = 'description'
+                    placeholder = 'Description'
+                    register = { form.register }
+                    text = 'Description'
+                />
 
-                <label htmlFor = 'price'>
-                    Price
-                    <input
-                        id = 'price'
-                        name = 'price'
-                        placeholder = 'Price'
-                        type = 'number'
-                        value = { inputs?.price }
-                        onChange = { handleChange }
-                    />
-                </label>
-
-                <label htmlFor = 'description'>
-                    Description
-                    <textarea
-                        id = 'description'
-                        name = 'description'
-                        placeholder = 'Description'
-                        value = { inputs?.description }
-                        onChange = { handleChange }
-                    />
-                </label>
-
-                <button type = 'submit'>Update Product</button>
-            </fieldset>
-        </Form>
+                <button disabled = { isLoading } type = 'submit'>
+                    Update Product
+                </button>
+            </Form>
+        </>
     );
 };
+
+/* Helpers */
+const schema: yup.SchemaOf<FormShape> = yup.object().shape({
+    id:    yup.string().required('is required'),
+    image: yup.mixed(),
+    name:  yup.string().required('is required'),
+    price: yup
+        .number()
+        .nullable(true)
+        .positive('must be positive')
+        .required('is required'),
+    description: yup.string().required('is required'),
+});
 
 /* Types */
 interface UpdateProductFormProps {
     productId: string;
+}
+
+interface FormShape {
+    id: string;
+    image: any;
+    name: string;
+    price: number;
+    description: string;
 }

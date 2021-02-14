@@ -5,22 +5,24 @@ import styled from 'styled-components';
 /* Components */
 import { Nav, Search, Cart } from '@/components';
 
-export const Header: React.FC = () => (
-    <HeaderStyles>
-        <div className = 'bar'>
-            <Logo>
-                <Link href = '/'>Sick fits</Link>
-            </Logo>
-            <Nav />
-        </div>
+export const Header: React.FC = () => {
+    return (
+        <HeaderStyles>
+            <div className = 'bar'>
+                <Logo>
+                    <Link href = '/'>Sick fits</Link>
+                </Logo>
+                <Nav />
+            </div>
 
-        <div className = 'sub-bar'>
-            <Search />
-        </div>
+            <div className = 'sub-bar'>
+                <Search />
+            </div>
 
-        <Cart />
-    </HeaderStyles>
-);
+            <Cart />
+        </HeaderStyles>
+    );
+};
 
 /* Styles */
 const Logo = styled.h1`
@@ -31,7 +33,7 @@ const Logo = styled.h1`
     z-index: 2;
     transform: skew(-7deg);
 
-    a {
+    & a {
         color: white;
         text-decoration: none;
         text-transform: uppercase;
@@ -40,6 +42,8 @@ const Logo = styled.h1`
 `;
 
 const HeaderStyles = styled.header`
+    margin-bottom: 15px;
+
     & .bar {
         display: grid;
         grid-template-columns: auto 1fr;

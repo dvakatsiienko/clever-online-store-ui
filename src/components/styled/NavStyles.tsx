@@ -8,8 +8,13 @@ export const NavStyles = styled.ul`
     justify-self: end;
     font-size: 2rem;
 
-    a,
-    button {
+    & button:disabled {
+        color: grey;
+        cursor: progress;
+    }
+
+    & a,
+    & button {
         padding: 1rem 3rem;
         display: flex;
         align-items: center;

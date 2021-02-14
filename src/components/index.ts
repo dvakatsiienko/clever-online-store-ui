@@ -7,7 +7,6 @@ export * from './Product';
 export * from './ErrorMessage';
 export * from './DeleteProduct';
 export * from './Pagination';
-export * from './User';
 export * from './LogoutButton';
 export * from './Cart';
 export * from './AddToCart';

@@ -33,11 +33,17 @@ export const ItemStyles = styled.div`
         background: var(--lightGray);
 
         & > * {
+            display: flex;
+            justify-content: center;
             background: white;
             border: 0;
-            font-size: 1rem;
+            font-size: 1.4rem;
             padding: 1rem;
             cursor: pointer;
+
+            &:hover {
+                background: #daeaef;
+            }
         }
     }
 `;

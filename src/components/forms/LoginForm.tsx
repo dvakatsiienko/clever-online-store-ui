@@ -1,68 +1,88 @@
+/* Core */
+import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
 /* Components */
-import { ErrorMessage } from '@/components';
-import { Form } from '@/components/styled';
+import { Form, Input } from '@/components/form-elements';
 
 /* Instruments */
 import * as gql from '@/graphql';
-import { useForm } from '@/helpers';
 
 export const LoginForm: React.FC = () => {
-    const { inputs, handleChange, resetForm } = useForm({
-        email:    '',
-        password: '',
+    const router = useRouter();
+
+    const form = useForm<FormShape>({
+        mode:     'onTouched',
+        resolver: yupResolver(schema),
     });
 
-    const [ loginMutation, loginMutationMeta ] = gql.useLoginMutation({
-        variables:      inputs,
+    const [ loginMutation, { loading: isLoading, data }] = gql.useLoginMutation({
+        variables:      form.getValues(),
         refetchQueries: [{ query: gql.UserDocument }],
     });
 
-    const login: React.FormEventHandler<HTMLFormElement> = async event => {
-        event.preventDefault();
-
-        await loginMutation();
-        resetForm();
-    };
-
     const error =
-        loginMutationMeta.data?.authenticateUserWithPassword.__typename ===
+        data?.authenticateUserWithPassword.__typename ===
         'UserAuthenticationWithPasswordFailure'
-            ? loginMutationMeta.data?.authenticateUserWithPassword
+            ? data?.authenticateUserWithPassword
             : null;
 
+    const login = form.handleSubmit(async (_, event) => {
+        event.preventDefault();
+
+        const result = await loginMutation();
+
+        if (
+            result.data?.authenticateUserWithPassword.__typename ===
+            'UserAuthenticationWithPasswordSuccess'
+        ) {
+            router.replace('/products');
+        }
+    });
+
     return (
-        <Form method = 'POST' onSubmit = { login }>
-            <h2>Login</h2>
+        <Form
+            isLoading = { isLoading }
+            networkError = { error }
+            title = 'Login'
+            onSubmit = { login }
+        >
+            <Input
+                autoComplete = 'email'
+                error = { form.errors.email }
+                name = 'email'
+                placeholder = 'Your Email'
+                register = { form.register }
+                text = 'Email'
+                type = 'email'
+            />
+            <Input
+                autoComplete = 'current-password'
+                error = { form.errors.password }
+                name = 'password'
+                placeholder = 'Your Password'
+                register = { form.register }
+                text = 'Password'
+                type = 'password'
+            />
 
-            <ErrorMessage error = { error } />
-
-            <fieldset>
-                <label htmlFor = 'email'>
-                    Email
-                    <input
-                        autoComplete = 'email'
-                        name = 'email'
-                        placeholder = 'Your Email'
-                        type = 'email'
-                        value = { inputs.email }
-                        onChange = { handleChange }
-                    />
-                </label>
-
-                <label htmlFor = 'password'>
-                    Password
-                    <input
-                        autoComplete = 'password'
-                        name = 'password'
-                        placeholder = 'Your Password'
-                        type = 'password'
-                        value = { inputs.password }
-                        onChange = { handleChange }
-                    />
-                </label>
-            </fieldset>
-
-            <button type = 'submit'>Login</button>
+            <button disabled = { isLoading } type = 'submit'>
+                Login
+            </button>
         </Form>
     );
 };
+
+/* Helpers */
+const schema: yup.SchemaOf<FormShape> = yup.object().shape({
+    email:    yup.string().email('must be valid email').required('is required'),
+    password: yup.string().required('is required'),
+});
+
+/* Types */
+interface FormShape {
+    email: string;
+    password: string;
+}

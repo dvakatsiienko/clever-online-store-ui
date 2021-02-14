@@ -1,17 +1,27 @@
+/* Core */
+import { useRouter } from 'next/router';
+
 /* Instruments */
 import * as gql from '@/graphql';
 
 export const LogoutButton: React.FC = () => {
-    const [ logoutMutation ] = gql.useLogoutMutation({
+    const router = useRouter();
+
+    const [ logoutMutation, logoutMutationMeta ] = gql.useLogoutMutation({
         refetchQueries: [{ query: gql.UserDocument }],
     });
 
-    const logout = () => {
-        logoutMutation();
+    const logout = async () => {
+        await logoutMutation();
+        router.replace('/login');
     };
 
     return (
-        <button type = 'button' onClick = { logout }>
+        <button
+            disabled = { logoutMutationMeta.loading }
+            type = 'button'
+            onClick = { logout }
+        >
             Logout
         </button>
     );

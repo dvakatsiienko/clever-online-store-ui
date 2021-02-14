@@ -9,12 +9,7 @@ const ResetPasswordPage: NextPage = () => {
     const router = useRouter();
     const token = router.query.token as string;
 
-    return (
-        <>
-            <h1>Reset: {token}</h1>
-            <ResetPasswordForm token = { token } />
-        </>
-    );
+    return <ResetPasswordForm token = { token } />;
 };
 
 export default ResetPasswordPage;

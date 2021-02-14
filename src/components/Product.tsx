@@ -15,7 +15,7 @@ export const Product: React.FC<ProductProps> = props => {
         <ItemStyles>
             <img
                 alt = { props.product?.name }
-                src = { props.product?.photo.image?.publicUrlTransformed }
+                src = { props.product?.photo?.image?.publicUrlTransformed }
             />
             <Title>
                 <Link href = { `/product/${props.product?.id}` }>
@@ -31,11 +31,11 @@ export const Product: React.FC<ProductProps> = props => {
                         query:    { productId: props.product?.id },
                     }}
                 >
-                    Edit ✏️
+                    Edit 📜
                 </Link>
                 <AddToCart productId = { props.product?.id }>Delete</AddToCart>
                 <DeleteProduct productId = { props.product?.id }>
-                    Delete
+                    Delete ❌
                 </DeleteProduct>
             </div>
         </ItemStyles>

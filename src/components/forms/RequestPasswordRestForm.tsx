@@ -1,57 +1,67 @@
+/* Core */
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
 /* Components */
-import { ErrorMessage } from '@/components';
-import { Form } from '@/components/styled';
+import { Form, Input } from '@/components/form-elements';
 
 /* Instruments */
 import * as gql from '@/graphql';
-import { useForm } from '@/helpers';
 
 export const RequestPasswordRestForm: React.FC = () => {
-    const { inputs, handleChange, resetForm } = useForm({
-        email: '',
+    const form = useForm<FormShape>({
+        mode:     'onTouched',
+        resolver: yupResolver(schema),
     });
 
     const [
         requestResetPasswordMutation,
-        requestResetPasswordMutationMeta,
+        { loading: isLoading, data, error },
     ] = gql.useRequestPasswordResetMutation({
-        variables:      inputs,
+        variables:      form.getValues(),
         refetchQueries: [{ query: gql.UserDocument }],
     });
 
-    const login: React.FormEventHandler<HTMLFormElement> = async event => {
+    const requestResetPassword = form.handleSubmit(async (_, event) => {
         event.preventDefault();
 
         await requestResetPasswordMutation();
-        resetForm();
-    };
+    });
 
     return (
-        <Form method = 'POST' onSubmit = { login }>
-            <h2>Request Password Reset</h2>
+        <Form
+            isLoading = { isLoading }
+            networkError = { error }
+            title = 'Reset Password'
+            onSubmit = { requestResetPassword }
+        >
+            {data?.sendUserPasswordResetLink === null && (
+                <p>Success! Check you email for a link!</p>
+            )}
 
-            <ErrorMessage error = { requestResetPasswordMutationMeta.error } />
+            <Input
+                autoComplete = 'email'
+                error = { form.errors.email }
+                name = 'email'
+                placeholder = 'Email'
+                register = { form.register }
+                text = 'Email'
+            />
 
-            <fieldset disabled = { requestResetPasswordMutationMeta.loading }>
-                {requestResetPasswordMutationMeta.data
-                    ?.sendUserPasswordResetLink === null && (
-                    <p>Success! Check you email for a link!</p>
-                )}
-
-                <label htmlFor = 'email'>
-                    Email
-                    <input
-                        autoComplete = 'email'
-                        name = 'email'
-                        placeholder = 'Your Email'
-                        type = 'email'
-                        value = { inputs.email }
-                        onChange = { handleChange }
-                    />
-                </label>
-            </fieldset>
-
-            <button type = 'submit'>Send</button>
+            <button disabled = { isLoading } type = 'submit'>
+                Send
+            </button>
         </Form>
     );
 };
+
+/* Helpers */
+const schema: yup.SchemaOf<FormShape> = yup.object().shape({
+    email: yup.string().email('must be valid email').required('is required'),
+});
+
+/* Types */
+interface FormShape {
+    email: string;
+}

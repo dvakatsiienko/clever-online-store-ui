@@ -1,83 +1,109 @@
+/* Core */
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
 /* Components */
-import { ErrorMessage } from '@/components';
-import { Form } from '@/components/styled';
+import { Form, Input } from '@/components/form-elements';
 
 /* Instruments */
 import * as gql from '@/graphql';
-import { useForm } from '@/helpers';
 
 export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = props => {
-    const { inputs, handleChange, resetForm } = useForm({
-        email:    '',
-        password: '',
-        token:    props.token,
+    const form = useForm<FormShape>({
+        mode:          'onTouched',
+        resolver:      yupResolver(schema),
+        defaultValues: { token: props.token },
     });
 
     const [
         resetPasswordMutation,
-        resetPasswordMutationMeta,
+        { loading: isLoading, data, error },
     ] = gql.useResetPasswordMutation({
-        variables:      inputs,
+        variables:      form.getValues(),
         refetchQueries: [{ query: gql.UserDocument }],
     });
 
-    const resetPassword: React.FormEventHandler<HTMLFormElement> = async event => {
+    const resetPassword = form.handleSubmit(async (_, event) => {
         event.preventDefault();
 
         await resetPasswordMutation();
-        resetForm();
-    };
+    });
 
-    const successfulError = resetPasswordMutationMeta.data
-        ?.redeemUserPasswordResetToken?.code
-        ? resetPasswordMutationMeta.data?.redeemUserPasswordResetToken
+    const successfulError = data?.redeemUserPasswordResetToken?.code
+        ? data?.redeemUserPasswordResetToken
         : null;
 
     return (
-        <Form method = 'POST' onSubmit = { resetPassword }>
-            <h2>Reset Your Password</h2>
+        <Form
+            // @ts-ignore
+            error = { error || successfulError }
+            isLoading = { isLoading }
+            title = 'Reset Your Password'
+            onSubmit = { resetPassword }
+        >
+            {data?.redeemUserPasswordResetToken === null && (
+                <p>Success! You can now login.</p>
+            )}
 
-            <ErrorMessage
-                error = { resetPasswordMutationMeta.error || successfulError }
+            <input hidden name = 'token' ref = { form.register } />
+
+            <Input
+                autoComplete = 'email'
+                error = { form.errors.email }
+                name = 'email'
+                placeholder = 'Email'
+                register = { form.register }
+                text = 'Email'
+            />
+            <Input
+                autoComplete = 'current-password'
+                error = { form.errors.password }
+                name = 'password'
+                placeholder = 'Password'
+                register = { form.register }
+                text = 'Password'
+                type = 'password'
+            />
+            <Input
+                autoComplete = 'new-password'
+                error = { form.errors.confirmPassword }
+                name = 'confirmPassword'
+                placeholder = 'Confirm Password'
+                register = { form.register }
+                text = 'Confirm Password'
+                type = 'password'
             />
 
-            <fieldset disabled = { resetPasswordMutationMeta.loading }>
-                {resetPasswordMutationMeta.data
-                    ?.redeemUserPasswordResetToken === null && (
-                    <p>Success! You can now login.</p>
-                )}
-
-                <label htmlFor = 'email'>
-                    Email
-                    <input
-                        autoComplete = 'email'
-                        name = 'email'
-                        placeholder = 'Your Email'
-                        type = 'email'
-                        value = { inputs.email }
-                        onChange = { handleChange }
-                    />
-                </label>
-
-                <label htmlFor = 'password'>
-                    New Password
-                    <input
-                        autoComplete = 'password'
-                        name = 'password'
-                        placeholder = 'New Password'
-                        type = 'password'
-                        value = { inputs.password }
-                        onChange = { handleChange }
-                    />
-                </label>
-            </fieldset>
-
-            <button type = 'submit'>Send</button>
+            <button disabled = { isLoading } type = 'submit'>
+                Send
+            </button>
         </Form>
     );
 };
 
+/* Helpers */
+const schema: yup.SchemaOf<FormShape> = yup.object().shape({
+    token:    yup.string().required('is required'),
+    email:    yup.string().email('must be valid email').required('is required'),
+    password: yup
+        .string()
+        .min(8, 'must be at lest ${min} symbols long')
+        .required('is required'),
+    confirmPassword: yup
+        .string()
+        .min(8, 'must be at lest ${min} symbols long')
+        .oneOf([ yup.ref('password'), null ], 'must match password'),
+});
+
 /* Types */
 interface ResetPasswordFormProps {
     token: string;
+}
+
+interface FormShape {
+    email: string;
+    password: string;
+    token: string;
+    confirmPassword: string;
 }
