@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
         <HeaderStyles>
             <div className = 'bar'>
                 <Logo>
-                    <Link href = '/'>Sick fits</Link>
+                    <Link href = '/'>Клевер ️</Link>
                 </Logo>
                 <Nav />
             </div>
