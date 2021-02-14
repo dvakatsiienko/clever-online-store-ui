@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 /* Components */
 import { CartStyles, Supreme, CloseButton } from '@/components/styled';
-import { RemoveFromCart, Checkout } from '@/components';
+import { RemoveFromCart } from './RemoveFromCart';
+import { Checkout } from './Checkout';
 
 /* Instruments */
 import * as gql from '@/graphql';

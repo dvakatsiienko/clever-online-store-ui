@@ -4,7 +4,7 @@ import { LoginForm } from '@/components/forms';
 /* Instruments */
 import * as gql from '@/graphql';
 
-export const PleaseSignIn: React.FC = props => {
+export const LoginFormIfUnauthenticated: React.FC = props => {
     const userQuery = gql.useUserQuery();
 
     if (!userQuery.data?.authenticatedItem) {

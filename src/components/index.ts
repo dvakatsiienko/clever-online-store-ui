@@ -8,5 +8,4 @@ export * from './ErrorMessage';
 export * from './Pagination';
 export * from './Cart';
 export * from './Search';
-export * from './Checkout';
-export * from './PleaseSignIn';
+export * from './LoginFormIfUnauthenticated';

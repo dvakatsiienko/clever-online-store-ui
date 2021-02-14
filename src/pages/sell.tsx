@@ -2,15 +2,13 @@
 import { NextPage } from 'next';
 
 /* Components */
-import { CreateProductForm, PleaseSignIn } from '@/components';
+import { CreateProductForm, LoginFormIfUnauthenticated } from '@/components';
 
 const SellPage: NextPage = () => {
     return (
-        <>
-            <PleaseSignIn>
-                <CreateProductForm />
-            </PleaseSignIn>
-        </>
+        <LoginFormIfUnauthenticated>
+            <CreateProductForm />
+        </LoginFormIfUnauthenticated>
     );
 };
 
