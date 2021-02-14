@@ -9,7 +9,7 @@ import {
 import nprogress from 'nprogress';
 
 /* Components */
-import { Page } from '@/components';
+import { Layout } from '@/features/Layout';
 
 /* Instruments */
 import '@/theme/global.css';
@@ -23,9 +23,9 @@ const _App = (
     return (
         <CartStateProvider>
             <ApolloProvider client = { props.apollo }>
-                <Page>
+                <Layout>
                     <props.Component { ...props.pageProps } />
-                </Page>
+                </Layout>
             </ApolloProvider>
         </CartStateProvider>
     );

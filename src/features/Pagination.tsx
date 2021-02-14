@@ -3,8 +3,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 /* Components */
-import { ErrorMessage } from './ErrorMessage';
-import { PaginationStyles } from './styled';
+import { PaginationStyles } from '@/components/styled';
+import { ErrorMessage } from '@/components';
 
 /* Instruments */
 import * as gql from '@/graphql';

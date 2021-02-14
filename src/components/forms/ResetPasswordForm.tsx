@@ -39,7 +39,7 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = props => {
             // @ts-ignore
             error = { error || successfulError }
             isLoading = { isLoading }
-            title = 'Reset Your Password'
+            title = 'Setup New Password'
             onSubmit = { resetPassword }
         >
             {data?.redeemUserPasswordResetToken === null && (
@@ -57,7 +57,7 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = props => {
                 text = 'Email'
             />
             <Input
-                autoComplete = 'current-password'
+                autoComplete = 'new-password'
                 error = { form.errors.password }
                 name = 'password'
                 placeholder = 'Password'

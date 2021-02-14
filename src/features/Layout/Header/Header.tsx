@@ -3,7 +3,9 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 /* Components */
-import { Nav, Search, Cart } from '@/components';
+import { Nav } from './Nav';
+import { Search } from './Search';
+import { Cart } from './Cart';
 
 export const Header: React.FC = () => {
     return (

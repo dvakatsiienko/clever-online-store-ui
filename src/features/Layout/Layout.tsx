@@ -4,7 +4,7 @@ import styled from 'styled-components';
 /* Components */
 import { Header } from './Header';
 
-export const Page: React.FC = props => {
+export const Layout: React.FC = props => {
     return (
         <>
             <Header />

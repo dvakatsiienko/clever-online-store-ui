@@ -60,7 +60,7 @@ export const RegisterForm: React.FC = () => {
                 text = 'Email'
             />
             <Input
-                autoComplete = 'current-password'
+                autoComplete = 'new-password'
                 error = { form.errors.password }
                 name = 'password'
                 placeholder = 'Password'

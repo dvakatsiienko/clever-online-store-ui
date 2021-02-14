@@ -3,9 +3,10 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 
 /* Components */
-import { Pagination, Products } from '@/components';
+import { Pagination } from '@/features/Pagination';
+import { Products } from '@/features/Products';
 
-const PaginatedProductPage: NextPage = () => {
+const PaginatedProductsPage: NextPage = () => {
     const router = useRouter();
     const pageNumber = Number(router.query.pageNumber) as number;
 
@@ -19,4 +20,4 @@ const PaginatedProductPage: NextPage = () => {
     );
 };
 
-export default PaginatedProductPage;
+export default PaginatedProductsPage;
