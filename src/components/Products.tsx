@@ -2,8 +2,7 @@
 import styled from 'styled-components';
 
 /* Components */
-import { Product } from './Product';
-import { ErrorMessage } from './ErrorMessage';
+import { Product, ErrorMessage } from '@/components';
 
 /* Instruments */
 import * as gql from '@/graphql';

@@ -2,9 +2,9 @@
 import Link from 'next/link';
 
 /* Components */
+import { ItemStyles, Title, PriceTag } from '@/components/styled';
 import { DeleteProduct } from './DeleteProduct';
 import { AddToCart } from './AddToCart';
-import { ItemStyles, Title, PriceTag } from './styled';
 
 /* Instruments */
 import * as gql from '@/graphql';
