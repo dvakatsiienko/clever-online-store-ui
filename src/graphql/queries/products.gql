@@ -1,6 +1,6 @@
 # Query
 query products($first: Int, $skip: Int = 0) {
-    allProducts(first: $first, skip: $skip) {
+    allProducts(first: $first, skip: $skip, sortBy: id_DESC) {
         ...product
     }
 }

@@ -31,6 +31,20 @@ export type OrderRelateToManyInput = {
   disconnectAll?: Maybe<Scalars['Boolean']>;
 };
 
+export type RoleRelateToOneInput = {
+  create?: Maybe<RoleCreateInput>;
+  connect?: Maybe<RoleWhereUniqueInput>;
+  disconnect?: Maybe<RoleWhereUniqueInput>;
+  disconnectAll?: Maybe<Scalars['Boolean']>;
+};
+
+export type ProductRelateToManyInput = {
+  create?: Maybe<Array<Maybe<ProductCreateInput>>>;
+  connect?: Maybe<Array<Maybe<ProductWhereUniqueInput>>>;
+  disconnect?: Maybe<Array<Maybe<ProductWhereUniqueInput>>>;
+  disconnectAll?: Maybe<Scalars['Boolean']>;
+};
+
 /**  A keystone list  */
 export type User = {
   __typename?: 'User';
@@ -42,6 +56,9 @@ export type User = {
   _cartMeta?: Maybe<_QueryMeta>;
   orders: Array<Order>;
   _ordersMeta?: Maybe<_QueryMeta>;
+  role?: Maybe<Role>;
+  products: Array<Product>;
+  _productsMeta?: Maybe<_QueryMeta>;
   passwordResetToken_is_set?: Maybe<Scalars['Boolean']>;
   passwordResetIssuedAt?: Maybe<Scalars['String']>;
   passwordResetRedeemedAt?: Maybe<Scalars['String']>;
@@ -89,6 +106,28 @@ export type User_OrdersMetaArgs = {
   where?: Maybe<OrderWhereInput>;
   search?: Maybe<Scalars['String']>;
   sortBy?: Maybe<Array<SortOrdersBy>>;
+  orderBy?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+};
+
+
+/**  A keystone list  */
+export type UserProductsArgs = {
+  where?: Maybe<ProductWhereInput>;
+  search?: Maybe<Scalars['String']>;
+  sortBy?: Maybe<Array<SortProductsBy>>;
+  orderBy?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+};
+
+
+/**  A keystone list  */
+export type User_ProductsMetaArgs = {
+  where?: Maybe<ProductWhereInput>;
+  search?: Maybe<Scalars['String']>;
+  sortBy?: Maybe<Array<SortProductsBy>>;
   orderBy?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
@@ -150,6 +189,14 @@ export type UserWhereInput = {
   orders_some?: Maybe<OrderWhereInput>;
   /**  condition must be false for all nodes  */
   orders_none?: Maybe<OrderWhereInput>;
+  role?: Maybe<RoleWhereInput>;
+  role_is_null?: Maybe<Scalars['Boolean']>;
+  /**  condition must be true for all nodes  */
+  products_every?: Maybe<ProductWhereInput>;
+  /**  condition must be true for at least 1 node  */
+  products_some?: Maybe<ProductWhereInput>;
+  /**  condition must be false for all nodes  */
+  products_none?: Maybe<ProductWhereInput>;
   passwordResetToken_is_set?: Maybe<Scalars['Boolean']>;
   passwordResetIssuedAt?: Maybe<Scalars['String']>;
   passwordResetIssuedAt_not?: Maybe<Scalars['String']>;
@@ -201,6 +248,10 @@ export const SortUsersBy = {
   CartDesc: 'cart_DESC',
   OrdersAsc: 'orders_ASC',
   OrdersDesc: 'orders_DESC',
+  RoleAsc: 'role_ASC',
+  RoleDesc: 'role_DESC',
+  ProductsAsc: 'products_ASC',
+  ProductsDesc: 'products_DESC',
   PasswordResetIssuedAtAsc: 'passwordResetIssuedAt_ASC',
   PasswordResetIssuedAtDesc: 'passwordResetIssuedAt_DESC',
   PasswordResetRedeemedAtAsc: 'passwordResetRedeemedAt_ASC',
@@ -218,6 +269,8 @@ export type UserUpdateInput = {
   password?: Maybe<Scalars['String']>;
   cart?: Maybe<CartItemRelateToManyInput>;
   orders?: Maybe<OrderRelateToManyInput>;
+  role?: Maybe<RoleRelateToOneInput>;
+  products?: Maybe<ProductRelateToManyInput>;
   passwordResetToken?: Maybe<Scalars['String']>;
   passwordResetIssuedAt?: Maybe<Scalars['String']>;
   passwordResetRedeemedAt?: Maybe<Scalars['String']>;
@@ -237,6 +290,8 @@ export type UserCreateInput = {
   password?: Maybe<Scalars['String']>;
   cart?: Maybe<CartItemRelateToManyInput>;
   orders?: Maybe<OrderRelateToManyInput>;
+  role?: Maybe<RoleRelateToOneInput>;
+  products?: Maybe<ProductRelateToManyInput>;
   passwordResetToken?: Maybe<Scalars['String']>;
   passwordResetIssuedAt?: Maybe<Scalars['String']>;
   passwordResetRedeemedAt?: Maybe<Scalars['String']>;
@@ -256,6 +311,13 @@ export type ProductImageRelateToOneInput = {
   disconnectAll?: Maybe<Scalars['Boolean']>;
 };
 
+export type UserRelateToOneInput = {
+  create?: Maybe<UserCreateInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+  disconnect?: Maybe<UserWhereUniqueInput>;
+  disconnectAll?: Maybe<Scalars['Boolean']>;
+};
+
 /**  A keystone list  */
 export type Product = {
   __typename?: 'Product';
@@ -265,6 +327,7 @@ export type Product = {
   status?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Int']>;
   photo?: Maybe<ProductImage>;
+  user?: Maybe<User>;
 };
 
 export type ProductWhereInput = {
@@ -338,6 +401,8 @@ export type ProductWhereInput = {
   price_not_in?: Maybe<Array<Maybe<Scalars['Int']>>>;
   photo?: Maybe<ProductImageWhereInput>;
   photo_is_null?: Maybe<Scalars['Boolean']>;
+  user?: Maybe<UserWhereInput>;
+  user_is_null?: Maybe<Scalars['Boolean']>;
 };
 
 export type ProductWhereUniqueInput = {
@@ -356,7 +421,9 @@ export const SortProductsBy = {
   PriceAsc: 'price_ASC',
   PriceDesc: 'price_DESC',
   PhotoAsc: 'photo_ASC',
-  PhotoDesc: 'photo_DESC'
+  PhotoDesc: 'photo_DESC',
+  UserAsc: 'user_ASC',
+  UserDesc: 'user_DESC'
 } as const;
 
 export type SortProductsBy = typeof SortProductsBy[keyof typeof SortProductsBy];
@@ -366,6 +433,7 @@ export type ProductUpdateInput = {
   status?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Int']>;
   photo?: Maybe<ProductImageRelateToOneInput>;
+  user?: Maybe<UserRelateToOneInput>;
 };
 
 export type ProductsUpdateInput = {
@@ -379,6 +447,7 @@ export type ProductCreateInput = {
   status?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Int']>;
   photo?: Maybe<ProductImageRelateToOneInput>;
+  user?: Maybe<UserRelateToOneInput>;
 };
 
 export type ProductsCreateInput = {
@@ -521,13 +590,6 @@ export type ProductImageCreateInput = {
 
 export type ProductImagesCreateInput = {
   data?: Maybe<ProductImageCreateInput>;
-};
-
-export type UserRelateToOneInput = {
-  create?: Maybe<UserCreateInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
-  disconnect?: Maybe<UserWhereUniqueInput>;
-  disconnectAll?: Maybe<Scalars['Boolean']>;
 };
 
 /**  A keystone list  */
@@ -855,6 +917,152 @@ export type OrderItemsCreateInput = {
   data?: Maybe<OrderItemCreateInput>;
 };
 
+export type UserRelateToManyInput = {
+  create?: Maybe<Array<Maybe<UserCreateInput>>>;
+  connect?: Maybe<Array<Maybe<UserWhereUniqueInput>>>;
+  disconnect?: Maybe<Array<Maybe<UserWhereUniqueInput>>>;
+  disconnectAll?: Maybe<Scalars['Boolean']>;
+};
+
+/**  A keystone list  */
+export type Role = {
+  __typename?: 'Role';
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  canManageProducts?: Maybe<Scalars['Boolean']>;
+  canSeeOtherUsers?: Maybe<Scalars['Boolean']>;
+  canManageUsers?: Maybe<Scalars['Boolean']>;
+  canManageRoles?: Maybe<Scalars['Boolean']>;
+  canManageCart?: Maybe<Scalars['Boolean']>;
+  canManageOrders?: Maybe<Scalars['Boolean']>;
+  assignedTo: Array<User>;
+  _assignedToMeta?: Maybe<_QueryMeta>;
+};
+
+
+/**  A keystone list  */
+export type RoleAssignedToArgs = {
+  where?: Maybe<UserWhereInput>;
+  search?: Maybe<Scalars['String']>;
+  sortBy?: Maybe<Array<SortUsersBy>>;
+  orderBy?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+};
+
+
+/**  A keystone list  */
+export type Role_AssignedToMetaArgs = {
+  where?: Maybe<UserWhereInput>;
+  search?: Maybe<Scalars['String']>;
+  sortBy?: Maybe<Array<SortUsersBy>>;
+  orderBy?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+};
+
+export type RoleWhereInput = {
+  AND?: Maybe<Array<Maybe<RoleWhereInput>>>;
+  OR?: Maybe<Array<Maybe<RoleWhereInput>>>;
+  id?: Maybe<Scalars['ID']>;
+  id_not?: Maybe<Scalars['ID']>;
+  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  id_not_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  name?: Maybe<Scalars['String']>;
+  name_not?: Maybe<Scalars['String']>;
+  name_contains?: Maybe<Scalars['String']>;
+  name_not_contains?: Maybe<Scalars['String']>;
+  name_starts_with?: Maybe<Scalars['String']>;
+  name_not_starts_with?: Maybe<Scalars['String']>;
+  name_ends_with?: Maybe<Scalars['String']>;
+  name_not_ends_with?: Maybe<Scalars['String']>;
+  name_i?: Maybe<Scalars['String']>;
+  name_not_i?: Maybe<Scalars['String']>;
+  name_contains_i?: Maybe<Scalars['String']>;
+  name_not_contains_i?: Maybe<Scalars['String']>;
+  name_starts_with_i?: Maybe<Scalars['String']>;
+  name_not_starts_with_i?: Maybe<Scalars['String']>;
+  name_ends_with_i?: Maybe<Scalars['String']>;
+  name_not_ends_with_i?: Maybe<Scalars['String']>;
+  name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  name_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  canManageProducts?: Maybe<Scalars['Boolean']>;
+  canManageProducts_not?: Maybe<Scalars['Boolean']>;
+  canSeeOtherUsers?: Maybe<Scalars['Boolean']>;
+  canSeeOtherUsers_not?: Maybe<Scalars['Boolean']>;
+  canManageUsers?: Maybe<Scalars['Boolean']>;
+  canManageUsers_not?: Maybe<Scalars['Boolean']>;
+  canManageRoles?: Maybe<Scalars['Boolean']>;
+  canManageRoles_not?: Maybe<Scalars['Boolean']>;
+  canManageCart?: Maybe<Scalars['Boolean']>;
+  canManageCart_not?: Maybe<Scalars['Boolean']>;
+  canManageOrders?: Maybe<Scalars['Boolean']>;
+  canManageOrders_not?: Maybe<Scalars['Boolean']>;
+  /**  condition must be true for all nodes  */
+  assignedTo_every?: Maybe<UserWhereInput>;
+  /**  condition must be true for at least 1 node  */
+  assignedTo_some?: Maybe<UserWhereInput>;
+  /**  condition must be false for all nodes  */
+  assignedTo_none?: Maybe<UserWhereInput>;
+};
+
+export type RoleWhereUniqueInput = {
+  id: Scalars['ID'];
+};
+
+export const SortRolesBy = {
+  IdAsc: 'id_ASC',
+  IdDesc: 'id_DESC',
+  NameAsc: 'name_ASC',
+  NameDesc: 'name_DESC',
+  CanManageProductsAsc: 'canManageProducts_ASC',
+  CanManageProductsDesc: 'canManageProducts_DESC',
+  CanSeeOtherUsersAsc: 'canSeeOtherUsers_ASC',
+  CanSeeOtherUsersDesc: 'canSeeOtherUsers_DESC',
+  CanManageUsersAsc: 'canManageUsers_ASC',
+  CanManageUsersDesc: 'canManageUsers_DESC',
+  CanManageRolesAsc: 'canManageRoles_ASC',
+  CanManageRolesDesc: 'canManageRoles_DESC',
+  CanManageCartAsc: 'canManageCart_ASC',
+  CanManageCartDesc: 'canManageCart_DESC',
+  CanManageOrdersAsc: 'canManageOrders_ASC',
+  CanManageOrdersDesc: 'canManageOrders_DESC',
+  AssignedToAsc: 'assignedTo_ASC',
+  AssignedToDesc: 'assignedTo_DESC'
+} as const;
+
+export type SortRolesBy = typeof SortRolesBy[keyof typeof SortRolesBy];
+export type RoleUpdateInput = {
+  name?: Maybe<Scalars['String']>;
+  canManageProducts?: Maybe<Scalars['Boolean']>;
+  canSeeOtherUsers?: Maybe<Scalars['Boolean']>;
+  canManageUsers?: Maybe<Scalars['Boolean']>;
+  canManageRoles?: Maybe<Scalars['Boolean']>;
+  canManageCart?: Maybe<Scalars['Boolean']>;
+  canManageOrders?: Maybe<Scalars['Boolean']>;
+  assignedTo?: Maybe<UserRelateToManyInput>;
+};
+
+export type RolesUpdateInput = {
+  id: Scalars['ID'];
+  data?: Maybe<RoleUpdateInput>;
+};
+
+export type RoleCreateInput = {
+  name?: Maybe<Scalars['String']>;
+  canManageProducts?: Maybe<Scalars['Boolean']>;
+  canSeeOtherUsers?: Maybe<Scalars['Boolean']>;
+  canManageUsers?: Maybe<Scalars['Boolean']>;
+  canManageRoles?: Maybe<Scalars['Boolean']>;
+  canManageCart?: Maybe<Scalars['Boolean']>;
+  canManageOrders?: Maybe<Scalars['Boolean']>;
+  assignedTo?: Maybe<UserRelateToManyInput>;
+};
+
+export type RolesCreateInput = {
+  data?: Maybe<RoleCreateInput>;
+};
+
 
 export type _ListAccess = {
   __typename?: '_ListAccess';
@@ -1068,6 +1276,14 @@ export type Query = {
   _allOrderItemsMeta?: Maybe<_QueryMeta>;
   /**  Retrieve the meta-data for the OrderItem list.  */
   _OrderItemsMeta?: Maybe<_ListMeta>;
+  /**  Search for all Role items which match the where clause.  */
+  allRoles?: Maybe<Array<Maybe<Role>>>;
+  /**  Search for the Role item with the matching ID.  */
+  Role?: Maybe<Role>;
+  /**  Perform a meta-query on all Role items which match the where clause.  */
+  _allRolesMeta?: Maybe<_QueryMeta>;
+  /**  Retrieve the meta-data for the Role list.  */
+  _RolesMeta?: Maybe<_ListMeta>;
   /**  Retrieve the meta-data for all lists.  */
   _ksListsMeta?: Maybe<Array<Maybe<_ListMeta>>>;
   /** The version of the Keystone application serving this API. */
@@ -1228,6 +1444,31 @@ export type Query_AllOrderItemsMetaArgs = {
 };
 
 
+export type QueryAllRolesArgs = {
+  where?: Maybe<RoleWhereInput>;
+  search?: Maybe<Scalars['String']>;
+  sortBy?: Maybe<Array<SortRolesBy>>;
+  orderBy?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryRoleArgs = {
+  where: RoleWhereUniqueInput;
+};
+
+
+export type Query_AllRolesMetaArgs = {
+  where?: Maybe<RoleWhereInput>;
+  search?: Maybe<Scalars['String']>;
+  sortBy?: Maybe<Array<SortRolesBy>>;
+  orderBy?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+};
+
+
 export type Query_KsListsMetaArgs = {
   where?: Maybe<_KsListsMetaInput>;
 };
@@ -1312,6 +1553,18 @@ export type Mutation = {
   deleteOrderItem?: Maybe<OrderItem>;
   /**  Delete multiple OrderItem items by ID.  */
   deleteOrderItems?: Maybe<Array<Maybe<OrderItem>>>;
+  /**  Create a single Role item.  */
+  createRole?: Maybe<Role>;
+  /**  Create multiple Role items.  */
+  createRoles?: Maybe<Array<Maybe<Role>>>;
+  /**  Update a single Role item by ID.  */
+  updateRole?: Maybe<Role>;
+  /**  Update multiple Role items by ID.  */
+  updateRoles?: Maybe<Array<Maybe<Role>>>;
+  /**  Delete a single Role item by ID.  */
+  deleteRole?: Maybe<Role>;
+  /**  Delete multiple Role items by ID.  */
+  deleteRoles?: Maybe<Array<Maybe<Role>>>;
   authenticateUserWithPassword: UserAuthenticationWithPasswordResult;
   createInitialUser: UserAuthenticationWithPasswordSuccess;
   sendUserPasswordResetLink?: Maybe<SendUserPasswordResetLinkResult>;
@@ -1504,6 +1757,37 @@ export type MutationDeleteOrderItemArgs = {
 
 
 export type MutationDeleteOrderItemsArgs = {
+  ids?: Maybe<Array<Scalars['ID']>>;
+};
+
+
+export type MutationCreateRoleArgs = {
+  data?: Maybe<RoleCreateInput>;
+};
+
+
+export type MutationCreateRolesArgs = {
+  data?: Maybe<Array<Maybe<RolesCreateInput>>>;
+};
+
+
+export type MutationUpdateRoleArgs = {
+  id: Scalars['ID'];
+  data?: Maybe<RoleUpdateInput>;
+};
+
+
+export type MutationUpdateRolesArgs = {
+  data?: Maybe<Array<Maybe<RolesUpdateInput>>>;
+};
+
+
+export type MutationDeleteRoleArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteRolesArgs = {
   ids?: Maybe<Array<Scalars['ID']>>;
 };
 
@@ -2152,7 +2436,7 @@ export type CheckoutMutationResult = Apollo.MutationResult<CheckoutMutation>;
 export type CheckoutMutationOptions = Apollo.BaseMutationOptions<CheckoutMutation, CheckoutMutationVariables>;
 export const ProductsDocument = gql`
     query products($first: Int, $skip: Int = 0) {
-  allProducts(first: $first, skip: $skip) {
+  allProducts(first: $first, skip: $skip, sortBy: id_DESC) {
     ...product
   }
 }
