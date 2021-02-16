@@ -17,5 +17,6 @@ export const SickButton = styled.button`
 
     &[disabled] {
         opacity: 0.5;
+        cursor: progress;
     }
 `;
