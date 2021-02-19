@@ -10,9 +10,10 @@ import { loggerLink } from './links';
 
 const logGql = debug('[GraphQL error]');
 
-export const createApolloClient = ({ headers, initialState }) => {
+export const createApolloClient = () => {
     return new ApolloClient({
-        link: from([
+        ssrMode: typeof window === 'undefined',
+        link:    from([
             loggerLink,
             onError(net => {
                 logGql('Operation:', net.operation);
@@ -39,7 +40,6 @@ export const createApolloClient = ({ headers, initialState }) => {
                 fetchOptions: {
                     credentials: 'include',
                 },
-                headers,
             }),
         ]),
         cache: new InMemoryCache({
@@ -50,6 +50,6 @@ export const createApolloClient = ({ headers, initialState }) => {
                     },
                 },
             },
-        }).restore(initialState || {}),
+        }),
     });
 };

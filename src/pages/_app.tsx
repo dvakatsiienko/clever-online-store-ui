@@ -13,16 +13,19 @@ import { Layout } from '@/features/Layout';
 
 /* Instruments */
 import '@/theme/global.css';
+import '@/theme/palette.css';
 import '@/theme/nprogress.css';
-import { withApollo } from '@/lib';
+import { useApollo } from '@/lib/apollo';
 import { CartStateProvider } from '@/helpers';
 
 const _App = (
     props: AppProps & { apollo: ApolloClient<NormalizedCacheObject> },
 ) => {
+    const apolloClient = useApollo(props.pageProps.initialApolloState);
+
     return (
         <CartStateProvider>
-            <ApolloProvider client = { props.apollo }>
+            <ApolloProvider client = { apolloClient }>
                 <Layout>
                     <props.Component { ...props.pageProps } />
                 </Layout>
@@ -31,21 +34,9 @@ const _App = (
     );
 };
 
-_App.getInitialProps = async (options: any) => {
-    let pageProps = {
-        query: {},
-    };
+export default _App;
 
-    if (options.Component.getInitialProps) {
-        pageProps = await options.Component.getInitialProps(options.ctx);
-    }
-
-    pageProps.query = options.ctx.query;
-
-    return { pageProps };
-};
-
-export default withApollo(_App);
+// export default withApollo(_App);
 
 router.events.on('routeChangeStart', nprogress.start);
 router.events.on('routeChangeComplete', nprogress.done);

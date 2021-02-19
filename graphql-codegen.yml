@@ -11,3 +11,12 @@ generates:
             - typescript
             - typescript-operations
             - typescript-react-apollo
+            - typescript-apollo-client-helpers
+    src/graphql/ssr-typings.tsx:
+        plugins:
+            - graphql-codegen-apollo-next-ssr
+        config:
+            gqlImport: '@apollo/client#gql'
+            constEnums: false
+            reactApolloVersion: 3
+            dedupeOperationSuffix: true

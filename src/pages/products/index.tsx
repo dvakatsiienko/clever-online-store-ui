@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 
 const ProductsPage: NextPage = () => {
     const router = useRouter();
+
     useEffect(() => {
         router.replace('/products/1');
     }, []);
