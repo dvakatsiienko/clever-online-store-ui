@@ -11,12 +11,10 @@ import { Layout } from '@/features/Layout';
 import * as gql from '@/graphql';
 import { withApollo } from '@/lib';
 
-const UpdatePage = props => {
+const UpdatePage: NextPage = () => {
     const router = useRouter();
     const productId = router.query.productId as string;
     const userQuery = gql.useUserQuery();
-
-    console.log();
 
     if (!userQuery.data?.authenticatedItem) {
         if (process.browser) {
