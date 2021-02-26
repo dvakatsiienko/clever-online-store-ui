@@ -1,3 +1,4 @@
+/* Instruments */
 import * as gql from '@/graphql';
 
 export const AddToCart: React.FC<AddToCartProps> = props => {

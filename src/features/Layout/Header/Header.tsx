@@ -10,16 +10,16 @@ import { Cart } from './Cart';
 export const Header: React.FC = () => {
     return (
         <HeaderStyles>
-            <div className = 'bar'>
+            <span className = 'bar'>
                 <Logo>
-                    <Link href = '/'>Клевер ️</Link>
+                    <Link href = '/products/1'>Клевер ️</Link>
                 </Logo>
                 <Nav />
-            </div>
+            </span>
 
-            <div className = 'sub-bar'>
+            <span className = 'sub-bar'>
                 <Search />
-            </div>
+            </span>
 
             <Cart />
         </HeaderStyles>
@@ -28,29 +28,29 @@ export const Header: React.FC = () => {
 
 /* Styles */
 const Logo = styled.h1`
-    background-color: red;
-    font-size: 4rem;
-    margin-left: 2rem;
     position: relative;
     z-index: 2;
+    margin-left: 2rem;
+    font-size: 4rem;
+    background-color: red;
     transform: skew(-7deg);
 
     & a {
+        padding: 0.5rem 1rem;
         color: white;
         text-decoration: none;
         text-transform: uppercase;
-        padding: 0.5rem 1rem;
     }
 `;
 
-const HeaderStyles = styled.header`
+const HeaderStyles = styled.section`
     margin-bottom: 15px;
 
     & .bar {
         display: grid;
         grid-template-columns: auto 1fr;
-        justify-content: space-between;
         align-items: stretch;
+        justify-content: space-between;
         border-bottom: 10px solid var(--black, black);
     }
 

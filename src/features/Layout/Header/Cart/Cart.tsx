@@ -11,7 +11,7 @@ import * as gql from '@/graphql';
 import { formatMoney, useCart } from '@/helpers';
 
 export const Cart: React.FC = () => {
-    const userQuery = gql.useUserQuery();
+    const userQuery = gql.useUserQuery({ fetchPolicy: 'network-only' });
     const cartState = useCart();
 
     if (!userQuery.data?.authenticatedItem) {
@@ -88,9 +88,9 @@ const CartItem: React.FC<CartItemProps> = props => {
 /* Styles */
 const CartItemStyles = styled.li`
     display: grid;
+    grid-template-columns: auto 1fr auto;
     padding: 1rem 0;
     border-bottom: 1px solid var(--lightGrey);
-    grid-template-columns: auto 1fr auto;
 
     & img {
         margin-right: 1rem !important;

@@ -21,12 +21,13 @@ class _Document extends Document {
                 });
 
             const initialProps = await Document.getInitialProps(ctx);
+
             return {
                 ...initialProps,
                 styles: (
                     <>
-                        {initialProps.styles}
                         {sheet.getStyleElement()}
+                        {initialProps.styles}
                     </>
                 ),
             };
@@ -40,12 +41,13 @@ class _Document extends Document {
             <Html lang = 'en-US'>
                 <Head>
                     <link href = '/favicon.png' rel = 'shortcut icon' />
-                    <link
+                    {/* <link
                         as = 'font'
                         href = '/radnika-next-medium.woff2'
                         rel = 'preload'
                         type = 'font/woff2'
-                    />
+                    /> */}
+
                     {this.props.styles}
                 </Head>
 

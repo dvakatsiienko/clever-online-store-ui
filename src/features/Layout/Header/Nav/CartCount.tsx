@@ -23,13 +23,13 @@ export const CartCount: React.FC<CartCountProps> = props => {
 
 /* Styles */
 const Dot = styled.div`
-    background-color: var(--red);
-    color: white;
-    border-radius: 50%;
-    padding: 0.5rem;
-    line-height: 2rem;
     min-width: 3rem;
+    padding: 0.5rem;
     margin-left: 1rem;
+    line-height: 2rem;
+    color: white;
+    background-color: var(--red);
+    border-radius: 50%;
     font-feature-settings: 'tnum';
     font-variant-numeric: tabular-nums;
 `;
@@ -38,8 +38,8 @@ const AnimationStyles = styled.span`
     position: relative;
 
     & .count {
-        display: block;
         position: relative;
+        display: block;
         transition: transform 0.4s ease;
         backface-visibility: hidden;
 
@@ -52,8 +52,8 @@ const AnimationStyles = styled.span`
         }
 
         &-exit {
-            top: 0;
             position: absolute;
+            top: 0;
             transform: rotateX(0);
 
             &-active {

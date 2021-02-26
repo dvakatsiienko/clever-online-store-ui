@@ -1,14 +1,17 @@
 /* Core */
-import { NextPage } from 'next';
+import { NextPage, GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { merge } from 'webpack-merge';
 
 /* Components */
 import { OrderStyles } from '@/components/styled';
 import { ErrorMessage } from '@/components';
+import { Layout } from '@/features/Layout';
 
 /* Instruments */
 import * as gql from '@/graphql';
+import { withApollo } from '@/lib';
 import { formatMoney } from '@/helpers';
 
 const OrderByIdPage: NextPage = () => {
@@ -48,29 +51,42 @@ const OrderByIdPage: NextPage = () => {
     });
 
     return (
-        <OrderStyles>
-            <Head>
-                <title>Sick Fits — {order.id}</title>
-            </Head>
-            <p>
-                <span>Order Id:</span>
-                <span>{order.id}</span>
-            </p>
-            <p>
-                <span>Charge:</span>
-                <span>{order.charge}</span>
-            </p>
-            <p>
-                <span>Order Total:</span>
-                <span>{formatMoney(order.total)}</span>
-            </p>
-            <p>
-                <span>Item Count:</span>
-                <span>{order.items.length}</span>
-            </p>
-            <div className = 'items'>{orderItemsJSX}</div>
-        </OrderStyles>
+        <Layout>
+            <OrderStyles>
+                <Head>
+                    <title>Sick Fits — {order.id}</title>
+                </Head>
+                <p>
+                    <span>Order Id:</span>
+                    <span>{order.id}</span>
+                </p>
+                <p>
+                    <span>Charge:</span>
+                    <span>{order.charge}</span>
+                </p>
+                <p>
+                    <span>Order Total:</span>
+                    <span>{formatMoney(order.total)}</span>
+                </p>
+                <p>
+                    <span>Item Count:</span>
+                    <span>{order.items.length}</span>
+                </p>
+                <div className = 'items'>{orderItemsJSX}</div>
+            </OrderStyles>
+        </Layout>
     );
 };
 
-export default OrderByIdPage;
+export const getServerSideProps: GetServerSideProps = async ctx => {
+    const orderId = ctx.query.orderId as string;
+
+    const [ userQuery, allOrdersQuery ] = await Promise.all([
+        gql.ssrUser.getServerPage({}, ctx),
+        gql.ssrOrder.getServerPage({ variables: { id: orderId } }, ctx),
+    ]);
+
+    return merge(userQuery, allOrdersQuery);
+};
+
+export default withApollo(OrderByIdPage);

@@ -23,7 +23,7 @@ export const CreateProductForm: React.FC = () => {
         createProductMutation,
         { loading: isLoading, error },
     ] = gql.useCreateProductMutation({
-        refetchQueries: [{ query: gql.ProductsDocument }],
+        refetchQueries: [{ query: gql.AllProductsDocument }],
     });
 
     const createProduct = form.handleSubmit(async (_, event) => {

@@ -2054,13 +2054,13 @@ export type OrderFragment = (
   )> }
 );
 
-export type ProductsQueryVariables = Exact<{
+export type AllProductsQueryVariables = Exact<{
   first?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
 }>;
 
 
-export type ProductsQuery = (
+export type AllProductsQuery = (
   { __typename?: 'Query' }
   & { allProducts?: Maybe<Array<Maybe<(
     { __typename?: 'Product' }
@@ -2435,8 +2435,8 @@ export function useCheckoutMutation(baseOptions?: Apollo.MutationHookOptions<Che
 export type CheckoutMutationHookResult = ReturnType<typeof useCheckoutMutation>;
 export type CheckoutMutationResult = Apollo.MutationResult<CheckoutMutation>;
 export type CheckoutMutationOptions = Apollo.BaseMutationOptions<CheckoutMutation, CheckoutMutationVariables>;
-export const ProductsDocument = gql`
-    query products($first: Int, $skip: Int = 0) {
+export const AllProductsDocument = gql`
+    query allProducts($first: Int, $skip: Int = 0) {
   allProducts(first: $first, skip: $skip, sortBy: id_DESC) {
     ...product
   }
@@ -2444,31 +2444,31 @@ export const ProductsDocument = gql`
     ${ProductFragmentDoc}`;
 
 /**
- * __useProductsQuery__
+ * __useAllProductsQuery__
  *
- * To run a query within a React component, call `useProductsQuery` and pass it any options that fit your needs.
- * When your component renders, `useProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useAllProductsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useProductsQuery({
+ * const { data, loading, error } = useAllProductsQuery({
  *   variables: {
  *      first: // value for 'first'
  *      skip: // value for 'skip'
  *   },
  * });
  */
-export function useProductsQuery(baseOptions?: Apollo.QueryHookOptions<ProductsQuery, ProductsQueryVariables>) {
-        return Apollo.useQuery<ProductsQuery, ProductsQueryVariables>(ProductsDocument, baseOptions);
+export function useAllProductsQuery(baseOptions?: Apollo.QueryHookOptions<AllProductsQuery, AllProductsQueryVariables>) {
+        return Apollo.useQuery<AllProductsQuery, AllProductsQueryVariables>(AllProductsDocument, baseOptions);
       }
-export function useProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProductsQuery, ProductsQueryVariables>) {
-          return Apollo.useLazyQuery<ProductsQuery, ProductsQueryVariables>(ProductsDocument, baseOptions);
+export function useAllProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllProductsQuery, AllProductsQueryVariables>) {
+          return Apollo.useLazyQuery<AllProductsQuery, AllProductsQueryVariables>(AllProductsDocument, baseOptions);
         }
-export type ProductsQueryHookResult = ReturnType<typeof useProductsQuery>;
-export type ProductsLazyQueryHookResult = ReturnType<typeof useProductsLazyQuery>;
-export type ProductsQueryResult = Apollo.QueryResult<ProductsQuery, ProductsQueryVariables>;
+export type AllProductsQueryHookResult = ReturnType<typeof useAllProductsQuery>;
+export type AllProductsLazyQueryHookResult = ReturnType<typeof useAllProductsLazyQuery>;
+export type AllProductsQueryResult = Apollo.QueryResult<AllProductsQuery, AllProductsQueryVariables>;
 export const ProductsCountDocument = gql`
     query productsCount {
   _allProductsMeta {

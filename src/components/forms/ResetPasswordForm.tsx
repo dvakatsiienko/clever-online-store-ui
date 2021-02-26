@@ -1,4 +1,5 @@
 /* Core */
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -33,6 +34,10 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = props => {
     const successfulError = data?.redeemUserPasswordResetToken?.code
         ? data?.redeemUserPasswordResetToken
         : null;
+
+    useEffect(() => {
+        form.setValue('token', props.token);
+    }, [ props.token ]);
 
     return (
         <Form

@@ -1,15 +1,18 @@
 /* Core */
-import { NextPage } from 'next';
+import { NextPage, GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import { merge } from 'webpack-merge';
 import styled from 'styled-components';
 
 /* Components */
 import { OrderItemStyles } from '@/components/styled';
 import { ErrorMessage } from '@/components';
+import { Layout } from '@/features/Layout';
 
 /* Instruments */
 import * as gql from '@/graphql';
+import { withApollo } from '@/lib';
 import { formatMoney } from '@/helpers';
 
 const OrdersPage: NextPage = () => {
@@ -62,14 +65,14 @@ const OrdersPage: NextPage = () => {
     });
 
     return (
-        <>
+        <Layout>
             <Head>
                 <title>Your Orders ({allOrders.length}).</title>
             </Head>
 
             <h1>You have {allOrders.length} orders!</h1>
             <OrderUl>{allOrdersJSX}</OrderUl>
-        </>
+        </Layout>
     );
 };
 
@@ -87,4 +90,13 @@ function countItemsInOrder(order: gql.OrderFragment) {
     }, 0);
 }
 
-export default OrdersPage;
+export const getServerSideProps: GetServerSideProps = async ctx => {
+    const [ userQuery, allOrdersQuery ] = await Promise.all([
+        gql.ssrUser.getServerPage({}, ctx),
+        gql.ssrAllOrders.getServerPage({}, ctx),
+    ]);
+
+    return merge(userQuery, allOrdersQuery);
+};
+
+export default withApollo(OrdersPage);

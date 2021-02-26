@@ -1,12 +1,15 @@
 /* Core */
+import { NextPage, GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { NextPage } from 'next';
+import { merge } from 'webpack-merge';
 
 /* Components */
 import { CreateProductForm } from '@/components';
+import { Layout } from '@/features/Layout';
 
 /* Instruments */
 import * as gql from '@/graphql';
+import { withApollo } from '@/lib';
 
 const SellPage: NextPage = () => {
     const router = useRouter();
@@ -19,7 +22,21 @@ const SellPage: NextPage = () => {
         return null;
     }
 
-    return <CreateProductForm />;
+    return (
+        <Layout>
+            <CreateProductForm />
+        </Layout>
+    );
 };
 
-export default SellPage;
+export const getServerSideProps: GetServerSideProps = async ctx => {
+    const [ productsQuery, productsCountQuery, userQuery ] = await Promise.all([
+        gql.ssrAllProducts.getServerPage({}, ctx),
+        gql.ssrProductsCount.getServerPage({}, ctx),
+        gql.ssrUser.getServerPage({}, ctx),
+    ]);
+
+    return merge(productsQuery, productsCountQuery, userQuery);
+};
+
+export default withApollo(SellPage);

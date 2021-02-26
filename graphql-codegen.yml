@@ -2,28 +2,31 @@ schema: ${NEXT_PUBLIC_DEV_GQL_URL}
 documents: 'src/graphql/**/*.gql'
 
 config:
-    # Test out the behavior and revisit later on
     enumsAsConst: true
 
 generates:
-    src/graphql/graphql.tsx:
+    src/graphql/operation-types.tsx:
         config:
-            # documentMode: graphQLTag
             exportFragmentSpreadSubTypes: true
+            documentMode: graphQLTag
         plugins:
             - typescript
             - typescript-operations
             - typescript-react-apollo
             - typescript-apollo-client-helpers
-    # src/graphql/ssr-typings.tsx:
-    #     config:
-    #         reactApolloVersion: 3
-    #         gqlImport: '@apollo/client#gql'
-    #         importDocumentNodeExternallyFrom: ./graphql
-    #         # !! NEEDS TO BE INJECTED IN ORDER TO CREATE HOCS AUTOMATICALLY !!
-    #         apolloClientInstanceImport: '../withApollo'
-    #     preset: import-types
-    #     presetConfig:
-    #         typePaths: ./graphql
-    #     plugins:
-    #         - graphql-codegen-apollo-next-ssr
+    src/graphql/ssr-types.tsx:
+        config:
+            documentMode: external
+            importDocumentNodeExternallyFrom: ./operation-types
+            reactApolloVersion: 3
+            withHooks: true
+            withHOC: false
+            apolloClientInstanceImport: ../lib
+        preset: import-types
+        presetConfig:
+            typesPath: ./operation-types
+        plugins:
+            - graphql-codegen-apollo-next-ssr
+        hooks:
+            afterAllFileWrite:
+                - prettier --write
