@@ -1,4 +1,5 @@
 /* Core */
+import { useReactiveVar } from '@apollo/client';
 import styled from 'styled-components';
 
 /* Components */
@@ -8,11 +9,13 @@ import { Checkout } from './Checkout';
 
 /* Instruments */
 import * as gql from '@/graphql';
-import { formatMoney, useCart } from '@/helpers';
+import { isCartOpenVar } from '@/lib';
+import { formatMoney } from '@/helpers';
 
 export const Cart: React.FC = () => {
     const userQuery = gql.useUserQuery({ fetchPolicy: 'network-only' });
-    const cartState = useCart();
+
+    const isCartOpen = useReactiveVar(isCartOpenVar);
 
     if (!userQuery.data?.authenticatedItem) {
         return null;
@@ -29,13 +32,13 @@ export const Cart: React.FC = () => {
     );
 
     return (
-        <CartStyles $open = { cartState.isCartOpen }>
+        <CartStyles $open = { isCartOpen }>
             <header>
                 <Supreme>
                     {userQuery.data.authenticatedItem.name}'s Cart
                 </Supreme>
 
-                <CloseButton onClick = { () => cartState.setCartOpen(false) }>
+                <CloseButton onClick = { () => isCartOpenVar(false) }>
                     &times;
                 </CloseButton>
             </header>

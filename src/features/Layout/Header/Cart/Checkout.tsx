@@ -1,7 +1,6 @@
 /* Core */
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
 import { loadStripe } from '@stripe/stripe-js';
 import {
     useStripe,
@@ -10,17 +9,17 @@ import {
     CardElement
 } from '@stripe/react-stripe-js';
 import nprogress from 'nprogress';
+import styled from 'styled-components';
 
 /* Components */
 import { SickButton } from '@/components/styled';
 
 /* Instruments */
 import * as gql from '@/graphql';
-import { useCart } from '@/helpers';
+import { isCartOpenVar } from '@/lib';
 
 const CheckoutForm: React.FC = () => {
     const router = useRouter();
-    const cart = useCart();
     const [ error, setError ] = useState(null);
     const [ isLoading, setLoading ] = useState(false);
     const stripe = useStripe();
@@ -60,7 +59,7 @@ const CheckoutForm: React.FC = () => {
             pathname: '/order/[orderId]',
             query:    { orderId: order.data.checkout.id },
         });
-        cart.setCartOpen(false);
+        isCartOpenVar(false);
     };
 
     const isError = error || checkoutMutationMeta.error;

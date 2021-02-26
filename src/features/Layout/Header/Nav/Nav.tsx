@@ -8,11 +8,10 @@ import { LogoutButton } from './LogoutButton';
 
 /* Instruments */
 import * as gql from '@/graphql';
-import { useCart } from '@/helpers';
+import { isCartOpenVar } from '@/lib';
 
 export const Nav: React.FC = () => {
     const userQuery = gql.useUserQuery();
-    const cartState = useCart();
 
     const cartItemsQuantity = userQuery.data?.authenticatedItem?.cart.reduce(
         (tally, cartItem) => {
@@ -31,10 +30,7 @@ export const Nav: React.FC = () => {
                     <Link href = '/orders'>Orders</Link>
                     <Link href = '/profile'>Profile</Link>
 
-                    <button
-                        type = 'button'
-                        onClick = { () => cartState.setCartOpen(true) }
-                    >
+                    <button type = 'button' onClick = { () => isCartOpenVar(true) }>
                         My Cart
                         <CartCount count = { cartItemsQuantity } />
                     </button>

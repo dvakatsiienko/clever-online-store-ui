@@ -8,10 +8,8 @@ import { Layout } from '@/features/Layout';
 import * as gql from '@/graphql';
 import { withApollo } from '@/lib';
 
-const ProfilePage: NextPage = props => {
+const ProfilePage: NextPage = () => {
     const userQuery = gql.useUserQuery();
-
-    console.log('props', props);
 
     return (
         <Layout>
@@ -23,8 +21,6 @@ const ProfilePage: NextPage = props => {
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
     const [ userQuery ] = await Promise.all([ gql.ssrUser.getServerPage({}, ctx) ]);
-
-    console.log('userQuery', userQuery);
 
     return userQuery;
 };

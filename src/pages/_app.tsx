@@ -8,16 +8,11 @@ import nprogress from 'nprogress';
 import '@/theme/global.css';
 import '@/theme/palette.css';
 import '@/theme/nprogress.css';
-import { CartStateProvider } from '@/helpers';
 
 const _App = (
     props: AppProps & { apollo: ApolloClient<NormalizedCacheObject> },
 ) => {
-    return (
-        <CartStateProvider>
-            <props.Component { ...props.pageProps } />
-        </CartStateProvider>
-    );
+    return <props.Component { ...props.pageProps } />;
 };
 
 export default _App;
