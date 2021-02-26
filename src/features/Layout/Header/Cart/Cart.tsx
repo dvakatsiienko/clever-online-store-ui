@@ -13,7 +13,7 @@ import { isCartOpenVar } from '@/lib';
 import { formatMoney } from '@/helpers';
 
 export const Cart: React.FC = () => {
-    const userQuery = gql.useUserQuery({ fetchPolicy: 'network-only' });
+    const userQuery = gql.useUserQuery();
 
     const isCartOpen = useReactiveVar(isCartOpenVar);
 

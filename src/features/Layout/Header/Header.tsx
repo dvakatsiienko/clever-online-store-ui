@@ -12,8 +12,9 @@ export const Header: React.FC = () => {
         <HeaderStyles>
             <span className = 'bar'>
                 <Logo>
-                    <Link href = '/products/1'>Клевер ️</Link>
+                    <Link href = '/products/1'>Клевер</Link>
                 </Logo>
+
                 <Nav />
             </span>
 

@@ -49,6 +49,10 @@ export const UpdateProductForm: React.FC<UpdateProductFormProps> = props => {
         }
     }, [ productQuery.data ]);
 
+    useEffect(() => {
+        form.setValue('id', props.productId);
+    }, [ props.productId ]);
+
     return (
         <>
             <h1>Update Product «{productQuery.data?.Product.name}»</h1>

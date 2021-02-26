@@ -16,18 +16,18 @@ import { loggerLink } from './links';
 
 const logGql = debug('[GraphQL error]');
 
+const KEYSTONE_COOKIE_NAME = 'keystonejs-session';
+
 export const createApolloClient = (
     ctx?: GetServerSidePropsContext,
     initialState?: NormalizedCacheObject,
 ) => {
-    const headers = {};
-    let credentials = 'include';
+    const headers: { cookie?: string } = {};
 
     if (ctx?.req.cookies) {
-        const cookie = ctx.req.cookies['keystonejs-session'];
+        const cookie = ctx.req.cookies[KEYSTONE_COOKIE_NAME];
 
-        headers.cookie = 'keystonejs-session=' + cookie;
-        credentials = 'same-origin';
+        headers.cookie = `${KEYSTONE_COOKIE_NAME}=${cookie}`;
     }
 
     return new ApolloClient({
@@ -58,7 +58,6 @@ export const createApolloClient = (
                 uri: __DEV__
                     ? process.env.NEXT_PUBLIC_DEV_GQL_URL
                     : process.env.NEXT_PUBLIC_PROD_GQL_URL,
-                // fetchOptions: { credentials: 'include', headers },
                 credentials: 'include',
                 headers,
                 fetch,
