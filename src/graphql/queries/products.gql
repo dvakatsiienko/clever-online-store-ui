@@ -12,7 +12,7 @@ query productsCount {
 }
 
 query product($id: ID!) {
-    Product(where: { id: $id }) {
+    product: Product(where: { id: $id }) {
         ...product
     }
 }

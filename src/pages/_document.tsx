@@ -37,31 +37,27 @@ class _Document extends Document {
     }
 
     render() {
+        const fonts = [ '400', '500', '700' ];
+
+        const preloadFontLinksJSX = fonts.map((font, index) => {
+            return (
+                <link
+                    as = 'font'
+                    crossOrigin = 'anonymous'
+                    href = { `/fonts/roboto/roboto-${font}.woff2` }
+                    key = { index }
+                    rel = 'preload'
+                    type = 'font/woff2'
+                />
+            );
+        });
+
         return (
             <Html lang = 'en-US'>
                 <Head>
                     <link href = '/favicon.png' rel = 'shortcut icon' />
-                    <link
-                        as = 'font'
-                        crossOrigin = 'anonymous'
-                        href = '/fonts/roboto/roboto-400.woff2'
-                        rel = 'preload'
-                        type = 'font/woff2'
-                    />
-                    <link
-                        as = 'font'
-                        crossOrigin = 'anonymous'
-                        href = '/fonts/roboto/roboto-500.woff2'
-                        rel = 'preload'
-                        type = 'font/woff2'
-                    />
-                    <link
-                        as = 'font'
-                        crossOrigin = 'anonymous'
-                        href = '/fonts/roboto/roboto-700.woff2'
-                        rel = 'preload'
-                        type = 'font/woff2'
-                    />
+
+                    {preloadFontLinksJSX}
 
                     {this.props.styles}
                 </Head>

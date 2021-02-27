@@ -30,13 +30,13 @@ const SellPage: NextPage = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
-    const [ productsQuery, productsCountQuery, userQuery ] = await Promise.all([
+    const queries = await Promise.all([
         gql.ssrAllProducts.getServerPage({}, ctx),
         gql.ssrProductsCount.getServerPage({}, ctx),
         gql.ssrUser.getServerPage({}, ctx),
     ]);
 
-    return merge(productsQuery, productsCountQuery, userQuery);
+    return merge(queries);
 };
 
 export default withApollo(SellPage);

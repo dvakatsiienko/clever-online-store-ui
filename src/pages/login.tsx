@@ -1,8 +1,8 @@
 /* Core */
 import { NextPage, GetServerSideProps } from 'next';
-import styled from 'styled-components';
 
 /* Components */
+import { LoginPageLayout } from '@/styled-components';
 import { LoginForm, RegisterForm, RequestPasswordRestForm } from '@/components';
 import { Layout } from '@/features/Layout';
 
@@ -13,21 +13,14 @@ import { withApollo } from '@/lib';
 const LoginPage: NextPage = () => {
     return (
         <Layout>
-            <Container>
+            <LoginPageLayout>
                 <LoginForm />
                 <RegisterForm />
                 <RequestPasswordRestForm />
-            </Container>
+            </LoginPageLayout>
         </Layout>
     );
 };
-
-/* Styles */
-const Container = styled.section`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-gap: 2rem;
-`;
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
     const [ userQuery ] = await Promise.all([ gql.ssrUser.getServerPage({}, ctx) ]);

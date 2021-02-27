@@ -43,9 +43,9 @@ export const UpdateProductForm: React.FC<UpdateProductFormProps> = props => {
 
     useEffect(() => {
         if (productQuery.data) {
-            form.setValue('name', productQuery.data.Product.name);
-            form.setValue('price', productQuery.data.Product.price);
-            form.setValue('description', productQuery.data.Product.description);
+            form.setValue('name', productQuery.data.product.name);
+            form.setValue('price', productQuery.data.product.price);
+            form.setValue('description', productQuery.data.product.description);
         }
     }, [ productQuery.data ]);
 
@@ -55,7 +55,7 @@ export const UpdateProductForm: React.FC<UpdateProductFormProps> = props => {
 
     return (
         <>
-            <h1>Update Product «{productQuery.data?.Product.name}»</h1>
+            <h1>Update Product «{productQuery.data?.product.name}»</h1>
 
             <Form
                 isLoading = { isLoading }

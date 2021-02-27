@@ -26,7 +26,7 @@ export const Pagination: React.FC<PaginationProps> = props => {
     }
 
     return (
-        <PaginationStyles>
+        <Container>
             <Head>
                 <title>
                     Clever - Page {props.pageNumber} of {pageCount}
@@ -43,18 +43,19 @@ export const Pagination: React.FC<PaginationProps> = props => {
             <Link href = { `/products/${props.pageNumber + 1}` }>
                 <a aria-disabled = { props.pageNumber >= pageCount }>Next →</a>
             </Link>
-        </PaginationStyles>
+        </Container>
     );
 };
 
 /* Styles */
-export const PaginationStyles = styled.div`
+export const Container = styled.div`
     display: inline-grid;
     grid-template-columns: repeat(4, auto);
     align-content: center;
     align-items: stretch;
     justify-content: center;
     margin: 2rem 0;
+    font-size: 16px;
     text-align: center;
     border: 1px solid var(--lightGray);
     border-radius: 10px;
@@ -73,6 +74,25 @@ export const PaginationStyles = styled.div`
     a[aria-disabled='true'] {
         color: grey;
         pointer-events: none;
+        cursor: not-allowed;
+    }
+
+    a {
+        font-weight: 600;
+        transition: color 0.1s ease, background-color 0.1s ease;
+
+        &:first-child {
+            border-radius: 10px 0 0 10px;
+        }
+
+        &:last-child {
+            border-radius: 0 10px 10px 0;
+        }
+
+        &:hover {
+            color: white;
+            background-color: black;
+        }
     }
 `;
 

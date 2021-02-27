@@ -2086,7 +2086,7 @@ export type ProductQueryVariables = Exact<{
 
 export type ProductQuery = (
   { __typename?: 'Query' }
-  & { Product?: Maybe<(
+  & { product?: Maybe<(
     { __typename?: 'Product' }
     & ProductFragment
   )> }
@@ -2503,7 +2503,7 @@ export type ProductsCountLazyQueryHookResult = ReturnType<typeof useProductsCoun
 export type ProductsCountQueryResult = Apollo.QueryResult<ProductsCountQuery, ProductsCountQueryVariables>;
 export const ProductDocument = gql`
     query product($id: ID!) {
-  Product(where: {id: $id}) {
+  product: Product(where: {id: $id}) {
     ...product
   }
 }

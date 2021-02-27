@@ -10,7 +10,7 @@ import { AddToCart } from './AddToCart';
 import * as gql from '@/graphql';
 import { formatMoney } from '@/helpers';
 
-export const Product: React.FC<ProductProps> = props => {
+export const ProductCard: React.FC<ProductCardProps> = props => {
     return (
         <Container>
             <img
@@ -26,6 +26,7 @@ export const Product: React.FC<ProductProps> = props => {
             <PriceTag>{formatMoney(props.product?.price)}</PriceTag>
 
             <p>{props.product?.description}</p>
+
             <div className = 'buttonList'>
                 <Link
                     href = {{
@@ -64,7 +65,7 @@ export const Container = styled.div`
         flex-grow: 1;
         padding: 0 3rem;
         font-size: 1.5rem;
-        font-weight: 300;
+        font-weight: 500;
         line-height: 2;
     }
 
@@ -125,6 +126,6 @@ const PriceTag = styled.span`
 `;
 
 /* Types */
-interface ProductProps {
+interface ProductCardProps {
     product: gql.ProductFragment;
 }

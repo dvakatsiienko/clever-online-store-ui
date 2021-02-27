@@ -2,16 +2,16 @@
 import styled from 'styled-components';
 
 /* Components */
-import { Product } from './Product';
+import { ProductCard } from './ProductCard';
 
 /* Instruments */
 import * as gql from '@/graphql';
 
-export const Products: React.FC<PaginationProps> = props => {
+export const ProductCardList: React.FC<ProductCardList> = props => {
     const productsJSX = props.allProductsQuery.allProducts
         .filter(product => product)
         .map(product => {
-            return <Product key = { product?.id } product = { product } />;
+            return <ProductCard key = { product?.id } product = { product } />;
         });
 
     return <ProductsList>{productsJSX}</ProductsList>;
@@ -25,7 +25,7 @@ const ProductsList = styled.div`
 `;
 
 /* Types */
-interface PaginationProps {
+interface ProductCardList {
     pageNumber: number;
     allProductsQuery: gql.AllProductsQuery;
 }

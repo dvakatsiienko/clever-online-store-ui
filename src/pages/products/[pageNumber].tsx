@@ -7,7 +7,7 @@ import { merge } from 'webpack-merge';
 import { ErrorMessage } from '@/components';
 import { Layout } from '@/features/Layout';
 import { Pagination } from '@/features/Pagination';
-import { Products } from '@/features/Products';
+import { ProductCardList } from '@/features/Products';
 
 /* Instruments */
 import * as gql from '@/graphql';
@@ -34,27 +34,25 @@ const PaginatedProductsPage: gql.PageAllProductsComp = () => {
         <Layout>
             <h1>Products</h1>
             <Pagination pageNumber = { pageNumber || 1 } />
-            {allProductsQuery.loading ? (
-                <h1>Loading...</h1>
-            ) : (
-                <Products
-                    allProductsQuery = { allProductsQuery.data }
-                    pageNumber = { pageNumber || 1 }
-                />
-            )}
+
+            <ProductCardList
+                allProductsQuery = { allProductsQuery.data }
+                pageNumber = { pageNumber || 1 }
+            />
+
             <Pagination pageNumber = { pageNumber || 1 } />
         </Layout>
     );
 };
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
-    const [ productsQuery, productsCountQuery, userQuery ] = await Promise.all([
+    const queries = await Promise.all([
         gql.ssrAllProducts.getServerPage({}, ctx),
         gql.ssrProductsCount.getServerPage({}, ctx),
         gql.ssrUser.getServerPage({}, ctx),
     ]);
 
-    return merge(productsQuery, productsCountQuery, userQuery);
+    return merge(queries);
 };
 
 export default withApollo(PaginatedProductsPage);
