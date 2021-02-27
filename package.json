@@ -6,7 +6,7 @@
         "start": "next -p 7777",
         "build": "next build",
         "serve": "next start",
-        "serve-prod": "next start -H 0.0.0.0 -p ${PORT:-8080}",
+        "serve-digitalocean-prod": "next start -H 0.0.0.0 -p ${PORT:-8080}",
         "codegen:graphql": "gql-gen DEBUG=1 VERBOSE=1 -r dotenv/config --config=graphql-codegen.yml",
         "test": "NODE_ENV=test jest --watch"
     },
