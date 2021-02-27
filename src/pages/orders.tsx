@@ -90,13 +90,13 @@ function countItemsInOrder(order: gql.OrderFragment) {
     }, 0);
 }
 
-// export const getServerSideProps: GetServerSideProps = async ctx => {
-//     const [ userQuery, allOrdersQuery ] = await Promise.all([
-//         gql.ssrUser.getServerPage({}, ctx),
-//         gql.ssrAllOrders.getServerPage({}, ctx),
-//     ]);
+export const getServerSideProps: GetServerSideProps = async ctx => {
+    const [ userQuery, allOrdersQuery ] = await Promise.all([
+        gql.ssrUser.getServerPage({}, ctx),
+        gql.ssrAllOrders.getServerPage({}, ctx),
+    ]);
 
-//     return merge(userQuery, allOrdersQuery);
-// };
+    return merge(userQuery, allOrdersQuery);
+};
 
 export default withApollo(OrdersPage);
