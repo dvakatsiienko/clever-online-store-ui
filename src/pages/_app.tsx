@@ -7,8 +7,6 @@ import nprogress from 'nprogress';
 
 /* Instruments */
 import '@/theme/global.css';
-import '@/theme/palette.css';
-import '@/theme/nprogress.css';
 
 const _App = (
     props: AppProps & { apollo: ApolloClient<NormalizedCacheObject> },
@@ -16,15 +14,9 @@ const _App = (
     return (
         <>
             <Head>
-                <link href = '/favicon.png' rel = 'shortcut icon' />
-                {/* <link
-                        as = 'font'
-                        href = '/radnika-next-medium.woff2'
-                        rel = 'preload'
-                        type = 'font/woff2'
-                    /> */}
                 <title>Клевер</title>
             </Head>
+
             <props.Component { ...props.pageProps } />
         </>
     );

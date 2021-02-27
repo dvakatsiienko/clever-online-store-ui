@@ -1,6 +1,9 @@
+@import './palette.css';
+@import './nprogress.css';
+
 @font-face {
     font-family: radnika_next;
-    src: url('/radnika-next-medium.woff2');
+    src: url('/fonts/radnika-next-medium.woff2');
 }
 
 :root {
