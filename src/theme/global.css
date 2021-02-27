@@ -1,14 +1,9 @@
 @import './palette.css';
 @import './nprogress.css';
-
-@font-face {
-    font-family: radnika_next;
-    src: url('/fonts/radnika-next-medium.woff2');
-}
+@import './fonts.css';
 
 :root {
-    font-family: radnika_next, system-ui;
-    font-family: system-ui;
+    font-family: Roboto, system-ui;
     box-sizing: border-box;
     font-size: 62.5%;
 
