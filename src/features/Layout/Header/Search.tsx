@@ -2,9 +2,7 @@
 import { useRouter } from 'next/router';
 import { useCombobox } from 'downshift';
 import debounce from 'lodash.debounce';
-
-/* Components */
-import { SearchStyles, DropDown, DropDownItem } from '@/components/styled';
+import styled, { keyframes } from 'styled-components';
 
 /* Instruments */
 import * as gql from '@/graphql';
@@ -85,3 +83,58 @@ export const Search: React.FC = () => {
         </SearchStyles>
     );
 };
+
+/* Styles */
+export const DropDown = styled.div`
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    border: 1px solid var(--lightGray);
+`;
+
+export const DropDownItem = styled.div<DropDownItemProps>`
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: ${props => props.$highlighted ? '#f7f7f7' : 'white'};
+    border-bottom: 1px solid var(--lightGray);
+    border-left: 10px solid
+        ${props => props.$highlighted ? props.theme.lightgrey : 'white'};
+    transition: all 0.2s;
+
+    ${props => props.$highlighted ? 'padding-left: 2rem;' : null};
+
+    & img {
+        margin-right: 10px;
+    }
+`;
+
+const glow = keyframes`
+    from {
+        box-shadow: 0 0 0 yellow;
+    }
+
+    to {
+        box-shadow: 0 0 10px 1px yellow;
+    }
+`;
+
+export const SearchStyles = styled.div`
+    position: relative;
+
+    & input {
+        width: 100%;
+        padding: 10px;
+        font-size: 2rem;
+        border: 0;
+
+        & .loading {
+            animation: ${glow} 0.5s ease-in-out infinite alternate;
+        }
+    }
+`;
+
+/* Types */
+interface DropDownItemProps {
+    $highlighted: boolean;
+}

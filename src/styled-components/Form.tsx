@@ -2,25 +2,25 @@
 import styled, { keyframes } from 'styled-components';
 
 const loading = keyframes`
-  from {
-    background-position: 0 0;
-    rotate: 0;
-  }
+    from {
+        background-position: 0 0;
+        rotate: 0;
+    }
 
-  to {
-    background-position: 100% 100%;
-    rotate: 360deg;
-  }
+    to {
+        background-position: 100% 100%;
+        rotate: 360deg;
+    }
 `;
 
 export const Form = styled.form`
-    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
-    background: rgba(0, 0, 0, 0.02);
-    border: 5px solid white;
     padding: 20px;
     font-size: 1.5rem;
-    line-height: 1.5;
     font-weight: 600;
+    line-height: 1.5;
+    background: rgba(0, 0, 0, 0.02);
+    border: 5px solid white;
+    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
 
     & label {
         display: block;
@@ -35,15 +35,26 @@ export const Form = styled.form`
     & textarea,
     & select {
         width: 100%;
+        height: 24px;
         padding: 0.5rem;
         font-size: 1.5rem;
         border: 1px solid black;
-        height: 24px;
 
         &:focus {
-            outline: 0;
             border-color: var(--red);
+            outline: 0;
         }
+    }
+
+    & button,
+    & input[type='submit'] {
+        width: auto;
+        padding: 0.5rem 1.2rem;
+        font-size: 2rem;
+        font-weight: 600;
+        color: white;
+        background: red;
+        border: 0;
     }
 
     & button {
@@ -51,8 +62,8 @@ export const Form = styled.form`
         border: 1px solid white !important;
 
         &:disabled {
-            background-color: grey;
             cursor: progress;
+            background-color: grey;
         }
 
         &:hover {
@@ -60,36 +71,25 @@ export const Form = styled.form`
         }
     }
 
-    & button,
-    & input[type='submit'] {
-        width: auto;
-        background: red;
-        color: white;
-        border: 0;
-        font-size: 2rem;
-        font-weight: 600;
-        padding: 0.5rem 1.2rem;
-    }
-
     & fieldset {
-        border: 0;
         padding: 0;
+        border: 0;
 
         &[disabled] {
             opacity: 0.5;
         }
 
         &::before {
-            height: 10px;
-            content: '';
             display: block;
+            height: 10px;
+            margin-bottom: 5px;
+            content: '';
             background-image: linear-gradient(
                 to right,
                 #ff3019 0%,
                 #e2b04a 50%,
                 #ff3019 100%
             );
-            margin-bottom: 5px;
         }
 
         &[aria-busy='true']::before {

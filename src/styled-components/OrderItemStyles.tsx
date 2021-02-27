@@ -1,44 +1,49 @@
 /* Core */
 import styled from 'styled-components';
 
+export const OrderUl = styled.ul`
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-gap: 4rem;
+`;
+
 export const OrderItemStyles = styled.li`
-    box-shadow: var(--bs);
-    list-style: none;
     padding: 2rem;
-    border: 1px solid var(--offWhite);
+    list-style: none;
     cursor: pointer;
+    border: 1px solid var(--offWhite);
+    box-shadow: var(--bs);
 
     & h2 {
-        border-bottom: 2px solid red;
+        padding-bottom: 2rem;
         margin-top: 0;
         margin-bottom: 2rem;
-        padding-bottom: 2rem;
+        border-bottom: 2px solid red;
     }
 
     & .images {
         display: grid;
-        grid-gap: 10px;
         grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+        grid-gap: 10px;
         margin-top: 1rem;
 
         & img {
+            width: 100%;
             height: 200px;
             object-fit: cover;
-            width: 100%;
         }
     }
 
     & .order-meta {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
-        display: grid;
         grid-gap: 1rem;
         text-align: center;
 
         & > * {
+            padding: 1rem 0;
             margin: 0;
             background: rgba(0, 0, 0, 0.03);
-            padding: 1rem 0;
         }
 
         & strong {

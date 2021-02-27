@@ -1,9 +1,9 @@
 /* Core */
 import Head from 'next/head';
 import Link from 'next/link';
+import styled from 'styled-components';
 
 /* Components */
-import { PaginationStyles } from '@/components/styled';
 import { ErrorMessage } from '@/components';
 
 /* Instruments */
@@ -29,7 +29,7 @@ export const Pagination: React.FC<PaginationProps> = props => {
         <PaginationStyles>
             <Head>
                 <title>
-                    Sick Fits - Page {props.pageNumber} of {pageCount}
+                    Clever - Page {props.pageNumber} of {pageCount}
                 </title>
             </Head>
 
@@ -46,6 +46,35 @@ export const Pagination: React.FC<PaginationProps> = props => {
         </PaginationStyles>
     );
 };
+
+/* Styles */
+export const PaginationStyles = styled.div`
+    display: inline-grid;
+    grid-template-columns: repeat(4, auto);
+    align-content: center;
+    align-items: stretch;
+    justify-content: center;
+    margin: 2rem 0;
+    text-align: center;
+    border: 1px solid var(--lightGray);
+    border-radius: 10px;
+
+    & > * {
+        padding: 15px 30px;
+        margin: 0;
+        user-select: none;
+        border-right: 1px solid var(--lightGray);
+
+        &:last-child {
+            border-right: 0;
+        }
+    }
+
+    a[aria-disabled='true'] {
+        color: grey;
+        pointer-events: none;
+    }
+`;
 
 /* Types */
 interface PaginationProps {

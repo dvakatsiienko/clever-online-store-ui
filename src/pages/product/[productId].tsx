@@ -27,7 +27,7 @@ const ProductPage: NextPage = () => {
         <Layout>
             <ProductStyles>
                 <Head>
-                    <title>Sick Fits | {data?.Product.name}</title>
+                    <title>Clever | {data?.Product.name}</title>
                 </Head>
 
                 <img

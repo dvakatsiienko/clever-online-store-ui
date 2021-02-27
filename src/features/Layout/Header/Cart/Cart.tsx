@@ -3,7 +3,6 @@ import { useReactiveVar } from '@apollo/client';
 import styled from 'styled-components';
 
 /* Components */
-import { CartStyles, Supreme, CloseButton } from '@/components/styled';
 import { RemoveFromCart } from './RemoveFromCart';
 import { Checkout } from './Checkout';
 
@@ -104,6 +103,86 @@ const CartItemStyles = styled.li`
         margin: 0;
     }
 `;
+
+const CartStyles = styled.div<CardStylesProps>`
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    width: 40%;
+    min-width: 500px;
+    height: 100vh;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+    transform: translateX(100%);
+
+    ${props => props.$open && 'transform: translateX(0);'};
+
+    & header {
+        padding-bottom: 2rem;
+        margin-bottom: 2rem;
+        border-bottom: 5px solid var(--black);
+    }
+
+    & footer {
+        align-items: center;
+        padding-top: 2rem;
+        margin-top: 2rem;
+        font-size: 3rem;
+        font-weight: 900;
+        border-top: 10px double var(--black);
+
+        & p {
+            margin: 0;
+        }
+    }
+
+    & ul {
+        padding: 0;
+        margin: 0;
+        overflow: scroll;
+        list-style: none;
+    }
+`;
+
+export const Supreme = styled.h3`
+    display: inline-block;
+    padding: 4px 5px;
+    margin: 0;
+    font-size: 4rem;
+    color: white;
+    background: var(--red);
+    transform: skew(-3deg);
+`;
+
+export const CloseButton = styled.button`
+    position: absolute;
+    right: 15px;
+    z-index: 2;
+    width: 60px;
+    font-size: 3rem;
+    color: white;
+    cursor: pointer;
+    background: black;
+    border: 0;
+    transform: skew(-10deg);
+
+    &:hover {
+        color: black;
+        background: grey;
+    }
+`;
+
+/* Types */
+interface CardStylesProps {
+    $open: boolean;
+}
 
 /* Helpers */
 function calcTotalPrice(cart: gql.CartItem[]) {

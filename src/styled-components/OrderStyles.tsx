@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 export const OrderStyles = styled.div`
     max-width: 1000px;
+    padding: 2rem;
     margin: 0 auto;
     border: 1px solid var(--offWhite);
-    box-shadow: var(--bs);
-    padding: 2rem;
     border-top: 10px solid red;
+    box-shadow: var(--bs);
 
     & > p {
         display: grid;
@@ -26,13 +26,13 @@ export const OrderStyles = styled.div`
     }
 
     & .order-item {
-        border-bottom: 1px solid var(--offWhite);
         display: grid;
         grid-template-columns: 300px 1fr;
-        align-items: center;
         grid-gap: 2rem;
-        margin: 2rem 0;
+        align-items: center;
         padding-bottom: 2rem;
+        margin: 2rem 0;
+        border-bottom: 1px solid var(--offWhite);
 
         & img {
             width: 100%;

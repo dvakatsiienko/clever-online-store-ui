@@ -3,10 +3,9 @@ import { NextPage, GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { merge } from 'webpack-merge';
-import styled from 'styled-components';
 
 /* Components */
-import { OrderItemStyles } from '@/components/styled';
+import { OrderUl, OrderItemStyles } from '@/styled-components';
 import { ErrorMessage } from '@/components';
 import { Layout } from '@/features/Layout';
 
@@ -75,13 +74,6 @@ const OrdersPage: NextPage = () => {
         </Layout>
     );
 };
-
-/* Styles */
-const OrderUl = styled.ul`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    grid-gap: 4rem;
-`;
 
 /* Helpers */
 function countItemsInOrder(order: gql.OrderFragment) {

@@ -2,7 +2,7 @@
 import React from 'react';
 
 /* Components */
-import { Form as StyledForm } from '@/components/styled';
+import { Form as StyledForm } from '@/styled-components';
 import { ErrorMessage } from '@/components';
 
 export const Form: React.FC<FormProps> = props => {

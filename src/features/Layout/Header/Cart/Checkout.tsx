@@ -11,9 +11,6 @@ import {
 import nprogress from 'nprogress';
 import styled from 'styled-components';
 
-/* Components */
-import { SickButton } from '@/components/styled';
-
 /* Instruments */
 import * as gql from '@/graphql';
 import { isCartOpenVar } from '@/lib';
@@ -66,13 +63,14 @@ const CheckoutForm: React.FC = () => {
     const errorMessage = error?.message || checkoutMutationMeta.error?.message;
 
     return (
-        <CheckoutFormStyles onSubmit = { checkout }>
+        <Container onSubmit = { checkout }>
             {isError && (
                 <p css = 'font-size: 12px; color: var(--red);'>{errorMessage}</p>
             )}
             <CardElement />
-            <SickButton disabled = { isLoading }>Check Out Now</SickButton>
-        </CheckoutFormStyles>
+
+            <CheckoutButton disabled = { isLoading }>Check Out Now</CheckoutButton>
+        </Container>
     );
 };
 
@@ -85,7 +83,7 @@ export const Checkout: React.FC = () => {
 };
 
 /* Styles */
-const CheckoutFormStyles = styled.form`
+const Container = styled.form`
     display: grid;
     grid-gap: 1rem;
 
@@ -93,6 +91,26 @@ const CheckoutFormStyles = styled.form`
     border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 5px;
     padding: 1 rem;
+`;
+
+export const CheckoutButton = styled.button`
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    font-size: 2rem;
+    font-weight: 500;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: red;
+    border: 0;
+    border-radius: 0;
+    transition: all 0.5s;
+    transform: skew(-2deg);
+
+    &[disabled] {
+        cursor: progress;
+        opacity: 0.5;
+    }
 `;
 
 /* Helpers */

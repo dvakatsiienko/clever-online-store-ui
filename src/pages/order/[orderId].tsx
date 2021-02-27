@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { merge } from 'webpack-merge';
 
 /* Components */
-import { OrderStyles } from '@/components/styled';
+import { OrderStyles } from '@/styled-components';
 import { ErrorMessage } from '@/components';
 import { Layout } from '@/features/Layout';
 
@@ -54,7 +54,7 @@ const OrderByIdPage: NextPage = () => {
         <Layout>
             <OrderStyles>
                 <Head>
-                    <title>Sick Fits — {order.id}</title>
+                    <title>Clever — {order.id}</title>
                 </Head>
                 <p>
                     <span>Order Id:</span>

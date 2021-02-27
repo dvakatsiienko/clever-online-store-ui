@@ -43,18 +43,21 @@ class _Document extends Document {
                     <link href = '/favicon.png' rel = 'shortcut icon' />
                     <link
                         as = 'font'
+                        crossOrigin = 'anonymous'
                         href = '/fonts/roboto/roboto-400.woff2'
                         rel = 'preload'
                         type = 'font/woff2'
                     />
                     <link
                         as = 'font'
+                        crossOrigin = 'anonymous'
                         href = '/fonts/roboto/roboto-500.woff2'
                         rel = 'preload'
                         type = 'font/woff2'
                     />
                     <link
                         as = 'font'
+                        crossOrigin = 'anonymous'
                         href = '/fonts/roboto/roboto-700.woff2'
                         rel = 'preload'
                         type = 'font/woff2'
