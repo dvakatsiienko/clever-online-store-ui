@@ -1,5 +1,5 @@
-/* Components */
-import { OrderStyles } from '@/styled-components';
+/* Core */
+import styled from 'styled-components';
 
 /* Instruments */
 import * as gql from '@/graphql';
@@ -28,7 +28,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = props => {
     });
 
     return (
-        <OrderStyles>
+        <Container>
             <p>
                 <span>Order Id:</span>
                 <span>{props.order.id}</span>
@@ -46,9 +46,51 @@ export const OrderDetails: React.FC<OrderDetailsProps> = props => {
                 <span>{props.order.items.length}</span>
             </p>
             <div className = 'items'>{orderItemsJSX}</div>
-        </OrderStyles>
+        </Container>
     );
 };
+
+/* Styles */
+export const Container = styled.div`
+    max-width: 1000px;
+    padding: 2rem;
+    margin: 0 auto;
+    border: 1px solid var(--offWhite);
+    border-top: 10px solid red;
+    box-shadow: var(--bs);
+
+    & > p {
+        display: grid;
+        grid-template-columns: 1fr 5fr;
+        margin: 0;
+        border-bottom: 1px solid var(--offWhite);
+
+        & span {
+            padding: 1rem;
+
+            &:first-child {
+                font-weight: 900;
+                text-align: right;
+            }
+        }
+    }
+
+    & .order-item {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        grid-gap: 2rem;
+        align-items: center;
+        padding-bottom: 2rem;
+        margin: 2rem 0;
+        border-bottom: 1px solid var(--offWhite);
+
+        & img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+`;
 
 /* Types */
 interface OrderDetailsProps {

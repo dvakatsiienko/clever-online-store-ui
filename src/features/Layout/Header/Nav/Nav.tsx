@@ -22,7 +22,7 @@ export const Nav: React.FC = () => {
 
     return (
         <Container>
-            <Link href = '/products/1'>Products</Link>
+            <Link href = '/products?page=1'>Products</Link>
 
             {userQuery.data?.authenticatedItem && (
                 <>

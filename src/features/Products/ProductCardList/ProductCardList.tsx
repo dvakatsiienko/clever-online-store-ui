@@ -7,7 +7,7 @@ import { ProductCard } from './ProductCard';
 /* Instruments */
 import * as gql from '@/graphql';
 
-export const ProductCardList: React.FC<ProductCardList> = props => {
+export const ProductCardList: React.FC<ProductCardListProps> = props => {
     const productsJSX = props.allProductsQuery.allProducts
         .filter(product => product)
         .map(product => {
@@ -25,7 +25,7 @@ const ProductsList = styled.div`
 `;
 
 /* Types */
-interface ProductCardList {
-    pageNumber: number;
+interface ProductCardListProps {
+    page: number;
     allProductsQuery: gql.AllProductsQuery;
 }

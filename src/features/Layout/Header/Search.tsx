@@ -32,7 +32,7 @@ export const Search: React.FC = () => {
             searchProductsDebounced({ variables: { searchTerm } });
         },
         onSelectedItemChange(options) {
-            router.push(`/product/${options.selectedItem.id}`);
+            router.push(`/products/${options.selectedItem.id}`);
         },
         itemToString: product => product?.name ?? '',
     });

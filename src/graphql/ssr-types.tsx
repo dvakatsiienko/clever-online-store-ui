@@ -1,7 +1,7 @@
 import * as Types from './operation-types';
 
 import * as Operations from './operation-types';
-// import { NextPage } from 'next';
+import { NextPage } from 'next';
 import { NextRouter, useRouter } from 'next/router';
 import { QueryHookOptions, useQuery } from '@apollo/client';
 import * as Apollo from '@apollo/client';
@@ -23,7 +23,7 @@ export async function getServerPageOrder(
     return {
         props: {
             apolloState,
-            data:  data?.data,
+            data: data?.data,
             error: data?.error ?? data?.errors ?? null,
         },
     };
@@ -62,7 +62,7 @@ export async function getServerPageAllOrders(
     return {
         props: {
             apolloState,
-            data:  data?.data,
+            data: data?.data,
             error: data?.error ?? data?.errors ?? null,
         },
     };
@@ -105,7 +105,7 @@ export async function getServerPageAllProducts(
     return {
         props: {
             apolloState,
-            data:  data?.data,
+            data: data?.data,
             error: data?.error ?? data?.errors ?? null,
         },
     };
@@ -150,7 +150,7 @@ export async function getServerPageProductsCount(
     return {
         props: {
             apolloState,
-            data:  data?.data,
+            data: data?.data,
             error: data?.error ?? data?.errors ?? null,
         },
     };
@@ -192,7 +192,7 @@ export async function getServerPageProduct(
     return {
         props: {
             apolloState,
-            data:  data?.data,
+            data: data?.data,
             error: data?.error ?? data?.errors ?? null,
         },
     };
@@ -234,7 +234,7 @@ export async function getServerPageSearchProducts(
     return {
         props: {
             apolloState,
-            data:  data?.data,
+            data: data?.data,
             error: data?.error ?? data?.errors ?? null,
         },
     };
@@ -277,7 +277,7 @@ export async function getServerPageUser(
     return {
         props: {
             apolloState,
-            data:  data?.data,
+            data: data?.data,
             error: data?.error ?? data?.errors ?? null,
         },
     };

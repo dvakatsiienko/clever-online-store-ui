@@ -12,7 +12,7 @@ export const OrderList: React.FC<OrderListProps> = props => {
 
         return (
             <Order key = { order.id }>
-                <Link href = { `/order/${order.id}` }>
+                <Link href = { `/orders/${order.id}` }>
                     <a>
                         <div className = 'order-meta'>
                             <p>

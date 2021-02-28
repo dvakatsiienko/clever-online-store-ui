@@ -27,6 +27,6 @@ generates:
             typesPath: ./operation-types
         plugins:
             - graphql-codegen-apollo-next-ssr
-        hooks:
-            afterAllFileWrite:
-                - prettier --write
+hooks:
+    afterAllFileWrite:
+        - prettier --write

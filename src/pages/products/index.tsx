@@ -17,12 +17,12 @@ const ITEMS_PER_PAGE = Number(process.env.NEXT_PUBLIC_ITEMS_PER_PAGE);
 
 const PaginatedProductsPage: gql.PageAllProductsComp = () => {
     const router = useRouter();
-    const pageNumber = Number(router.query.pageNumber) as number;
+    const page = Number(router.query.page) as number;
 
     const allProductsQuery = gql.useAllProductsQuery({
         variables: {
             first: ITEMS_PER_PAGE,
-            skip:  pageNumber * ITEMS_PER_PAGE - ITEMS_PER_PAGE,
+            skip:  page * ITEMS_PER_PAGE - ITEMS_PER_PAGE,
         },
     });
 
@@ -33,19 +33,22 @@ const PaginatedProductsPage: gql.PageAllProductsComp = () => {
     return (
         <Layout>
             <h1>Products</h1>
-            <Pagination pageNumber = { pageNumber || 1 } />
+            <Pagination page = { page || 1 } />
 
             <ProductCardList
                 allProductsQuery = { allProductsQuery.data }
-                pageNumber = { pageNumber || 1 }
+                page = { page || 1 }
             />
 
-            <Pagination pageNumber = { pageNumber || 1 } />
+            <Pagination page = { page || 1 } />
         </Layout>
     );
 };
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
+    const page = ctx.query.page;
+    console.log('SSR', page);
+
     const queries = await Promise.all([
         gql.ssrAllProducts.getServerPage({}, ctx),
         gql.ssrProductsCount.getServerPage({}, ctx),

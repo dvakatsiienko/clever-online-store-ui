@@ -38,7 +38,7 @@ export const LoginForm: React.FC = () => {
             result.data?.authenticateUserWithPassword.__typename ===
             'UserAuthenticationWithPasswordSuccess'
         ) {
-            router.replace('/products/1');
+            router.replace('/products?page=1');
         }
     });
 

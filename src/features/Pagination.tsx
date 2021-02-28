@@ -29,19 +29,19 @@ export const Pagination: React.FC<PaginationProps> = props => {
         <Container>
             <Head>
                 <title>
-                    Clever - Page {props.pageNumber} of {pageCount}
+                    Clever - Page {props.page} of {pageCount}
                 </title>
             </Head>
 
-            <Link href = { `/products/${props.pageNumber - 1}` }>
-                <a aria-disabled = { props.pageNumber <= 1 }>← Prev</a>
+            <Link href = { `/products?page=${props.page - 1}` }>
+                <a aria-disabled = { props.page <= 1 }>← Prev</a>
             </Link>
             <p>
-                Page {props.pageNumber} of {pageCount}
+                Page {props.page} of {pageCount}
             </p>
             <p>{productsCountQuery.data?._allProductsMeta.count} Items Total</p>
-            <Link href = { `/products/${props.pageNumber + 1}` }>
-                <a aria-disabled = { props.pageNumber >= pageCount }>Next →</a>
+            <Link href = { `/products?page=${props.page + 1}` }>
+                <a aria-disabled = { props.page >= pageCount }>Next →</a>
             </Link>
         </Container>
     );
@@ -98,5 +98,5 @@ export const Container = styled.div`
 
 /* Types */
 interface PaginationProps {
-    pageNumber: number;
+    page: number;
 }
