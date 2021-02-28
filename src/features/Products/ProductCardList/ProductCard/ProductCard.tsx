@@ -14,11 +14,11 @@ export const ProductCard: React.FC<ProductCardProps> = props => {
     return (
         <Container>
             <img
-                alt = { props.product?.name }
-                src = { props.product?.photo?.image?.publicUrlTransformed }
+                alt={props.product?.name}
+                src={props.product?.photo?.image?.publicUrlTransformed}
             />
             <Title>
-                <Link href = { `/products/${props.product?.id}` }>
+                <Link href={`/products/${props.product?.id}`}>
                     {props.product?.name}
                 </Link>
             </Title>
@@ -27,12 +27,12 @@ export const ProductCard: React.FC<ProductCardProps> = props => {
 
             <p>{props.product?.description}</p>
 
-            <div className = 'buttonList'>
-                <Link href = { `/products/update/${props.product?.id}` }>
+            <div className="buttonList">
+                <Link href={`/products/update/${props.product?.id}`}>
                     Edit 📜
                 </Link>
-                <AddToCart productId = { props.product?.id }>Delete</AddToCart>
-                <DeleteProduct productId = { props.product?.id }>
+                <AddToCart productId={props.product?.id}>Delete</AddToCart>
+                <DeleteProduct productId={props.product?.id}>
                     Delete ❌
                 </DeleteProduct>
             </div>
@@ -41,7 +41,7 @@ export const ProductCard: React.FC<ProductCardProps> = props => {
 };
 
 /* Styles */
-export const Container = styled.div`
+const Container = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
