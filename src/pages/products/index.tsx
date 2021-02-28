@@ -1,6 +1,6 @@
 /* Core */
 import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
+import { ApolloError } from '@apollo/client';
 import { merge } from 'webpack-merge';
 
 /* Components */
@@ -15,48 +15,73 @@ import { withApollo } from '@/lib';
 
 const ITEMS_PER_PAGE = Number(process.env.NEXT_PUBLIC_ITEMS_PER_PAGE);
 
-const PaginatedProductsPage: gql.PageAllProductsComp = () => {
-    const router = useRouter();
-    const page = Number(router.query.page) as number;
-
-    const allProductsQuery = gql.useAllProductsQuery({
+const PaginatedProductsPage: PageAllProductsComp = props => {
+    const allProductsQuery = gql.ssrAllProducts.usePage(() => ({
         variables: {
             first: ITEMS_PER_PAGE,
-            skip: page * ITEMS_PER_PAGE - ITEMS_PER_PAGE,
+            skip:  props.initialPage * ITEMS_PER_PAGE - ITEMS_PER_PAGE,
         },
-    });
+    }));
 
     if (allProductsQuery.error) {
-        return <ErrorMessage error={allProductsQuery.error} />;
+        return <ErrorMessage error = { allProductsQuery.error } />;
     }
 
     return (
         <Layout>
             <h1>Products</h1>
-            <Pagination page={page || 1} />
+            <Pagination page = { props.initialPage || 1 } />
 
             <ProductCardList
-                allProductsQuery={allProductsQuery.data}
-                page={page || 1}
+                allProductsQuery = { allProductsQuery.data }
+                page = { props.initialPage || 1 }
             />
 
-            <Pagination page={page || 1} />
+            <Pagination page = { props.initialPage || 1 } />
         </Layout>
     );
 };
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
-    const page = ctx.query.page;
+    const page = Number(ctx.query.page ?? 1);
+    let initialPage = page;
 
-    console.log('SSR', page);
+    if (Number.isNaN(page) || page < 1 || !ctx.query.page) {
+        if (ctx.res) {
+            ctx.res.writeHead(301, {
+                Location: '/products?page=1',
+            });
+            ctx.res.end();
+        }
+
+        initialPage = 1;
+    }
 
     const queries = await Promise.all([
-        gql.ssrAllProducts.getServerPage({}, ctx),
+        gql.ssrAllProducts.getServerPage(
+            {
+                variables: {
+                    first: ITEMS_PER_PAGE,
+                    skip:  initialPage * ITEMS_PER_PAGE - ITEMS_PER_PAGE,
+                },
+            },
+            ctx,
+        ),
         gql.ssrProductsCount.getServerPage({}, ctx),
         gql.ssrUser.getServerPage({}, ctx),
     ]);
 
+    // @ts-ignore
+    queries.push({ props: { initialPage } });
+
     return merge(queries);
 };
+
+/* Types */
+export type PageAllProductsComp = React.FC<{
+    data?: gql.AllProductsQuery;
+    error?: ApolloError;
+    initialPage: number;
+}>;
 
 export default withApollo(PaginatedProductsPage);

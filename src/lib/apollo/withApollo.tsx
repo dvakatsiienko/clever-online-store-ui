@@ -5,7 +5,7 @@ import { ApolloProvider } from '@apollo/client';
 export const withApollo = (Comp: NextPage) => (props: any) => {
     return (
         <ApolloProvider client = { getApolloClient(null, props.apolloState) }>
-            <Comp />
+            <Comp { ...props } />
         </ApolloProvider>
     );
 };
