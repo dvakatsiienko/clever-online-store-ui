@@ -2,13 +2,26 @@
 import { NextPage } from 'next';
 import { ApolloProvider } from '@apollo/client';
 
-export const withApollo = (Comp: NextPage) => (props: any) => {
-    return (
-        <ApolloProvider client = { getApolloClient(null, props.apolloState) }>
-            <Comp { ...props } />
-        </ApolloProvider>
-    );
+/* Instruments */
+import { createApolloClient } from './createApolloClient';
+
+export const withApollo = (Comp: NextPage) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const WithApollo = (props: any) => {
+        return (
+            <ApolloProvider
+                client = { createApolloClient(null, props.apolloState) }
+            >
+                <Comp { ...props } />
+            </ApolloProvider>
+        );
+    };
+
+    return WithApollo;
 };
 
-import { createApolloClient as getApolloClient } from './createApolloClient';
-export { getApolloClient };
+/**
+ * ? GraphQL-codegen requires a function called specifically «getApolloClient»,
+ * ? so it is re-exported with corresponding name.
+ */
+export { createApolloClient as getApolloClient };

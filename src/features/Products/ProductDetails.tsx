@@ -6,7 +6,7 @@ import * as gql from '@/graphql';
 
 export const ProductDetails: React.FC<ProductDetailsProps> = props => {
     return (
-        <ProductStyles>
+        <Container>
             <img
                 alt = { props.product?.photo.altText }
                 src = { props.product?.photo.image.publicUrlTransformed }
@@ -16,12 +16,12 @@ export const ProductDetails: React.FC<ProductDetailsProps> = props => {
                 <h2>Name: {props.product?.name}</h2>
                 <p>Description: {props.product?.description}</p>
             </div>
-        </ProductStyles>
+        </Container>
     );
 };
 
 /* Styles */
-const ProductStyles = styled.section`
+const Container = styled.section`
     display: grid;
     grid-auto-columns: 1fr;
     grid-auto-flow: column;

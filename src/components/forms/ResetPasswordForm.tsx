@@ -41,7 +41,7 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = props => {
 
     return (
         <Form
-            // @ts-ignore
+            // @ts-expect-error: unknown error
             error = { error || successfulError }
             isLoading = { isLoading }
             title = 'Setup New Password'

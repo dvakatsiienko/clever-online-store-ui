@@ -14,6 +14,7 @@ export const Search: React.FC = () => {
         searchProducts,
         searchProductsQueryMeta,
     ] = gql.useSearchProductsLazyQuery({ fetchPolicy: 'no-cache' });
+    const { data: searchData, loading: isLoading } = searchProductsQueryMeta;
 
     const searchProductsDebounced = debounce(searchProducts, 350);
 
@@ -27,7 +28,7 @@ export const Search: React.FC = () => {
         isOpen,
     } = useCombobox({
         id:    'lang-switcher',
-        items: searchProductsQueryMeta.data?.searchTerms ?? [],
+        items: searchData?.searchTerms ?? [],
         onInputValueChange() {
             searchProductsDebounced({ variables: { searchTerm } });
         },
@@ -37,9 +38,8 @@ export const Search: React.FC = () => {
         itemToString: product => product?.name ?? '',
     });
 
-    const foundProductsJSX =
-        isOpen &&
-        searchProductsQueryMeta.data?.searchTerms.map((product, index) => {
+    const foundProductsJSX = isOpen
+        && searchData?.searchTerms.map((product, index) => {
             return (
                 <DropDownItem
                     $highlighted = { index === highlightedIndex }
@@ -55,6 +55,14 @@ export const Search: React.FC = () => {
                 </DropDownItem>
             );
         });
+
+    const isNoFoundMessageShown = isOpen && !searchData?.searchTerms.length && isLoading;
+
+    const dopDownItemJSX = isNoFoundMessageShown && (
+        <DropDownItem $highlighted = { false }>
+            Sorry, no items found...
+        </DropDownItem>
+    );
 
     return (
         <SearchStyles>
@@ -72,13 +80,7 @@ export const Search: React.FC = () => {
             </div>
             <DropDown { ...getMenuProps() }>
                 {foundProductsJSX}
-                {isOpen &&
-                    !searchProductsQueryMeta.data?.searchTerms.length &&
-                    searchProductsQueryMeta.loading && (
-                    <DropDownItem $highlighted = { false }>
-                        Sorry, no items found...
-                    </DropDownItem>
-                )}
+                {dopDownItemJSX}
             </DropDown>
         </SearchStyles>
     );
@@ -93,6 +95,7 @@ export const DropDown = styled.div`
 `;
 
 export const DropDownItem = styled.div<DropDownItemProps>`
+    ${props => props.$highlighted ? 'padding-left: 2rem;' : null};
     display: flex;
     align-items: center;
     padding: 1rem;
@@ -101,8 +104,6 @@ export const DropDownItem = styled.div<DropDownItemProps>`
     border-left: 10px solid
         ${props => props.$highlighted ? props.theme.lightgrey : 'white'};
     transition: all 0.2s;
-
-    ${props => props.$highlighted ? 'padding-left: 2rem;' : null};
 
     & img {
         margin-right: 10px;

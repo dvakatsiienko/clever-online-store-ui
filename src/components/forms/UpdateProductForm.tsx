@@ -123,6 +123,7 @@ interface UpdateProductFormProps {
 
 interface FormShape {
     id: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     image: any;
     name: string;
     price: number;

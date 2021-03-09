@@ -14,6 +14,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
     { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
     { [SubKey in K]: Maybe<T[SubKey]> };
+const defaultOptions = {};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
     ID: string;
@@ -72,9 +73,6 @@ export type User = {
     passwordResetToken_is_set?: Maybe<Scalars['Boolean']>;
     passwordResetIssuedAt?: Maybe<Scalars['String']>;
     passwordResetRedeemedAt?: Maybe<Scalars['String']>;
-    magicAuthToken_is_set?: Maybe<Scalars['Boolean']>;
-    magicAuthIssuedAt?: Maybe<Scalars['String']>;
-    magicAuthRedeemedAt?: Maybe<Scalars['String']>;
 };
 
 /**  A keystone list  */
@@ -218,23 +216,6 @@ export type UserWhereInput = {
     passwordResetRedeemedAt_gte?: Maybe<Scalars['String']>;
     passwordResetRedeemedAt_in?: Maybe<Array<Maybe<Scalars['String']>>>;
     passwordResetRedeemedAt_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-    magicAuthToken_is_set?: Maybe<Scalars['Boolean']>;
-    magicAuthIssuedAt?: Maybe<Scalars['String']>;
-    magicAuthIssuedAt_not?: Maybe<Scalars['String']>;
-    magicAuthIssuedAt_lt?: Maybe<Scalars['String']>;
-    magicAuthIssuedAt_lte?: Maybe<Scalars['String']>;
-    magicAuthIssuedAt_gt?: Maybe<Scalars['String']>;
-    magicAuthIssuedAt_gte?: Maybe<Scalars['String']>;
-    magicAuthIssuedAt_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-    magicAuthIssuedAt_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-    magicAuthRedeemedAt?: Maybe<Scalars['String']>;
-    magicAuthRedeemedAt_not?: Maybe<Scalars['String']>;
-    magicAuthRedeemedAt_lt?: Maybe<Scalars['String']>;
-    magicAuthRedeemedAt_lte?: Maybe<Scalars['String']>;
-    magicAuthRedeemedAt_gt?: Maybe<Scalars['String']>;
-    magicAuthRedeemedAt_gte?: Maybe<Scalars['String']>;
-    magicAuthRedeemedAt_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-    magicAuthRedeemedAt_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type UserWhereUniqueInput = {
@@ -260,10 +241,6 @@ export const SortUsersBy = {
     PasswordResetIssuedAtDesc: 'passwordResetIssuedAt_DESC',
     PasswordResetRedeemedAtAsc: 'passwordResetRedeemedAt_ASC',
     PasswordResetRedeemedAtDesc: 'passwordResetRedeemedAt_DESC',
-    MagicAuthIssuedAtAsc: 'magicAuthIssuedAt_ASC',
-    MagicAuthIssuedAtDesc: 'magicAuthIssuedAt_DESC',
-    MagicAuthRedeemedAtAsc: 'magicAuthRedeemedAt_ASC',
-    MagicAuthRedeemedAtDesc: 'magicAuthRedeemedAt_DESC',
 } as const;
 
 export type SortUsersBy = typeof SortUsersBy[keyof typeof SortUsersBy];
@@ -278,9 +255,6 @@ export type UserUpdateInput = {
     passwordResetToken?: Maybe<Scalars['String']>;
     passwordResetIssuedAt?: Maybe<Scalars['String']>;
     passwordResetRedeemedAt?: Maybe<Scalars['String']>;
-    magicAuthToken?: Maybe<Scalars['String']>;
-    magicAuthIssuedAt?: Maybe<Scalars['String']>;
-    magicAuthRedeemedAt?: Maybe<Scalars['String']>;
 };
 
 export type UsersUpdateInput = {
@@ -299,9 +273,6 @@ export type UserCreateInput = {
     passwordResetToken?: Maybe<Scalars['String']>;
     passwordResetIssuedAt?: Maybe<Scalars['String']>;
     passwordResetRedeemedAt?: Maybe<Scalars['String']>;
-    magicAuthToken?: Maybe<Scalars['String']>;
-    magicAuthIssuedAt?: Maybe<Scalars['String']>;
-    magicAuthRedeemedAt?: Maybe<Scalars['String']>;
 };
 
 export type UsersCreateInput = {
@@ -2262,17 +2233,19 @@ export const OrderDocument = gql`
 export function useOrderQuery(
     baseOptions: Apollo.QueryHookOptions<OrderQuery, OrderQueryVariables>,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useQuery<OrderQuery, OrderQueryVariables>(
         OrderDocument,
-        baseOptions,
+        options,
     );
 }
 export function useOrderLazyQuery(
     baseOptions?: Apollo.LazyQueryHookOptions<OrderQuery, OrderQueryVariables>,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useLazyQuery<OrderQuery, OrderQueryVariables>(
         OrderDocument,
-        baseOptions,
+        options,
     );
 }
 export type OrderQueryHookResult = ReturnType<typeof useOrderQuery>;
@@ -2311,9 +2284,10 @@ export function useAllOrdersQuery(
         AllOrdersQueryVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useQuery<AllOrdersQuery, AllOrdersQueryVariables>(
         AllOrdersDocument,
-        baseOptions,
+        options,
     );
 }
 export function useAllOrdersLazyQuery(
@@ -2322,9 +2296,10 @@ export function useAllOrdersLazyQuery(
         AllOrdersQueryVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useLazyQuery<AllOrdersQuery, AllOrdersQueryVariables>(
         AllOrdersDocument,
-        baseOptions,
+        options,
     );
 }
 export type AllOrdersQueryHookResult = ReturnType<typeof useAllOrdersQuery>;
@@ -2376,9 +2351,10 @@ export function useCheckoutMutation(
         CheckoutMutationVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useMutation<CheckoutMutation, CheckoutMutationVariables>(
         CheckoutDocument,
-        baseOptions,
+        options,
     );
 }
 export type CheckoutMutationHookResult = ReturnType<typeof useCheckoutMutation>;
@@ -2419,9 +2395,10 @@ export function useAllProductsQuery(
         AllProductsQueryVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useQuery<AllProductsQuery, AllProductsQueryVariables>(
         AllProductsDocument,
-        baseOptions,
+        options,
     );
 }
 export function useAllProductsLazyQuery(
@@ -2430,9 +2407,10 @@ export function useAllProductsLazyQuery(
         AllProductsQueryVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useLazyQuery<AllProductsQuery, AllProductsQueryVariables>(
         AllProductsDocument,
-        baseOptions,
+        options,
     );
 }
 export type AllProductsQueryHookResult = ReturnType<typeof useAllProductsQuery>;
@@ -2472,9 +2450,10 @@ export function useProductsCountQuery(
         ProductsCountQueryVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useQuery<ProductsCountQuery, ProductsCountQueryVariables>(
         ProductsCountDocument,
-        baseOptions,
+        options,
     );
 }
 export function useProductsCountLazyQuery(
@@ -2483,9 +2462,10 @@ export function useProductsCountLazyQuery(
         ProductsCountQueryVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useLazyQuery<ProductsCountQuery, ProductsCountQueryVariables>(
         ProductsCountDocument,
-        baseOptions,
+        options,
     );
 }
 export type ProductsCountQueryHookResult = ReturnType<
@@ -2526,9 +2506,10 @@ export const ProductDocument = gql`
 export function useProductQuery(
     baseOptions: Apollo.QueryHookOptions<ProductQuery, ProductQueryVariables>,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useQuery<ProductQuery, ProductQueryVariables>(
         ProductDocument,
-        baseOptions,
+        options,
     );
 }
 export function useProductLazyQuery(
@@ -2537,9 +2518,10 @@ export function useProductLazyQuery(
         ProductQueryVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useLazyQuery<ProductQuery, ProductQueryVariables>(
         ProductDocument,
-        baseOptions,
+        options,
     );
 }
 export type ProductQueryHookResult = ReturnType<typeof useProductQuery>;
@@ -2591,9 +2573,10 @@ export function useSearchProductsQuery(
         SearchProductsQueryVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useQuery<SearchProductsQuery, SearchProductsQueryVariables>(
         SearchProductsDocument,
-        baseOptions,
+        options,
     );
 }
 export function useSearchProductsLazyQuery(
@@ -2602,10 +2585,11 @@ export function useSearchProductsLazyQuery(
         SearchProductsQueryVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useLazyQuery<
         SearchProductsQuery,
         SearchProductsQueryVariables
-    >(SearchProductsDocument, baseOptions);
+    >(SearchProductsDocument, options);
 }
 export type SearchProductsQueryHookResult = ReturnType<
     typeof useSearchProductsQuery
@@ -2669,10 +2653,11 @@ export function useCreateProductMutation(
         CreateProductMutationVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useMutation<
         CreateProductMutation,
         CreateProductMutationVariables
-    >(CreateProductDocument, baseOptions);
+    >(CreateProductDocument, options);
 }
 export type CreateProductMutationHookResult = ReturnType<
     typeof useCreateProductMutation
@@ -2729,10 +2714,11 @@ export function useUpdateProductMutation(
         UpdateProductMutationVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useMutation<
         UpdateProductMutation,
         UpdateProductMutationVariables
-    >(UpdateProductDocument, baseOptions);
+    >(UpdateProductDocument, options);
 }
 export type UpdateProductMutationHookResult = ReturnType<
     typeof useUpdateProductMutation
@@ -2778,10 +2764,11 @@ export function useDeleteProductMutation(
         DeleteProductMutationVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useMutation<
         DeleteProductMutation,
         DeleteProductMutationVariables
-    >(DeleteProductDocument, baseOptions);
+    >(DeleteProductDocument, options);
 }
 export type DeleteProductMutationHookResult = ReturnType<
     typeof useDeleteProductMutation
@@ -2826,9 +2813,10 @@ export function useAddToCartMutation(
         AddToCartMutationVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useMutation<AddToCartMutation, AddToCartMutationVariables>(
         AddToCartDocument,
-        baseOptions,
+        options,
     );
 }
 export type AddToCartMutationHookResult = ReturnType<
@@ -2874,10 +2862,11 @@ export function useRemoveFromCartMutation(
         RemoveFromCartMutationVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useMutation<
         RemoveFromCartMutation,
         RemoveFromCartMutationVariables
-    >(RemoveFromCartDocument, baseOptions);
+    >(RemoveFromCartDocument, options);
 }
 export type RemoveFromCartMutationHookResult = ReturnType<
     typeof useRemoveFromCartMutation
@@ -2932,17 +2921,19 @@ export const UserDocument = gql`
 export function useUserQuery(
     baseOptions?: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useQuery<UserQuery, UserQueryVariables>(
         UserDocument,
-        baseOptions,
+        options,
     );
 }
 export function useUserLazyQuery(
     baseOptions?: Apollo.LazyQueryHookOptions<UserQuery, UserQueryVariables>,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useLazyQuery<UserQuery, UserQueryVariables>(
         UserDocument,
-        baseOptions,
+        options,
     );
 }
 export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
@@ -2995,9 +2986,10 @@ export function useLoginMutation(
         LoginMutationVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useMutation<LoginMutation, LoginMutationVariables>(
         LoginDocument,
-        baseOptions,
+        options,
     );
 }
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
@@ -3038,9 +3030,10 @@ export function useLogoutMutation(
         LogoutMutationVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useMutation<LogoutMutation, LogoutMutationVariables>(
         LogoutDocument,
-        baseOptions,
+        options,
     );
 }
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
@@ -3088,9 +3081,10 @@ export function useRegisterMutation(
         RegisterMutationVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useMutation<RegisterMutation, RegisterMutationVariables>(
         RegisterDocument,
-        baseOptions,
+        options,
     );
 }
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
@@ -3135,10 +3129,11 @@ export function useRequestPasswordResetMutation(
         RequestPasswordResetMutationVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useMutation<
         RequestPasswordResetMutation,
         RequestPasswordResetMutationVariables
-    >(RequestPasswordResetDocument, baseOptions);
+    >(RequestPasswordResetDocument, options);
 }
 export type RequestPasswordResetMutationHookResult = ReturnType<
     typeof useRequestPasswordResetMutation
@@ -3194,10 +3189,11 @@ export function useResetPasswordMutation(
         ResetPasswordMutationVariables
     >,
 ) {
+    const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useMutation<
         ResetPasswordMutation,
         ResetPasswordMutationVariables
-    >(ResetPasswordDocument, baseOptions);
+    >(ResetPasswordDocument, options);
 }
 export type ResetPasswordMutationHookResult = ReturnType<
     typeof useResetPasswordMutation
@@ -3222,9 +3218,6 @@ export type UserKeySpecifier = (
     | 'passwordResetToken_is_set'
     | 'passwordResetIssuedAt'
     | 'passwordResetRedeemedAt'
-    | 'magicAuthToken_is_set'
-    | 'magicAuthIssuedAt'
-    | 'magicAuthRedeemedAt'
     | UserKeySpecifier
 )[];
 export type UserFieldPolicy = {
@@ -3242,9 +3235,6 @@ export type UserFieldPolicy = {
     passwordResetToken_is_set?: FieldPolicy<any> | FieldReadFunction<any>;
     passwordResetIssuedAt?: FieldPolicy<any> | FieldReadFunction<any>;
     passwordResetRedeemedAt?: FieldPolicy<any> | FieldReadFunction<any>;
-    magicAuthToken_is_set?: FieldPolicy<any> | FieldReadFunction<any>;
-    magicAuthIssuedAt?: FieldPolicy<any> | FieldReadFunction<any>;
-    magicAuthRedeemedAt?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type ProductKeySpecifier = (
     | 'id'

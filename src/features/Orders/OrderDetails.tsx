@@ -8,12 +8,12 @@ import { formatMoney } from '@/helpers';
 export const OrderDetails: React.FC<OrderDetailsProps> = props => {
     const orderItemsJSX = props.order.items.map(orderItem => {
         return (
-            <div className="order-item" key={orderItem.id}>
+            <div className = 'order-item' key = { orderItem.id }>
                 <img
-                    alt={orderItem.name}
-                    src={orderItem.photo.image.publicUrlTransformed}
+                    alt = { orderItem.name }
+                    src = { orderItem.photo.image.publicUrlTransformed }
                 />
-                <div className="item-details">
+                <div className = 'item-details'>
                     <h2>{orderItem.name}</h2>
                     <p>Quantity: {orderItem.quantity}</p>
                     <p>Each: {formatMoney(orderItem.price)}</p>
@@ -45,7 +45,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = props => {
                 <span>Item Count:</span>
                 <span>{props.order.items.length}</span>
             </p>
-            <div className="items">{orderItemsJSX}</div>
+            <div className = 'items'>{orderItemsJSX}</div>
         </Container>
     );
 };

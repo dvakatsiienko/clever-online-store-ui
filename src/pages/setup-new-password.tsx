@@ -15,7 +15,7 @@ const SetupNewPasswordPage: NextPage = () => {
 
     return (
         <Layout>
-            <ResetPasswordForm token = { token } />;
+            <ResetPasswordForm token = { token } />
         </Layout>
     );
 };

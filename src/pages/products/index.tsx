@@ -16,12 +16,14 @@ import { withApollo } from '@/lib';
 const ITEMS_PER_PAGE = Number(process.env.NEXT_PUBLIC_ITEMS_PER_PAGE);
 
 const PaginatedProductsPage: PageAllProductsComp = props => {
-    const allProductsQuery = gql.ssrAllProducts.usePage(() => ({
-        variables: {
-            first: ITEMS_PER_PAGE,
-            skip:  props.initialPage * ITEMS_PER_PAGE - ITEMS_PER_PAGE,
-        },
-    }));
+    const allProductsQuery = gql.ssrAllProducts.usePage(() => {
+        return {
+            variables: {
+                first: ITEMS_PER_PAGE,
+                skip:  props.initialPage * ITEMS_PER_PAGE - ITEMS_PER_PAGE,
+            },
+        };
+    });
 
     if (allProductsQuery.error) {
         return <ErrorMessage error = { allProductsQuery.error } />;
@@ -71,7 +73,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
         gql.ssrUser.getServerPage({}, ctx),
     ]);
 
-    // @ts-ignore
+    // @ts-expect-error: pagination props have different shape rather than queries
     queries.push({ props: { initialPage } });
 
     return merge(queries);

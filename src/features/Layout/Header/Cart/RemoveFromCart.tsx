@@ -37,9 +37,9 @@ export const RemoveFromCart: React.FC<RemoveFromCartProps> = props => {
 /* Styles */
 const BigButton = styled.button`
     font-size: 3rem;
+    cursor: pointer;
     background: none;
     border: 0;
-    cursor: pointer;
 
     &:hover {
         color: var(--red);

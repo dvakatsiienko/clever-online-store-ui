@@ -105,6 +105,7 @@ const CartItemStyles = styled.li`
 `;
 
 const CartStyles = styled.div<CardStylesProps>`
+    ${props => props.$open && 'transform: translateX(0);'};
     position: fixed;
     top: 0;
     right: 0;
@@ -121,8 +122,6 @@ const CartStyles = styled.div<CardStylesProps>`
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
     transition: all 0.3s;
     transform: translateX(100%);
-
-    ${props => props.$open && 'transform: translateX(0);'};
 
     & header {
         padding-bottom: 2rem;

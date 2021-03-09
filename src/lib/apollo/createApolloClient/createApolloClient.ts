@@ -52,8 +52,6 @@ export const createApolloClient = (
                 }
             }),
 
-            // httpLink,
-
             createUploadLink({
                 uri: __DEV__
                     ? process.env.NEXT_PUBLIC_DEV_GQL_URL

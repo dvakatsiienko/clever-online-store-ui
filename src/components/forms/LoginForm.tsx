@@ -23,11 +23,10 @@ export const LoginForm: React.FC = () => {
         // refetchQueries: [{ query: gql.UserDocument }],
     });
 
-    const error =
-        data?.authenticateUserWithPassword.__typename ===
-        'UserAuthenticationWithPasswordFailure'
-            ? data?.authenticateUserWithPassword
-            : null;
+    const error = data?.authenticateUserWithPassword.__typename
+        === 'UserAuthenticationWithPasswordFailure'
+        ? data?.authenticateUserWithPassword
+        : null;
 
     const login = form.handleSubmit(async (_, event) => {
         event.preventDefault();
@@ -35,8 +34,8 @@ export const LoginForm: React.FC = () => {
         const result = await loginMutation();
 
         if (
-            result.data?.authenticateUserWithPassword.__typename ===
-            'UserAuthenticationWithPasswordSuccess'
+            result.data?.authenticateUserWithPassword.__typename
+            === 'UserAuthenticationWithPasswordSuccess'
         ) {
             router.replace('/products?page=1');
         }

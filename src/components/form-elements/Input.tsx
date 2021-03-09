@@ -2,7 +2,9 @@
 import { UseFormMethods, FieldError, RegisterOptions } from 'react-hook-form';
 
 export const Input: React.FC<InputProps> = props => {
-    const { text, register, error, ...rest } = props;
+    const {
+        text, register, error, ...rest
+    } = props;
 
     const registerOptions: RegisterOptions = {
         setValueAs: value => {

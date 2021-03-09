@@ -7,18 +7,18 @@ import { DeleteProduct } from './DeleteProduct';
 import { AddToCart } from './AddToCart';
 
 /* Instruments */
-import * as gql from '@/graphql';
 import { formatMoney } from '@/helpers';
+import * as gql from '@/graphql';
 
 export const ProductCard: React.FC<ProductCardProps> = props => {
     return (
         <Container>
             <img
-                alt={props.product?.name}
-                src={props.product?.photo?.image?.publicUrlTransformed}
+                alt = { props.product?.name }
+                src = { props.product?.photo?.image?.publicUrlTransformed }
             />
             <Title>
-                <Link href={`/products/${props.product?.id}`}>
+                <Link href = { `/products/${props.product?.id}` }>
                     {props.product?.name}
                 </Link>
             </Title>
@@ -27,12 +27,12 @@ export const ProductCard: React.FC<ProductCardProps> = props => {
 
             <p>{props.product?.description}</p>
 
-            <div className="buttonList">
-                <Link href={`/products/update/${props.product?.id}`}>
+            <div className = 'buttonList'>
+                <Link href = { `/products/update/${props.product?.id}` }>
                     Edit 📜
                 </Link>
-                <AddToCart productId={props.product?.id}>Delete</AddToCart>
-                <DeleteProduct productId={props.product?.id}>
+                <AddToCart productId = { props.product?.id }>Delete</AddToCart>
+                <DeleteProduct productId = { props.product?.id }>
                     Delete ❌
                 </DeleteProduct>
             </div>

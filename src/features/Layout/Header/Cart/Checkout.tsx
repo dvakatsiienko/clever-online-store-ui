@@ -86,11 +86,10 @@ export const Checkout: React.FC = () => {
 const Container = styled.form`
     display: grid;
     grid-gap: 1rem;
-
-    box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.04);
+    padding: 1 rem;
     border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 5px;
-    padding: 1 rem;
+    box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.04);
 `;
 
 export const CheckoutButton = styled.button`
