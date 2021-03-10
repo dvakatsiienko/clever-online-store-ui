@@ -105,7 +105,7 @@ const CartItemStyles = styled.li`
 `;
 
 const CartStyles = styled.div<CardStylesProps>`
-    ${props => props.$open && 'transform: translateX(0);'};
+    ${props => props.$open && 'transform: translateX(0);'}
     position: fixed;
     top: 0;
     right: 0;

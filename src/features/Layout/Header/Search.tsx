@@ -95,7 +95,7 @@ export const DropDown = styled.div`
 `;
 
 export const DropDownItem = styled.div<DropDownItemProps>`
-    ${props => (props.$highlighted ? 'padding-left: 2rem;' : null)};
+    ${props => props.$highlighted && 'padding-left: 2rem;'}
     display: flex;
     align-items: center;
     padding: 1rem;
