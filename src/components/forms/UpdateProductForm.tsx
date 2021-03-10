@@ -34,7 +34,7 @@ export const UpdateProductForm: React.FC<UpdateProductFormProps> = props => {
         event.preventDefault();
 
         const variables = form.getValues();
-        variables.image = variables.image?.[0] ?? null;
+        variables.image = variables.image?.[ 0 ] ?? null;
 
         await updateProductMutation({ variables });
     });

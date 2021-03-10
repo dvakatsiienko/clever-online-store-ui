@@ -49,7 +49,7 @@ export const allProductsPolicy: FieldPolicy<
         const merged = existing ? existing.slice(0) : [];
 
         for (let i = skip; i < skip + incoming.length; i++) {
-            merged[i] = incoming[i - skip];
+            merged[ i ] = incoming[ i - skip ];
         }
 
         return merged;

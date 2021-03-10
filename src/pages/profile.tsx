@@ -15,6 +15,7 @@ const ProfilePage: NextPage = () => {
         <Layout>
             <h1>Profile</h1>
             <h3>{userQuery.data?.authenticatedItem?.name}</h3>
+            <div title = 'test' />
         </Layout>
     );
 };

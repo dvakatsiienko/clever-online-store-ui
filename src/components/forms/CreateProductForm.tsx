@@ -30,7 +30,7 @@ export const CreateProductForm: React.FC = () => {
         event.preventDefault();
 
         const variables = form.getValues();
-        variables.image = variables.image?.[0] ?? null;
+        variables.image = variables.image?.[ 0 ] ?? null;
 
         const response = await createProductMutation({ variables });
 

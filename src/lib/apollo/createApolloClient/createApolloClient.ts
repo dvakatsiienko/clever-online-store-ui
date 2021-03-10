@@ -25,7 +25,7 @@ export const createApolloClient = (
     const headers: { cookie?: string } = {};
 
     if (ctx?.req.cookies) {
-        const cookie = ctx.req.cookies[KEYSTONE_COOKIE_NAME];
+        const cookie = ctx.req.cookies[ KEYSTONE_COOKIE_NAME ];
 
         headers.cookie = `${KEYSTONE_COOKIE_NAME}=${cookie}`;
     }

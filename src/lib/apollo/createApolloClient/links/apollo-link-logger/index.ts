@@ -10,7 +10,7 @@ export const loggerLink = new ApolloLink((operation, forward) => {
 
     return forward(operation).map(result => {
         // @ts-expect-error: Broken typescript support as for 16.06.2020.
-        const operationType = operation.query.definitions[0].operation;
+        const operationType = operation.query.definitions[ 0 ].operation;
         const elapsed = new Date().getTime() - startTime;
 
         const group = formatMessage(operationType, operation, elapsed);

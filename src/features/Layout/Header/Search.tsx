@@ -95,14 +95,14 @@ export const DropDown = styled.div`
 `;
 
 export const DropDownItem = styled.div<DropDownItemProps>`
-    ${props => props.$highlighted ? 'padding-left: 2rem;' : null};
+    ${props => (props.$highlighted ? 'padding-left: 2rem;' : null)};
     display: flex;
     align-items: center;
     padding: 1rem;
-    background: ${props => props.$highlighted ? '#f7f7f7' : 'white'};
+    background: ${props => (props.$highlighted ? '#f7f7f7' : 'white')};
     border-bottom: 1px solid var(--lightGray);
     border-left: 10px solid
-        ${props => props.$highlighted ? props.theme.lightgrey : 'white'};
+        ${props => (props.$highlighted ? props.theme.lightgrey : 'white')};
     transition: all 0.2s;
 
     & img {

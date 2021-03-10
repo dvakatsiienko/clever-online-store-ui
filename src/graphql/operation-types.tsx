@@ -1619,8 +1619,6 @@ export type Query = {
     _RolesMeta?: Maybe<_ListMeta>;
     /**  Retrieve the meta-data for all lists.  */
     _ksListsMeta?: Maybe<Array<Maybe<_ListMeta>>>;
-    /** The version of the Keystone application serving this API. */
-    appVersion?: Maybe<Scalars['String']>;
     authenticatedItem?: Maybe<AuthenticatedItem>;
     validateUserPasswordResetToken?: Maybe<ValidateUserPasswordResetTokenResult>;
     keystone: KeystoneMeta;
@@ -3667,7 +3665,6 @@ export type QueryKeySpecifier = (
     | '_allRolesMeta'
     | '_RolesMeta'
     | '_ksListsMeta'
-    | 'appVersion'
     | 'authenticatedItem'
     | 'validateUserPasswordResetToken'
     | 'keystone'
@@ -3703,7 +3700,6 @@ export type QueryFieldPolicy = {
     _allRolesMeta?: FieldPolicy<any> | FieldReadFunction<any>;
     _RolesMeta?: FieldPolicy<any> | FieldReadFunction<any>;
     _ksListsMeta?: FieldPolicy<any> | FieldReadFunction<any>;
-    appVersion?: FieldPolicy<any> | FieldReadFunction<any>;
     authenticatedItem?: FieldPolicy<any> | FieldReadFunction<any>;
     validateUserPasswordResetToken?: FieldPolicy<any> | FieldReadFunction<any>;
     keystone?: FieldPolicy<any> | FieldReadFunction<any>;
