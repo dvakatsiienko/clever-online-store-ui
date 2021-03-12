@@ -16,6 +16,8 @@ export const Cart: React.FC = () => {
 
     const isCartOpen = useReactiveVar(isCartOpenVar);
 
+    console.log(isCartOpen);
+
     if (!userQuery.data?.authenticatedItem) {
         return null;
     }
@@ -105,23 +107,22 @@ const CartItemStyles = styled.li`
 `;
 
 const CartStyles = styled.div<CardStylesProps>`
-    ${props => props.$open && 'transform: translateX(0);'}
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     z-index: 5;
-    box-sizing: border-box;
     display: grid;
     grid-template-rows: auto 1fr auto;
     width: 40%;
     min-width: 500px;
-    height: 100vh;
+    height: calc(100vh - 40px);
     padding: 20px;
     background: white;
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
     transition: all 0.3s;
     transform: translateX(100%);
+    ${props => props.$open && 'transform: translateX(0);'};
 
     & header {
         padding-bottom: 2rem;
@@ -130,6 +131,8 @@ const CartStyles = styled.div<CardStylesProps>`
     }
 
     & footer {
+        display: grid;
+        grid-template-columns: auto auto;
         align-items: center;
         padding-top: 2rem;
         margin-top: 2rem;
