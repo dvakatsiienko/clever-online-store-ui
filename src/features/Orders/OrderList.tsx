@@ -1,9 +1,9 @@
 /* Core */
-import Link from 'next/link';
+import Link   from 'next/link';
 import styled from 'styled-components';
 
 /* Instruments */
-import * as gql from '@/graphql';
+import * as gql        from '@/graphql';
 import { formatMoney } from '@/helpers';
 
 export const OrderList: React.FC<OrderListProps> = props => {

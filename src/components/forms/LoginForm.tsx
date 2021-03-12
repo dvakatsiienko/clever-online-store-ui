@@ -1,8 +1,8 @@
 /* Core */
-import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
+import { useRouter }   from 'next/router';
+import { useForm }     from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import * as yup        from 'yup';
 
 /* Components */
 import { Form, Input } from '@/components/form-elements';

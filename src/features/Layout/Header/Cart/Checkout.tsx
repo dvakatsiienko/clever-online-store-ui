@@ -1,6 +1,6 @@
 /* Core */
-import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useState }   from 'react';
+import { useRouter }  from 'next/router';
 import { loadStripe } from '@stripe/stripe-js';
 import {
     useStripe,
@@ -9,10 +9,10 @@ import {
     CardElement
 } from '@stripe/react-stripe-js';
 import nprogress from 'nprogress';
-import styled from 'styled-components';
+import styled    from 'styled-components';
 
 /* Instruments */
-import * as gql from '@/graphql';
+import * as gql          from '@/graphql';
 import { isCartOpenVar } from '@/lib';
 
 const CheckoutForm: React.FC = () => {

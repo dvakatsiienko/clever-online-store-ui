@@ -1,10 +1,10 @@
 /* Core */
-import { NextPage } from 'next';
+import { NextPage }  from 'next';
 import { useRouter } from 'next/router';
 
 /* Components */
 import { ResetPasswordForm } from '@/components';
-import { Layout } from '@/features/Layout';
+import { Layout }            from '@/features/Layout';
 
 /* Instruments */
 import { withApollo } from '@/lib';

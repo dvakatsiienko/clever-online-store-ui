@@ -1,14 +1,14 @@
 /* Core */
-import Link from 'next/link';
+import Link   from 'next/link';
 import styled from 'styled-components';
 
 /* Components */
 import { DeleteProduct } from './DeleteProduct';
-import { AddToCart } from './AddToCart';
+import { AddToCart }     from './AddToCart';
 
 /* Instruments */
 import { formatMoney } from '@/helpers';
-import * as gql from '@/graphql';
+import * as gql        from '@/graphql';
 
 export const ProductCard: React.FC<ProductCardProps> = props => {
     return (

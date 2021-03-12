@@ -1,16 +1,16 @@
 /* Core */
 import { GetServerSideProps } from 'next';
-import { ApolloError } from '@apollo/client';
-import { merge } from 'webpack-merge';
+import { ApolloError }        from '@apollo/client';
+import { merge }              from 'webpack-merge';
 
 /* Components */
-import { ErrorMessage } from '@/components';
-import { Layout } from '@/features/Layout';
-import { Pagination } from '@/features/Pagination';
+import { ErrorMessage }    from '@/components';
+import { Layout }          from '@/features/Layout';
+import { Pagination }      from '@/features/Pagination';
 import { ProductCardList } from '@/features/Products';
 
 /* Instruments */
-import * as gql from '@/graphql';
+import * as gql       from '@/graphql';
 import { withApollo } from '@/lib';
 
 const ITEMS_PER_PAGE = Number(process.env.NEXT_PUBLIC_ITEMS_PER_PAGE);

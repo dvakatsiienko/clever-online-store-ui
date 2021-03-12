@@ -1,11 +1,11 @@
 /* Core */
-import Link from 'next/link';
+import Link   from 'next/link';
 import styled from 'styled-components';
 
 /* Components */
-import { Nav } from './Nav';
+import { Nav }    from './Nav';
 import { Search } from './Search';
-import { Cart } from './Cart';
+import { Cart }   from './Cart';
 
 export const Header: React.FC = () => {
     return (

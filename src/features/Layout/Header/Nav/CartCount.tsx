@@ -1,7 +1,7 @@
 /* Core */
 import TransitionGroup from 'react-transition-group/TransitionGroup';
-import CSSTransition from 'react-transition-group/CSSTransition';
-import styled from 'styled-components';
+import CSSTransition   from 'react-transition-group/CSSTransition';
+import styled          from 'styled-components';
 
 export const CartCount: React.FC<CartCountProps> = props => {
     return (

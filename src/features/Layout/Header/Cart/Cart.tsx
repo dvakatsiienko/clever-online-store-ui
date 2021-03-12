@@ -1,15 +1,15 @@
 /* Core */
 import { useReactiveVar } from '@apollo/client';
-import styled from 'styled-components';
+import styled             from 'styled-components';
 
 /* Components */
 import { RemoveFromCart } from './RemoveFromCart';
-import { Checkout } from './Checkout';
+import { Checkout }       from './Checkout';
 
 /* Instruments */
-import * as gql from '@/graphql';
+import * as gql          from '@/graphql';
 import { isCartOpenVar } from '@/lib';
-import { formatMoney } from '@/helpers';
+import { formatMoney }   from '@/helpers';
 
 export const Cart: React.FC = () => {
     const userQuery = gql.useUserQuery();

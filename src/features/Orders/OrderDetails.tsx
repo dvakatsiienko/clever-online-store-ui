@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 
 /* Instruments */
-import * as gql from '@/graphql';
+import * as gql        from '@/graphql';
 import { formatMoney } from '@/helpers';
 
 export const OrderDetails: React.FC<OrderDetailsProps> = props => {

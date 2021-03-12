@@ -1,7 +1,7 @@
 /* Core */
-import { useRouter } from 'next/router';
-import { useCombobox } from 'downshift';
-import debounce from 'lodash.debounce';
+import { useRouter }         from 'next/router';
+import { useCombobox }       from 'downshift';
+import debounce              from 'lodash.debounce';
 import styled, { keyframes } from 'styled-components';
 
 /* Instruments */

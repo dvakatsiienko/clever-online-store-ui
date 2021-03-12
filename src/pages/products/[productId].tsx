@@ -1,16 +1,16 @@
 /* Core */
 import { NextPage, GetServerSideProps } from 'next';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { merge } from 'webpack-merge';
+import Head                             from 'next/head';
+import { useRouter }                    from 'next/router';
+import { merge }                        from 'webpack-merge';
 
 /* Components */
-import { ErrorMessage } from '@/components';
-import { Layout } from '@/features/Layout';
+import { ErrorMessage }   from '@/components';
+import { Layout }         from '@/features/Layout';
 import { ProductDetails } from '@/features/Products';
 
 /* Instruments */
-import * as gql from '@/graphql';
+import * as gql       from '@/graphql';
 import { withApollo } from '@/lib';
 
 const ProductPage: NextPage = () => {

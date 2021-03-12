@@ -1,13 +1,13 @@
 /* Core */
 import { NextPage, GetServerSideProps } from 'next';
+import { LoginPageLayout }              from '@/styled-components';
 
 /* Components */
-import { LoginPageLayout } from '@/styled-components';
 import { LoginForm, RegisterForm, RequestPasswordRestForm } from '@/components';
-import { Layout } from '@/features/Layout';
+import { Layout }                                           from '@/features/Layout';
 
 /* Instruments */
-import * as gql from '@/graphql';
+import * as gql       from '@/graphql';
 import { withApollo } from '@/lib';
 
 const LoginPage: NextPage = () => {

@@ -1,13 +1,13 @@
 /* Core */
-import Link from 'next/link';
+import Link   from 'next/link';
 import styled from 'styled-components';
 
 /* Components */
-import { CartCount } from './CartCount';
+import { CartCount }    from './CartCount';
 import { LogoutButton } from './LogoutButton';
 
 /* Instruments */
-import * as gql from '@/graphql';
+import * as gql          from '@/graphql';
 import { isCartOpenVar } from '@/lib';
 
 export const Nav: React.FC = () => {

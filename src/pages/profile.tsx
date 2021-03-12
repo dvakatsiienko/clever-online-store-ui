@@ -5,7 +5,7 @@ import { NextPage, GetServerSideProps } from 'next';
 import { Layout } from '@/features/Layout';
 
 /* Instruments */
-import * as gql from '@/graphql';
+import * as gql       from '@/graphql';
 import { withApollo } from '@/lib';
 
 const ProfilePage: NextPage = () => {

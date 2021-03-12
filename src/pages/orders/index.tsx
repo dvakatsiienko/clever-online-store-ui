@@ -1,15 +1,15 @@
 /* Core */
 import { NextPage, GetServerSideProps } from 'next';
-import Head from 'next/head';
-import { merge } from 'webpack-merge';
+import Head                             from 'next/head';
+import { merge }                        from 'webpack-merge';
 
 /* Components */
 import { ErrorMessage } from '@/components';
-import { Layout } from '@/features/Layout';
-import { OrderList } from '@/features/Orders';
+import { Layout }       from '@/features/Layout';
+import { OrderList }    from '@/features/Orders';
 
 /* Instruments */
-import * as gql from '@/graphql';
+import * as gql       from '@/graphql';
 import { withApollo } from '@/lib';
 
 const OrdersPage: NextPage = () => {

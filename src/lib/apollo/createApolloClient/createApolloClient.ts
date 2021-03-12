@@ -6,13 +6,13 @@ import {
     NormalizedCacheObject,
     from
 } from '@apollo/client';
-import { onError } from '@apollo/link-error';
+import { onError }          from '@apollo/link-error';
 import { createUploadLink } from 'apollo-upload-client';
-import debug from 'debug';
+import debug                from 'debug';
 
 /* Instruments */
 import { allProductsPolicy } from './fieldPolicies';
-import { loggerLink } from './links';
+import { loggerLink }        from './links';
 
 const logGql = debug('[GraphQL error]');
 
