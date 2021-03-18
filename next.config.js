@@ -7,6 +7,7 @@ const withBundleAnalyzer = analyze({
 });
 
 const nextConfig = {
+    target: 'serverless',
     images: {
         domains: [ 'res.cloudinary.com' ],
     },
