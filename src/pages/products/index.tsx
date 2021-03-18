@@ -76,8 +76,6 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     // @ts-expect-error: pagination props have different shape rather than queries
     queries.push({ props: { initialPage } });
 
-    console.log(queries[ 0 ]);
-
     return merge(queries);
 };
 
