@@ -16,8 +16,6 @@ export const Cart: React.FC = () => {
 
     const isCartOpen = useReactiveVar(isCartOpenVar);
 
-    console.log(isCartOpen);
-
     if (!userQuery.data?.authenticatedItem) {
         return null;
     }

@@ -21,7 +21,7 @@ const ProfilePage: NextPage = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
-    const [ userQuery ] = await Promise.all([ gql.ssrUser.getServerPage({}, ctx) ]);
+    const [ userQuery ] = await Promise.all([ gql.getServerPageUser({}, ctx) ]);
 
     return userQuery;
 };

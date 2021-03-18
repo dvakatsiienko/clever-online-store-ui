@@ -40,8 +40,8 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     const orderId = ctx.query.orderId as string;
 
     const [ userQuery, allOrdersQuery ] = await Promise.all([
-        gql.ssrUser.getServerPage({}, ctx),
-        gql.ssrOrder.getServerPage({ variables: { id: orderId } }, ctx),
+        gql.getServerPageUser({}, ctx),
+        gql.getServerPageOrder({ variables: { id: orderId } }, ctx),
     ]);
 
     return merge(userQuery, allOrdersQuery);

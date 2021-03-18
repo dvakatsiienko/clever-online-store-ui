@@ -60,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     }
 
     const queries = await Promise.all([
-        gql.ssrAllProducts.getServerPage(
+        gql.getServerPageAllProducts(
             {
                 variables: {
                     first: ITEMS_PER_PAGE,
@@ -69,12 +69,14 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
             },
             ctx,
         ),
-        gql.ssrProductsCount.getServerPage({}, ctx),
-        gql.ssrUser.getServerPage({}, ctx),
+        gql.getServerPageUser({}, ctx),
+        gql.getServerPageProductsCount({}, ctx),
     ]);
 
     // @ts-expect-error: pagination props have different shape rather than queries
     queries.push({ props: { initialPage } });
+
+    console.log(queries[ 0 ]);
 
     return merge(queries);
 };

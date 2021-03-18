@@ -35,8 +35,8 @@ const OrdersPage: NextPage = () => {
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
     const queries = await Promise.all([
-        gql.ssrUser.getServerPage({}, ctx),
-        gql.ssrAllOrders.getServerPage({}, ctx),
+        gql.getServerPageUser({}, ctx),
+        gql.getServerPageAllOrders({}, ctx),
     ]);
 
     return merge(queries);

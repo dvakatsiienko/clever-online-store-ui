@@ -20,7 +20,6 @@ export const LoginForm: React.FC = () => {
 
     const [ loginMutation, { loading: isLoading, data }] = gql.useLoginMutation({
         variables: form.getValues(),
-        // refetchQueries: [{ query: gql.UserDocument }],
     });
 
     const error = data?.authenticateUserWithPassword.__typename
