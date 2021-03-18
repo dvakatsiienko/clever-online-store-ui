@@ -7,7 +7,6 @@
         "dev": "next -p 7777",
         "build": "next build",
         "serve": "next start",
-        "serve-digitalocean-prod": "next start -H 0.0.0.0 -p ${PORT:-8080}",
         "codegen:graphql": "gql-gen -r dotenv/config --config=graphql-codegen.yml",
         "check-all": "run-p check:*",
         "check:ts": "tsc --project ./tsconfig.json",
