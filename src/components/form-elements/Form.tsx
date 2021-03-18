@@ -1,6 +1,3 @@
-/* Core */
-import React from 'react';
-
 /* Components */
 import { Form as StyledForm } from '@/styled-components';
 import { ErrorMessage }       from '@/components';
